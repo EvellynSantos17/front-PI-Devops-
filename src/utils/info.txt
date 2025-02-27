@@ -1,0 +1,1 @@
+Função uteis para serem utilizadas em qualquer parte do projeto! 

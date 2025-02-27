@@ -1,0 +1,1 @@
+Funções que async que se comunica diretamente com API, usar validações de entradas com zoid !

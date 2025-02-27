@@ -1,0 +1,1 @@
+Componets seja clint componets ou server componets 
