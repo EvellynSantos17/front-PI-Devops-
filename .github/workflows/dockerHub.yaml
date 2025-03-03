@@ -39,4 +39,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/workflowFront
+          tags: ${{ secrets.DOCKER_USERNAME }}/workflow-front:latest
