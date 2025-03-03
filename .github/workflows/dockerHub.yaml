@@ -5,7 +5,6 @@ on:
     branches:
       - main
       - WORKFLOWS
-
 permissions:
   contents: read
 
@@ -28,18 +27,15 @@ jobs:
           npm run build
 
       - name: Autenticar no Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - name: Build and push
-        uses: docker/build-push-action@v6
+      - name: Build e push da imagem Docker
+        uses: docker/build-push-action@v4
         with:
+          context: .
           push: true
-          tags: user/app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/workflow-front:latest
