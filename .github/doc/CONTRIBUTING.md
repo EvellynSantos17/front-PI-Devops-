@@ -26,22 +26,6 @@
 
 - **remove** - Commits do tipo remove indicam a exclusão de arquivos, diretórios ou funcionalidades obsoletas ou não utilizadas, reduzindo o tamanho e a complexidade do projeto e mantendo-o mais organizado.
 
-
-## Estrutura dos Nomes das Branches
-
-Os nomes de branches devem ser compostos por três partes:
-
-**Prefixo** ou categoria do branch:
-- `docs/` - Apenas mudanças de documentação.
-- `feature/` - Nova funcionalidade ou componente.
-- `fix/` - Correção de bug.
-- `perf/` - Alterações focadas em performance.
-- `refactor/` - Alterações sem modificar funcionalidades.
-- `style/` - Alterações relacionadas à formatação do código.
-- `test/` - Adição ou modificação de testes.
-- `improvement/` - Melhorias em funcionalidades existentes.
-
-
 ## Padrões de Emojis 💈
 
 | Tipo do Commit                | Emoji                | Palavra-chave      |
@@ -102,13 +86,3 @@ Os nomes de branches devem ser compostos por três partes:
 | `git commit -m ":card_file_box: raw: RAW Data do ano aaaa"` | 🗃️ raw: RAW Data do ano aaaa                         |
 | `git commit -m ":broom: cleanup: Eliminando blocos de código comentados"` | 🧹 cleanup: Eliminando blocos de código comentados  |
 | `git commit -m ":wastebasket: remove: Removendo arquivos não utilizados"` | 🗑️ remove: Removendo arquivos não utilizados           |
-
-
-## Exemplos de Nomes de Branches
-
-| Comando Git                                         | Resultado                            |
-|-----------------------------------------------------|--------------------------------------|
-| `git checkout -b docs/padronizacao-commits-branches-git-SI20-348`    | Mudança na padronização de commits e branches no Git |
-| `git checkout -b feat/cadastro-veiculos-SI20-123`                   | Implementação da funcionalidade de cadastro de veículos |
-| `git checkout -b refactor/edicao-colaboradores-SI20-355`            | Refatoração na edição de colaboradores no sistema |
-| `git checkout -b fix/busca-checklists-SI20-232`                     | Correção de bug na busca de checklists |
