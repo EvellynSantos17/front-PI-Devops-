@@ -1,94 +1,37 @@
-# Welcome!
+# Resumo do Projeto
 
-Resumo do projeto...
+Este projeto tem como objetivo criar uma plataforma digital que conecta anunciantes e contratantes. O sistema permite que clientes se cadastrem, anunciem serviços, contratem serviços oferecidos e avaliem a qualidade desses serviços. A plataforma é voltada para dois tipos principais de usuários: **Anunciantes** (clientes que oferecem serviços) e **Contratantes** (clientes que contratam os serviços).
+
+### Funcionalidades Principais
+- **Cadastro e Login:** Usuários podem se registrar na plataforma e finalizar seu cadastro com informações pessoais, como um currículo.
+- **Criação e Visualização de Anúncios:** Anunciantes podem criar serviços e visualizá-los, enquanto visitantes podem ver os serviços disponíveis.
+- **Contratação de Serviços:** Contratantes podem contratar os serviços que desejam, com a opção de interagir diretamente com os anunciantes.
+- **Conclusão e Avaliação de Serviços:** Após a conclusão do serviço, tanto contratantes quanto anunciantes podem marcar o serviço como finalizado e realizar uma avaliação, com estrelas e comentários, sobre a qualidade do serviço prestado.
 
 ## Tasks
 
-- [ ] Tela de login
-    - [ ] Formulario de login
-    - [ ] Alertas 
-    - [ ] Authentication do usuário
-- [ ] Tela de cadastro
-    - [ ] Formulario de cadastro
-    - [ ] Alertas
-    - [ ] Chamada API para realizar cadastro do usuário
-- [ ] ---
-    - [ ] ---
+- [x] EP00 Front-End
+    - [x] [EP00][US02][T02] Criação do repositório do Front-End.
+    - [x] [EP00][US03][T01] Implementar pipeline CI/CD no Front-End.
 
-## Estrutura de Commits
+- [ ] EP01
+    - [ ] [EP01][US01][T04] Criar formulário de registro com validação Validação de email (contem ‘@’ e ‘.com’) e senha (8 dígitos).
+    - [ ] [EP01][US01][T05] Criar componentes para header e footer (Os componentes devem ocupar o espaço necessário, mas não precisam ser preenchidos no momento).
+    - [ ] [EP01][US02][T03] Implementar página de registro.
+    - [ ] [EP01][US02][T04] Implementar página de cadastro de cliente (Os dados do cliente envolvem o currículo).
+    - [ ] [EP01][US03][T03] Criar formulário de login com validação (Validação de email (contem ‘@’ e ‘.com’) e senha (não está vazia)).
+    - [ ] [EP01][US03][T04] Implementar página de login.
+    - [ ] [EP01][US03][T05] Implementar middleware para proteger rotas com JWT.
 
-### Tipos de Commits
-
-- **feat** - Commits do tipo feat indicam que seu trecho de código está incluindo um novo recurso (se relaciona com o MINOR do versionamento semântico).
-- **fix** - Commits do tipo fix indicam que seu trecho de código commitado está solucionando um problema (bug fix), (se relaciona com o PATCH do versionamento semântico).
-- **docs** - Commits do tipo docs indicam que houveram mudanças na documentação, como por exemplo no Readme do seu repositório. (Não inclui alterações em código).
-- **test** - Commits do tipo test são utilizados quando são realizadas alterações em testes, seja criando, alterando ou excluindo testes unitários. (Não inclui alterações em código).
-- **build** - Commits do tipo build são utilizados quando são realizadas modificações em arquivos de build e dependências.
-- **perf** - Commits do tipo perf servem para identificar quaisquer alterações de código que estejam relacionadas a performance.
-- **style** - Commits do tipo style indicam que houveram alterações referentes a formatações de código, semicolons, trailing spaces, lint... (Não inclui alterações em código).
-- **refactor** - Commits do tipo refactor referem-se a mudanças devido a refatorações que não alterem sua funcionalidade, como por exemplo, uma alteração no formato como é processada determinada parte da tela, mas que manteve a mesma funcionalidade, ou melhorias de performance devido a um code review.
-- **chore** - Commits do tipo chore indicam atualizações de tarefas de build, configurações de administrador, pacotes... como por exemplo adicionar um pacote no gitignore. (Não inclui alterações em código).
-- **ci** - Commits do tipo ci indicam mudanças relacionadas a integração contínua (continuous integration).
-- **raw** - Commits do tipo raw indicam mudanças relacionadas a arquivos de configurações, dados, features, parâmetros.
-- **cleanup** - Commits do tipo cleanup são utilizados para remover código comentado, trechos desnecessários ou qualquer outra forma de limpeza do código-fonte, visando aprimorar sua legibilidade e manutenibilidade.
-- **remove** - Commits do tipo remove indicam a exclusão de arquivos, diretórios ou funcionalidades obsoletas ou não utilizadas, reduzindo o tamanho e a complexidade do projeto e mantendo-o mais organizado.
-
-## Padrões de Emojis 💈
-
-| Tipo do Commit                | Emoji                | Palavra-chave      |
-|-------------------------------|----------------------|--------------------|
-| Acessibilidade                 | ♿ wheelchair:       |                    |
-| Adicionando um teste           | ✅ white_check_mark: | test               |
-| Atualizando a versão de submódulo | ⬆️ arrow_up:       |                    |
-| Retrocedendo a versão de submódulo | ⬇️ arrow_down:    |                    |
-| Adicionando uma dependência    | ➕ heavy_plus_sign:  | build              |
-| Alterações de revisão de código| 👌 ok_hand:         | style              |
-| Animações e transições         | 💫 dizzy:           |                    |
-| Bugfix                         | 🐛 bug:             | fix                |
-| Comentários                    | 💡 bulb:            | docs               |
-| Commit inicial                 | 🎉 tada:            | init               |
-| Configuração                   | 🔧 wrench:          | chore              |
-| Deploy                         | 🚀 rocket:          |                    |
-| Documentação                   | 📚 books:           | docs               |
-| Em progresso                   | 🚧 construction:    |                    |
-| Estilização de interface       | 💄 lipstick:        | feat               |
-| Infraestrutura                 | 🧱 bricks:          | ci                 |
-| Lista de ideias (tasks)        | 🔜 soon:            |                    |
-| Mover/Renomear                 | 🚚 truck:           | chore              |
-| Novo recurso                   | ✨ sparkles:        | feat               |
-| Package.json em JS             | 📦 package:         | build              |
-| Performance                    | ⚡ zap:             | perf               |
-| Refatoração                    | ♻️ recycle:         | refactor           |
-| Limpeza de Código              | 🧹 broom:           | cleanup            |
-| Removendo um arquivo           | 🗑️ wastebasket:     | remove             |
-| Removendo uma dependência      | ➖ heavy_minus_sign: | build              |
-| Responsividade                 | 📱 iphone:          |                    |
-| Revertendo mudanças            | 💥 boom:            | fix                |
-| Segurança                      | 🔒️ lock:           |                    |
-| SEO                            | 🔍️ mag:            |                    |
-| Tag de versão                  | 🔖 bookmark:        |                    |
-| Teste de aprovação             | ✔️ heavy_check_mark:| test               |
-| Testes                         | 🧪 test_tube:       | test               |
-| Texto                          | 📝 pencil:          |                    |
-| Tipagem                        | 🏷️ label:          |                    |
-| Tratamento de erros            | 🥅 goal_net:        |                    |
-| Dados                          | 🗃️ card_file_box:   | raw                |
-
-## Exemplos de Commits
-
-| Comando Git                                         | Resultado no GitHub                                     |
-|-----------------------------------------------------|---------------------------------------------------------|
-| `git commit -m ":tada: Commit inicial"`              | 🎉 Commit inicial                                       |
-| `git commit -m ":books: docs: Atualização do README"`| 📚 docs: Atualização do README                          |
-| `git commit -m ":bug: fix: Loop infinito na linha 50"` | 🐛 fix: Loop infinito na linha 50                      |
-| `git commit -m ":sparkles: feat: Página de login"`   | ✨ feat: Página de login                                |
-| `git commit -m ":bricks: ci: Modificação no Dockerfile"` | 🧱 ci: Modificação no Dockerfile                        |
-| `git commit -m ":recycle: refactor: Passando para arrow functions"` | ♻️ refactor: Passando para arrow functions         |
-| `git commit -m ":zap: perf: Melhoria no tempo de resposta"` | ⚡ perf: Melhoria no tempo de resposta                 |
-| `git commit -m ":boom: fix: Revertendo mudanças ineficientes"` | 💥 fix: Revertendo mudanças ineficientes              |
-| `git commit -m ":lipstick: feat: Estilização CSS do formulário"` | 💄 feat: Estilização CSS do formulário              |
-| `git commit -m ":test_tube: test: Criando novo teste"` | 🧪 test: Criando novo teste                            |
-| `git commit -m ":bulb: docs: Comentários sobre a função LoremIpsum()"` | 💡 docs: Comentários sobre a função LoremIpsum()     |
-| `git commit -m ":card_file_box: raw: RAW Data do ano aaaa"` | 🗃️ raw: RAW Data do ano aaaa                         |
-| `git commit -m ":broom: cleanup: Eliminando blocos de código comentados"` | 🧹 cleanup: Eliminando blocos de código comentados  |
-| `git commit -m ":wastebasket: remove: Removendo arquivos não utilizados"` | 🗑️ remove: Removendo arquivos não utilizados           |
+- [ ] EP02 
+    - [ ] [EP02][US01][T03] Implementar página de criação de serviço.
+    - [ ] [EP02][US01][T04] Implementar página de detalhes de serviço anunciado.
+    - [ ] [EP02][US01][T05] Implementar página de listagem de serviços anunciados.
+    - [ ] [EP02][US01][T06] Modificar header com campo pesquisa de serviços por nome e tag.
+    - [ ] [EP02][US02][T01] Implementar página de listagem de serviços.
+    - [ ] [EP02][US03][T03] Implementar página de contratação de serviço.
+    - [ ] [EP02][US03][T04] Implementar página de listagem de serviços prestados.
+    - [ ] [EP02][US03][T05] Implementar página de listagem de serviços contratados.
+    - [ ] [EP02][US04][T01] Modificar página de listagem de serviços prestados.
+    - [ ] [EP02][US05][T03] Modificar página de listagem de serviços contratados.
+    - [ ] [EP02][US05][T04] Implementar página de avaliação de serviço prestado.
