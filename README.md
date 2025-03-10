@@ -10,7 +10,7 @@ Este projeto tem como objetivo criar uma plataforma digital que conecta anuncian
 
 ## Tasks
 
-- [x] EP00 Front-End
+- [x] EP00 
     - [x] [EP00][US02][T02] Criação do repositório do Front-End.
     - [x] [EP00][US03][T01] Implementar pipeline CI/CD no Front-End.
 
