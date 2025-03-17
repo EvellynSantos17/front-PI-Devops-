@@ -1,11 +1,11 @@
+import BaseHeader from "@/components/layout/base-reader";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <div>
-      <h1>
-        hello world
-      </h1>
+      <BaseHeader/>
+
     </div>
   );
 }

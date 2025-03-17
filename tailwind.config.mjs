@@ -8,10 +8,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        laranjaProdunfo: '#F97316',
       },
     },
   },
   plugins: [],
 };
+
