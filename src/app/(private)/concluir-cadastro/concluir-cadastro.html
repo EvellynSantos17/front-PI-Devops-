@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Completar Cadastro - WorkHub</title>
+</head>
+<body class="font-sans bg-orange-100 min-h-screen flex flex-col items-center p-6">
+
+    <div class="w-full max-w-md bg-white shadow-lg rounded-lg overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gray-800 text-center py-4">
+            <span class="text-2xl font-bold">
+                <span class="text-orange-500">W</span>ork<span class="text-white">Hub</span>
+            </span>
+        </div>
+
+        <div class="p-6">
+            <h2 class="text-center text-2xl font-semibold text-gray-700 mb-2">Completar cadastro</h2>
+            <p class="text-center text-gray-500 text-sm mb-6">
+                Adicione suas informações para melhorar sua experiência na nossa plataforma
+            </p>
+
+            <form action="#" method="POST" enctype="multipart/form-data" class="space-y-4">
+                <!-- Nome -->
+                <div>
+                    <label for="nome" class="block text-sm font-medium text-gray-700">Nome completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Roberto Claudio da Silva"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" />
+                </div>
+
+                <!-- CPF -->
+                <div>
+                    <label for="cpf" class="block text-sm font-medium text-gray-700">CPF</label>
+                    <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" />
+                </div>
+
+                <!-- Telefone -->
+                <div>
+                    <label for="telefone" class="block text-sm font-medium text-gray-700">Telefone para contato</label>
+                    <input type="text" id="telefone" name="telefone" placeholder="(00) 0 0000-0000"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" />
+                </div>
+
+                <!-- Localização -->
+                <div>
+                    <label for="localizacao" class="block text-sm font-medium text-gray-700">Sua localização</label>
+                    <select id="localizacao" name="localizacao"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+                        <option value="" disabled selected>Selecionar...</option>
+                        <option value="sp">São Paulo</option>
+                        <option value="rj">Rio de Janeiro</option>
+                        <option value="mg">Minas Gerais</option>
+                    </select>
+                </div>
+
+                <!-- Sobre você -->
+                <div>
+                    <label for="sobre" class="block text-sm font-medium text-gray-700">Sobre você</label>
+                    <textarea id="sobre" name="sobre" placeholder="Escreva aqui"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm h-24 resize-none"></textarea>
+                </div>
+
+                <!-- Habilidades -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Habilidades</label>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="bg-orange-500 text-white text-xs px-3 py-1 rounded-full">Engenharia de software</span>
+                        <span class="bg-orange-500 text-white text-xs px-3 py-1 rounded-full">Pacote Adobe</span>
+                        <span class="bg-orange-500 text-white text-xs px-3 py-1 rounded-full">Metodologias Ágeis</span>
+                        <span class="bg-orange-500 text-white text-xs px-3 py-1 rounded-full">Desenvolvimento Fullstack</span>
+                    </div>
+                </div>
+
+                <!-- Currículo -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Adicionar currículo (PDF)</label>
+                    <input type="file" id="curriculo" name="curriculo"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" />
+                </div>
+
+                <!-- Checkbox -->
+                <div class="flex items-center">
+                    <input type="checkbox" id="termos" name="termos"
+                        class="h-4 w-4 text-orange-500 focus:ring-orange-400 border-gray-300 rounded" />
+                    <label for="termos" class="ml-2 text-sm text-gray-700">
+                        Eu aceito os <a href="#" class="text-orange-500 hover:underline">termos da plataforma</a>
+                    </label>
+                </div>
+
+                <!-- Botão -->
+                <div>
+                    <button type="submit"
+                        class="w-full bg-orange-500 text-white font-semibold py-2 px-4 rounded-md shadow hover:bg-orange-600 transition duration-200">
+                        Salvar informações
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="text-center mt-6 text-sm text-gray-600">
+        © 2023 | <span class="font-semibold text-orange-500">WorkFlow</span> - <a href="#"
+            class="text-gray-700 hover:underline">Todos os direitos reservados</a>
+    </footer>
+</body>
+</html>
