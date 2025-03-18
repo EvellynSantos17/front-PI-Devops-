@@ -1,6 +1,6 @@
-export function BaseButton({ type = "submit", onCLick = () => null, children }) {
+export function BaseButton({ type = "submit", onCLick = () => null, children, rounded }) {
     return (
-      <button onClick={onCLick} type={type}>
+      <button className={`${rounded} p-2 bg-laranjaProdunfo w-full`} onClick={onCLick} type={type}>
         {children}
       </button>
     );
