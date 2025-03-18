@@ -52,17 +52,19 @@ export default function LoginForm(){
                 type="email"
                 name={"email"}
                 required={true}
+                placeholder={"Email"}
                 error={errorMessage?.title == "email" ? errorMessage.message :null}            
             />
             <InputField
                 type="password"
                 name={"password"}
                 required={true}
+                placeholder={"senha"}
                 error={errorMessage?.title == "password" ? errorMessage.message :null}
             />
 
-            <BaseButton>
-                <span>
+            <BaseButton rounded={"rounded-2xl"}>
+                <span className="text-white">
                     Login
                 </span>
             </BaseButton>
