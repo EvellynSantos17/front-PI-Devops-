@@ -75,13 +75,13 @@ export default function BaseHeader(){
 ) : ( // Se NÃO estiver autenticado, exibe os botões de entrar e cadastro
     <div className="flex gap-2"> 
         <Link 
-            className="hover:bg-slate-600 px-2 py-1 rounded-2xl hover:text-white" 
+            className="bg-slate-600 px-2 py-1 rounded-2xl text-white" 
             href={"/entrar"}
         >
             ENTRAR
         </Link>
         <Link 
-            className="hover:bg-laranjaProdunfo px-2 py-1 rounded-2xl hover:text-white"
+            className="bg-laranjaProdunfo px-2 py-1 rounded-2xl text-white"
             href={"/cadastre-se"}
         > 
             CADASTRE-SE
