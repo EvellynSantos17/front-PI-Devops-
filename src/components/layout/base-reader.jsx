@@ -76,13 +76,13 @@ export default function BaseHeader(){
     <div className="flex gap-2"> 
         <Link 
             className="bg-slate-600 px-2 py-1 rounded-2xl text-white" 
-            href={"/entrar"}
+            href={"/login"}
         >
             ENTRAR
         </Link>
         <Link 
             className="bg-laranjaProdunfo px-2 py-1 rounded-2xl text-white"
-            href={"/cadastre-se"}
+            href={"/cadastro"}
         > 
             CADASTRE-SE
         </Link>
