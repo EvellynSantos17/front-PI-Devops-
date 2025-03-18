@@ -63,27 +63,34 @@ export default function FristRegisterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="w-full h-fit"
+     onSubmit={handleSubmit}
+    >
       <InputField
         type="email"
         name="email"
+        placeholder={'E-mail'}
         required={true}
         error={errorMessage?.title === "email" ? errorMessage.message : null}
       />
       <InputField
         type="password"
         name="password"
+        placeholder={'Senha'}
         required={true}
         error={errorMessage?.title === "password" ? errorMessage.message : null}
       />
       <InputField
         type="password"
         name="confirmPassword"
+        placeholder={'Confirmar sua senha'}
         required={true}
         error={errorMessage?.title === "confirmPassword" ? errorMessage.message : null}
       />
-      <BaseButton>
-        <span>CADASTRAR</span>
+      <BaseButton rounded={'rounded-2xl mt-4'}>
+        <span className="font-semibold text-white">
+          CADASTRAR
+        </span>
       </BaseButton>
     </form>
   );
