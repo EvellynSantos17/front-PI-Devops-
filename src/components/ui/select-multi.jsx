@@ -2,9 +2,8 @@
 
 import { useIsMounted } from "@/hooks/useIsMounted";
 import Select from "react-select";
-import habilidades from "@/data/habilidades.json"
 
-export default function SelectMultiGrouped({label, error}) {
+export default function SelectMultiGrouped({label, error, options}) {
     const isMounted = useIsMounted(); 
 
     if (!isMounted) return null; 
@@ -20,7 +19,7 @@ export default function SelectMultiGrouped({label, error}) {
             isMulti
             name="habilidades"
             placeholder="Digite uma habilidade"
-            options={habilidades}
+            options={options}
             className="mt-1 block w-full"
             styles={{
                 control: (base, state) => ({

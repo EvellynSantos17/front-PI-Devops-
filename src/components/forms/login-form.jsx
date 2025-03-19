@@ -1,6 +1,6 @@
 "use client"
 import { useRouter } from "next/navigation";
-import { BaseButton } from "../ui/base-button";
+import { Button } from "../ui/button";
 import { InputField } from "../ui/input-field";
 import { useErrorsHooks } from "@/hooks/error";
 
@@ -63,11 +63,11 @@ export default function LoginForm(){
                 error={errorMessage?.title == "password" ? errorMessage.message :null}
             />
 
-            <BaseButton rounded={"rounded-2xl"}>
+            <Button rounded={"rounded-2xl"}>
                 <span className="text-white">
                     Login
                 </span>
-            </BaseButton>
+            </Button>
         </form>
     )
 }

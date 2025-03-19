@@ -1,1 +1,0 @@
-Hooks, como o next trabalha com server componets os hooks do React fica separado para melhor organização e seguramça

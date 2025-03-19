@@ -4,7 +4,7 @@ import { useErrorsHooks } from "@/hooks/error";
 import { userRegister } from "@/services/user-service";
 import { useRouter } from "next/navigation";
 import { InputField } from "../ui/input-field";
-import { BaseButton } from "../ui/base-button";
+import { Button } from "../ui/button";
 
 export default function FristRegisterForm() {
   const router = useRouter();
@@ -87,11 +87,11 @@ export default function FristRegisterForm() {
         required={true}
         error={errorMessage?.title === "confirmPassword" ? errorMessage.message : null}
       />
-      <BaseButton rounded={'rounded-2xl mt-4'}>
+      <Button rounded={'rounded-2xl mt-4'}>
         <span className="font-semibold text-white">
           CADASTRAR
         </span>
-      </BaseButton>
+      </Button>
     </form>
   );
 }

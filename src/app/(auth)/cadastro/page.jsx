@@ -10,7 +10,7 @@ export default function Page() {
                     <figure>
                         <Image src={'/images/logo.png'} alt="logo" width={100} height={85}/>
                     </figure>
-                    <Link href={'/login'} className="">
+                    <Link href={'/entrar'} className="">
                         <span className=" w-40 font-semibold bg-laranjaProdunfo text-white px-10 py-2 rounded-3xl">
                             LOGIN
                         </span>

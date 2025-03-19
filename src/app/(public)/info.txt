@@ -1,3 +1,0 @@
-Todas todas que não precisa de authentication, rotas publicas :) 
-
-

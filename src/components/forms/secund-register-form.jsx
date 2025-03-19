@@ -1,11 +1,11 @@
 "use client"
 import listEstados from '@/data/estados.json'
-import { BaseSelectOne } from "../ui/base-select-one";
-import { BaseTextArea } from "../ui/base-text-area";
+import { SelectOne } from "../ui/select-one";
+import { TextArea } from "../ui/text-area";
 import { InputField } from "../ui/input-field";
 import SelectMultiGrouped from '../ui/select-multi';
-import UploadFile from '../ui/upload-file';
-import { BaseButton } from '../ui/base-button';
+import optionsHabilidades from "@/data/habilidades.json"
+
 
 export default function SecundRegisterForm(){
 
@@ -37,7 +37,7 @@ export default function SecundRegisterForm(){
                 placeholder={'(00) 0 0000-0000'}
             />
 
-            <BaseSelectOne
+            <SelectOne
               name={'localizacao'}
               label={'Sua localização'}
               inputStyle="form"
@@ -45,7 +45,7 @@ export default function SecundRegisterForm(){
 
             />
 
-            <BaseTextArea
+            <TextArea
                 label={'Sobre você'}
                 name={'telefone'}
                 inputStyle={'form'}
@@ -54,9 +54,8 @@ export default function SecundRegisterForm(){
 
             <SelectMultiGrouped
                 label={"Habilidades"}
+                options={optionsHabilidades}
             />
-
-            <UploadFile label={'Adicionar currículo (formatos aceitos: PDF.)'} />
 
             <div className='flex items-start gap-1 py-2'>
                 <input className='h-7' type="checkbox" name="" id="input_checkbox" />

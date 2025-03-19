@@ -11,8 +11,7 @@ export default function UploadFile({error, label}){
         const file = event.target.files[0];
         if (file) {
           setFileInfo({
-            name: file.name,
-            size: (file.size / 1024).toFixed(2) + " KB", // Converte para KB
+            name: file.name
           });
         }
       };

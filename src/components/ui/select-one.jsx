@@ -1,6 +1,6 @@
 "use client";
 
-export function BaseSelectOne({ label, inputStyle = "form", name, error, onChange, onBlur, options = [] }) {
+export function SelectOne({ label, inputStyle = "form", name, error, onChange, onBlur, options = [] }) {
 
     const style = {
         form: 'mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm'
