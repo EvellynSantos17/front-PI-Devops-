@@ -1,10 +1,13 @@
-export async function userRegister() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            if (typeof window !== "undefined") {
-                window.alert('Usuário registrado com sucesso, faça o login para finalizar o cadastro!');
-              }
-            resolve();
-        }, 2000);
-    });
+import service from "./service"
+
+export async function userRegister({email,password}) {
+    return service({
+        endPoint: '/auth/register',
+        method: 'POST',
+        body: {
+            "email": email,
+            "password": password
+        },
+    })
+
 }
