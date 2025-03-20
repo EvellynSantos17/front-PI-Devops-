@@ -1,10 +1,17 @@
+import apiService from "./api-service"
+
 export async function userRegister() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            if (typeof window !== "undefined") {
-                window.alert('Usuário registrado com sucesso, faça o login para finalizar o cadastro!');
-              }
-            resolve();
-        }, 2000);
-    });
+
+    const data = {
+        email: "new-useedwr2324rf@mail.com",
+        password: "123456789"
+    }
+    
+    const service = await apiService({
+        endPoit: '/auth/register',
+        method: 'POST',
+        body: data
+    })
+
+    return console.log(service)
 }
