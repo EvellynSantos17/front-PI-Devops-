@@ -8,7 +8,7 @@ export function InputField({ label, required, inputStyle = "login", name, error,
     }
         
     return (
-        <div>
+        <div className="w-full">
             {label && (
                 <label className="text-sm font-medium text-gray-700">
                     {label}
