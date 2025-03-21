@@ -1,6 +1,6 @@
 import '../globals.css'
 import Footer from "@/components/layout/footer"
-import Header from "@/components/layout/reader"
+import Header from "@/components/layout/header"
 
 export const metadata = {
   title: 'Next.js',
