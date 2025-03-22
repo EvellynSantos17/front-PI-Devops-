@@ -45,14 +45,16 @@ export default function LoginForm() {
 
     disableErrorMessage();
 
-    const response = await AuthService.login(email, password);
+    let response = await AuthService.login(email, password);
     if (response.status >= 400) {
       // handle errors here
       // here the body returns empty when an error occurs
       return;
     }
 
-    router.push("/");
+    response = await response.json();
+
+    router.push(response.profileId == null ? "/finish-profile" : "/");
   }
 
   return (

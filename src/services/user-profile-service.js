@@ -19,8 +19,24 @@ export default class UserProfileService extends BaseService {
     return response;
   }
 
-  static async create(name, phone, address, postalCode, skills = []) {
-    let data = { name, phone, address, postalCode, skills };
+  static async create(
+    name,
+    document,
+    phone,
+    address,
+    postalCode,
+    description,
+    skills = []
+  ) {
+    let data = {
+      name,
+      document,
+      phone,
+      address,
+      postalCode,
+      description,
+      skills,
+    };
     let response = await this.requestPost("", data, {
       "Content-Type": "application/json",
       ...this.getHeaders(),
