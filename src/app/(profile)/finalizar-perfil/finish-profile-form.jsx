@@ -3,18 +3,36 @@ import listEstados from '@/data/estados.json'
 import { SelectOne } from "@/components/ui/select-one";
 import { TextArea } from "@/components/ui/text-area";
 import { InputField } from "@/components/ui/input-field";
-import SelectMultiGrouped from '@/components/ui/select-multi';
-import optionsHabilidades from "@/data/habilidades.json"
 import { UserHooks } from '@/hooks/user-hooks';
 import { maskInput } from '@/utils/mask-input';
 import { useErrorsHooks } from '@/hooks/error-message-hook';
+import SelectMultiGrouped from '@/components/ui/select-multi';
 
 
-export default function SecundRegisterForm(){
+export default function FinishProfileForm(){
     
     const {userData, updateUserDataUnitValue} = UserHooks();
     const {disableErrorMessage, errorMessage, updateErrorMessage} = useErrorsHooks();
     const {formatCPF, formatPhone} = maskInput();
+
+    const optionsHabilidades = [
+      {
+        label: "Tecnologia",
+        options: [
+          { value: "web-development", label: "Desenvolvimento Web" },
+          { value: "mobile-development", label: "Desenvolvimento Mobile" },
+          { value: "ui-ux-design", label: "UI/UX Design" },
+        ]
+      },
+      {
+        label: "Serviços Gerais",
+        options: [
+          { value: "plumbing", label: "Encanamento" },
+          { value: "electrical", label: "Serviços Elétricos" },
+          { value: "carpentry", label: "Marcenaria & Carpintaria" },
+        ]
+      },
+    ]
     
     function checkMinAndMaxLengthAbout(value){
       if(value.length > 250) {
@@ -52,17 +70,6 @@ export default function SecundRegisterForm(){
         return true
       }
       return false
-    }
-
-    function checkLengt({valueLength, title, message, lessThan }){
-        if( valueLength  <= lessThan  ){
-            updateErrorMessage({
-                title: title,
-                message: message
-              })
-            return true
-        }
-        return false
     }
   
     function checkMinAndMaxSelectSkils(value){
@@ -129,26 +136,41 @@ export default function SecundRegisterForm(){
         return false
     }
 
-    function handleForm(event){
-        event.preventDefault();
-        
-        if(checkMinAndMaxLengthName( userData.name)) return 
-        if(validateCPF(userData.cpf)) return
-        if(validatePhone(userData.phone)) return
-        if(validateLocation(userData.location)) return
-        if(checkMinAndMaxLengthAbout(userData.about)) return
-        if(checkMinAndMaxSelectSkils(userData.skills)) return
-        if(checkBoxTrue(userData.terms)) return
 
-        disableErrorMessage()
-        
-        const {terms, ...data} = userData
-
-        console.log(data)
+    async function handleSubmit(event) {
+      event.preventDefault();
+      
+      if(checkMinAndMaxLengthName( userData.name)) return 
+      if(validateCPF(userData.cpf)) return
+      if(validatePhone(userData.phone)) return
+      if(validateLocation(userData.location)) return
+      if(checkMinAndMaxLengthAbout(userData.about)) return
+      if(checkMinAndMaxSelectSkils(userData.skills)) return
+      if(checkBoxTrue(userData.terms)) return
+      disableErrorMessage()
+      
+      console.log(userData)
+      
+      let response = await UserProfileService.create(
+        userData.name,
+        userData.document,
+        userData.phone,
+        userData.address,
+        userData.postalCode,
+        userData.description,
+        userData.skills
+      );
+  
+      if (response.status >= 400) {
+        console.error("Erro ao criar perfil de usuário");
+        return;
+      }
+  
+      router.push("/");
     }
 
     return (
-        <form onSubmit={handleForm} className='h-full pb-2'>
+        <form onSubmit={handleSubmit} className='h-full pb-2'>
             <InputField
                 label={'Nome completo'}
                 name={'nome'}

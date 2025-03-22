@@ -11,17 +11,17 @@ export default function SelectMultiGrouped({label, error, options, onChange, val
   return (
     <div>
         {label && (
-                <label className="text-sm font-medium text-gray-700">
-                    {label}
-                </label>
-            )}
+          <label className="text-sm font-medium text-gray-700">
+              {label}
+          </label>
+        )}
         <Select
             isMulti
             name="habilidades"
             placeholder="Digite uma habilidade"
             options={options}
             value={value}
-            className="mt-1 block w-full"
+            className="mt-1 block w-full z-40"
             onChange={(e) => onChange(e)}
             styles={{
                 control: (base, state) => ({
