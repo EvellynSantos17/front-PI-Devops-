@@ -15,7 +15,6 @@ export default function SecundRegisterForm(){
     const {userData, updateUserDataUnitValue} = UserHooks();
     const {disableErrorMessage, errorMessage, updateErrorMessage} = useErrorsHooks();
     const {formatCPF, formatPhone} = maskInput();
-    console.log(userData)
     
     function checkMinAndMaxLengthAbout(value){
       if(value.length > 250) {

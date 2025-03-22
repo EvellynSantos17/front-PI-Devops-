@@ -10,8 +10,10 @@ export default function Page(){
                     <Image alt="logo" src={'/images/logo-com-typography.png'} width={300} height={200}/>
                 </div>
                 <div className="p-6 h-full">
-                    <h2 className="text-center text-2xl font-semibold text-gray-700 mb-2">Completar cadastro</h2>
-                    <p className="text-center text-gray-500 text-sm mb-6">
+                    <h2 className="text-center text-[32px] font-bold text-gray-700 mb-2">
+                        Completar cadastro
+                    </h2>
+                    <p className="text-center text-[19px] text-gray-500 text-sm mb-6">
                         Adicione suas informações para melhorar sua experiência na nossa plataforma
                     </p>
                     <SecundRegisterForm/>
