@@ -21,7 +21,7 @@ export default function SelectMultiGrouped({label, error, options, onChange, val
             placeholder="Digite uma habilidade"
             options={options}
             value={value}
-            className="mt-1 block w-full z-40"
+            className="mt-1 block w-full"
             onChange={(e) => onChange(e)}
             styles={{
                 control: (base, state) => ({
