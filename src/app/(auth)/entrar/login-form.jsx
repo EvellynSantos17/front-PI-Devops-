@@ -1,9 +1,9 @@
 "use client"
 import { useRouter } from "next/navigation";
-import { Button } from "../../../components/ui/button";
-import { InputField } from "../../../components/ui/input-field";
-import { useErrorsHooks } from "@/hooks/error";
+import { Button } from "@/components/ui/button";
+import { InputField } from "@/components/ui/input-field";
 import AuthService from "@/services/auth-service";
+import { useErrorsHooks } from "@/hooks/error-message-hook";
 
 export default function LoginForm() {
 

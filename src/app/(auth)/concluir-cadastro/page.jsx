@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Page(){
     return (
         <div className="bg-orange-100 w-full h-full  overflow-auto flex flex-col items-center pt-10">
-            <div className="md:w-[80%] xl:w-[50%] w-full bg-white h-fit shadow-lg rounded-t-2xl overflow-hidden">
+            <div className="md:w-[80%] xl:w-[60%] w-full bg-white h-fit shadow-lg rounded-t-2xl overflow-hidden">
                 <div className="bg-[#2C2C2C] text-center py-7 w-full flex items-center justify-center">
                     <Image alt="logo" src={'/images/logo-com-typography.png'} width={300} height={200}/>
                 </div>

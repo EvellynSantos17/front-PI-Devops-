@@ -1,20 +1,23 @@
 import { useState } from "react"
 
-export function useFristRegisterFormHooks(){
-    const [formRegister, setFormRegister] = useState({
-        email: '',
-        password: '',
-        confirmPassword: ''
-
+export function UserHooks(){
+    const [userData, setUserData] = useState({
+        name: '',
+        cpf: '',
+        phone: '',
+        location: '',
+        about: '',
+        skills: '',
+        terms: false
     })
 
-    function updateFormRegister({field, value}){
-        setFormRegister(prevState => ({
+    function updateUserDataUnitValue({field, value}){
+        setUserData(prevState => ({
             ...prevState,
             [field]: value
         }));
 
     }
 
-    return {formRegister, updateFormRegister }
+    return {userData, updateUserDataUnitValue }
 }

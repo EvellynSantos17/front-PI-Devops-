@@ -1,10 +1,10 @@
 "use client";
 
-import { useErrorsHooks } from "@/hooks/error";
 import { useRouter } from "next/navigation";
-import { InputField } from "../../../components/ui/input-field";
-import { Button } from "../../../components/ui/button";
+import { InputField } from "@/components/ui/input-field";
+import { Button } from "@/components/ui/button";
 import AuthService from "@/services/auth-service";
+import { useErrorsHooks } from "@/hooks/error-message-hook";
 
 export default function RegisterForm() {
     const router = useRouter();
