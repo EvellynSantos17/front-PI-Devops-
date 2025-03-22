@@ -87,7 +87,7 @@ export default function Header() {
                         <div className="flex gap-2">
                             <Link
                                 className="bg-slate-600 px-2 py-1 rounded-2xl text-white"
-                                href={"/login"}
+                                href={"/entrar"}
                             >
                                 <span>
                                     ENTRAR
@@ -95,7 +95,7 @@ export default function Header() {
                             </Link>
                             <Link
                                 className="bg-laranjaProdunfo px-2 py-1 rounded-2xl text-white"
-                                href={"/register"}
+                                href={"/cadastro"}
                             >
                                 <span>
                                     CADASTRE-SE
