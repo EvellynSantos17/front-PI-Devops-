@@ -2,14 +2,13 @@
 import { useRouter } from "next/navigation";
 import { Button } from "../../../components/ui/button";
 import { InputField } from "../../../components/ui/input-field";
-import { useErrorsHooks } from "@/hooks/error";
 import AuthService from "@/services/auth-service";
+import { useErrorsHooks } from "@/hooks/error-message-hook";
 
 export default function LoginForm() {
   const router = useRouter();
 
-  const { disableErrorMessage, errorMessage, updateErrorMessage } =
-    useErrorsHooks();
+  const { disableErrorMessage, errorMessage, updateErrorMessage } = useErrorsHooks();
 
   function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -80,3 +79,4 @@ export default function LoginForm() {
     </form>
   );
 }
+

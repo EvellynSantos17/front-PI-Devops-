@@ -9,6 +9,7 @@ export default {
     extend: {
       colors: {
         laranjaProdunfo: '#F97316',
+        bege: '#FFD6B9'
       },
     },
   },

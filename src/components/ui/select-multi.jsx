@@ -1,9 +1,9 @@
 "use client";
 
-import { useIsMounted } from "@/hooks/useIsMounted";
+import { useIsMounted } from "@/hooks/useIs-mounted-hook";
 import Select from "react-select";
 
-export default function SelectMultiGrouped({label, error, options}) {
+export default function SelectMultiGrouped({label, error, options, onChange, value}) {
     const isMounted = useIsMounted(); 
 
     if (!isMounted) return null; 
@@ -20,7 +20,9 @@ export default function SelectMultiGrouped({label, error, options}) {
             name="habilidades"
             placeholder="Digite uma habilidade"
             options={options}
+            value={value}
             className="mt-1 block w-full"
+            onChange={(e) => onChange(e)}
             styles={{
                 control: (base, state) => ({
                     ...base,
