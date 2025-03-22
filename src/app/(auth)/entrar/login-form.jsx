@@ -45,7 +45,7 @@ export default function LoginForm() {
 
         disableErrorMessage();
 
-        const response = AuthService.login(email, password)
+        const response = await AuthService.login(email, password)
         if (response.status >= 400) {
             // handle errors here
             // here the body returns empty when an error occurs

@@ -1,14 +1,14 @@
 "use client"
-import { InputField } from "../ui/input-field";
-import SelectMultiGrouped from "../ui/select-multi";
-import { SelectOne } from "../ui/select-one";
+import { InputField } from "@/components/ui/input-field";
+import SelectMultiGrouped from "@/components/ui/select-multi";
+import { SelectOne } from "@/components/ui/select-one";
 import tipos_contratos from "@/data/tipos-contratos.json"
 import estados from "@/data/estados.json"
 import habilidades from "@/data/habilidades.json"
-import { TextArea } from "../ui/text-area";
-import {UseServiceHook} from "@/hooks/use-services-hook"
-import { useErrorsHooks } from "@/hooks/error";
+import { TextArea } from "@/components/ui/text-area";
+import {UseServiceHook} from "@/hooks/services-hook"
 import { useRouter } from "next/navigation";
+import { useErrorsHooks } from "@/hooks/error-message-hook";
 
 export default function ServiceForm(){
   const router = useRouter();
@@ -134,6 +134,7 @@ export default function ServiceForm(){
 
     disableErrorMessage()
 
+    console.log(serviceData)
   }
 
 return (

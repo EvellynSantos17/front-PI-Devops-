@@ -1,5 +1,6 @@
-import ServiceForm from "@/components/forms/service-form";
+
 import Image from "next/image";
+import ServiceForm from "./service-form";
 
 export default function page(){
     return (

@@ -1,4 +1,4 @@
-import SecundRegisterForm from "@/components/forms/secund-register-form";
+import SecundRegisterForm from "@/app/(auth)/concluir-cadastro/secund-register-form";
 import Footer from "@/components/layout/footer";
 import Image from "next/image";
 

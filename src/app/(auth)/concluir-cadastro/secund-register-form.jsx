@@ -1,9 +1,9 @@
 "use client"
 import listEstados from '@/data/estados.json'
-import { SelectOne } from "../ui/select-one";
-import { TextArea } from "../ui/text-area";
-import { InputField } from "../ui/input-field";
-import SelectMultiGrouped from '../ui/select-multi';
+import { SelectOne } from "@/components/ui/select-one";
+import { TextArea } from "@/components/ui/text-area";
+import { InputField } from "@/components/ui/input-field";
+import SelectMultiGrouped from '@/components/ui/select-multi';
 import optionsHabilidades from "@/data/habilidades.json"
 
 

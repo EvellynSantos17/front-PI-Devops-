@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMounted } from "@/hooks/useIsMounted";
+import { useIsMounted } from "@/hooks/useIs-mounted-hook";
 import Select from "react-select";
 
 export default function SelectMultiGrouped({label, error, options, onChange, value}) {
