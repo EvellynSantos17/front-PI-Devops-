@@ -15,18 +15,6 @@ export default function ServiceForm(){
   const {serviceData, updateServiceDateUnitValue} = UseServiceHook();
   const {disableErrorMessage, errorMessage, updateErrorMessage} = useErrorsHooks();
 
-  function isEmpty({value, fild}){
-    const empty = value === undefined || value === null || (typeof value === "string" && value.trim() === "") || value == ""
-    if(empty){
-      updateErrorMessage({
-        title: fild,
-        message: `Por favor, Preencha o campo corretamente`
-      })
-      return true
-    }
-    return false
-  }
-
   function validationDate(date){
     const correntDay = new Date()
     const dateSelect = new Date(date)
@@ -113,20 +101,12 @@ export default function ServiceForm(){
     return false
   }
   
-  function handleSubmit(event){
+  async function handleSubmit(event){
     event.preventDefault();
     
-    if(isEmpty({fild: 'titulo', value: serviceData.titulo})) return
+
     if(checkMinAndMaxTitleLength({value: serviceData.titulo})) return 
-    if(isEmpty({fild: 'tipo', value: serviceData.tipo})) return
-    if(isEmpty({fild: 'dt_limite', value: serviceData.dt_limite})) return
     if(validationDate(serviceData.dt_limite)) return
-    if(isEmpty({fild: 'valor', value: serviceData.valor})) return
-    if(isEmpty({fild: 'localizacao', value: serviceData.localizacao})) return
-    if(isEmpty({fild: 'descricao', value:serviceData.descricao })) return
-    if(isEmpty({fild: 'requisitos', value: serviceData.requisitos})) return
-    
-    
     if(checkMinAndMaxTextAreaLength({value:serviceData.descricao })) return
     if(checkMinAndMaxSelectSkils({value: serviceData.requisitos})) return
     
@@ -141,6 +121,7 @@ return (
   <form onSubmit={(e) => handleSubmit(e)} className="w-full">
     <InputField
       name={"titulo"}
+      required={true}
       placeholder={"Desenvolvimento de um Website E-commerce"}
       label={"Título da vaga"}
       error={errorMessage?.title == 'titulo' ? errorMessage.message : null}
@@ -163,6 +144,7 @@ return (
     <div className="flex items-center gap-4">
         <InputField
           name={"valor"}
+          required={true}
           type="number"
           placeholder={"R$ 500,00"}
           label={"Valor do serviço"}
@@ -176,6 +158,7 @@ return (
         />
         <InputField
           name={"Limite de candidatura"}
+          required={true}
           placeholder={"dd/mm/aaaa"}
           type="date"
           label={"Limite de candidatura"}
