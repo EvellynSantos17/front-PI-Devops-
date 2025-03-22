@@ -10,7 +10,7 @@ export default function Header() {
             <div className="flex items-center gap-2">
                 <Image
                     className=""
-                    src="images/logo.svg"
+                    src="/images/logo.svg"
                     alt="logo"
                     width={50}
                     height={60}
@@ -23,7 +23,7 @@ export default function Header() {
                     />
                     <Image
                         className="cursor-pointer"
-                        src="images/lupa.svg"
+                        src="/images/lupa.svg"
                         alt="icone"
                         width={18}
                         height={18}
