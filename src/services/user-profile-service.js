@@ -44,8 +44,25 @@ export default class UserProfileService extends BaseService {
     return response;
   }
 
-  static async update(id, name, phone, address, postalCode, skills = []) {
-    let data = { name, phone, address, postalCode, skills };
+  static async update(
+    id,
+    name,
+    document,
+    phone,
+    address,
+    postalCode,
+    description,
+    skills = []
+  ) {
+    let data = {
+      name,
+      document,
+      phone,
+      address,
+      postalCode,
+      description,
+      skills,
+    };
     let response = await this.requestPut(`/${id}`, data, {
       "Content-Type": "application/json",
       ...this.getHeaders(),

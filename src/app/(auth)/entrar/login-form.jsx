@@ -46,22 +46,14 @@ export default function LoginForm() {
 
         disableErrorMessage();
 
-        const response = await AuthService.login(email, password)
+        let response = await AuthService.login(email, password)
         if (response.status >= 400) {
             // handle errors here
             // here the body returns empty when an error occurs
             return;
         }
-
-        (await response).headers.forEach((value, name) => {
-            if (name === "Authorization") {
-                localStorage.setItem("Authorization", value)
-                return;
-            }
-        }
-        )
-
-        router.push("/")
+        response = await response.json();
+        router.push(response.accountId == null ? "/finalizar-perfil" : "/")
     }
 
     return (
