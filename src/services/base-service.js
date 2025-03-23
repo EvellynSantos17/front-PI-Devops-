@@ -1,5 +1,5 @@
 export default class BaseService {
-  static API_URL = "http://localhost:8080";
+  static API_URL = "/api";
 
   static getToken() {
     return localStorage.getItem("token");
