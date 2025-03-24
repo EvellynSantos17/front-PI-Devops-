@@ -5,22 +5,25 @@ import UserInforCard from "@/components/ui/user-infor-card"
 import UserInforCardMult from "@/components/ui/user-infor-card-mult"
 import { usePerfilHook } from "@/hooks/use-perfil-hooks"
 import BaseService from "@/services/base-service"
+import ListingService from "@/services/listing-service"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 
 export default function Page() {
-    const router = useRouter()    
+  
+    if (typeof window == "undefined") {
+      return 
+    }  
+
     const token = BaseService.getToken() 
     let info = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
     
     if(info.accountId == null) {
       return router.push("/finalizar-perfil")
-    }         
-    const { perfilData, updateHookDataUnitValue } = usePerfilHook(info.accountId)
-    
-
+    }  
+    const { perfilData, updateHookDataUnitValue } = usePerfilHook(info.accountId)  
 
     const [profileImage, setProfileImage] = useState("/images/perfil.png")
     const [userInfo, setUserInfo] = useState({
@@ -32,6 +35,8 @@ export default function Page() {
         cpf: "123.789.456-00",
         location: "Juazeiro do Norte, Ceará",
     })
+      // Chamada para listas laranjas
+    // let listings = ListingService.findAll(`accountId=${info.accounId}`)
 
     const handleImageChange = (event) => {
         const file = event.target.files[0]
