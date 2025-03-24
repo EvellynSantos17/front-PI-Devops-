@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { InputField } from "@/components/ui/input-field";
 import AuthService from "@/services/auth-service";
 import { useErrorsHooks } from "@/hooks/error-message-hook";
+import BaseService from "@/services/base-service";
 
 export default function LoginForm() {
 
@@ -52,8 +53,10 @@ export default function LoginForm() {
             // here the body returns empty when an error occurs
             return;
         }
-        response = await response.json();
-        router.push(response.accountId == null ? "/finalizar-perfil" : "/")
+        const token = BaseService.getToken() 
+        let info = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+                
+        router.push(info.accountId == null ? "/finalizar-perfil" : "/")
     }
 
     return (
