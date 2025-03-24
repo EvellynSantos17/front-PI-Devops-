@@ -3,10 +3,25 @@
 import CardService from "@/components/ui/card-service"
 import UserInforCard from "@/components/ui/user-infor-card"
 import UserInforCardMult from "@/components/ui/user-infor-card-mult"
+import { usePerfilHook } from "@/hooks/use-perfil-hooks"
+import BaseService from "@/services/base-service"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
+
 export default function Page() {
+    const router = useRouter()    
+    const token = BaseService.getToken() 
+    let info = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+    
+    if(info.accountId == null) {
+      return router.push("/finalizar-perfil")
+    }         
+    const { perfilData, updateHookDataUnitValue } = usePerfilHook(info.accountId)
+    
+
+
     const [profileImage, setProfileImage] = useState("/images/perfil.png")
     const [userInfo, setUserInfo] = useState({
         name: "Roberta Martins",
@@ -53,7 +68,7 @@ export default function Page() {
 
                         <div className="flex flex-col items-center justify-center">
                             <h1 className="font-bold text-2xl">
-                                {userInfo.name}
+                                {perfilData.name ? perfilData.name : 'carregando...'}
                             </h1>
 
                             <span className="text-sm text-[#32292F8F]">
@@ -94,24 +109,24 @@ export default function Page() {
                         </div>
 
                         <div className="flex flex-col gap-4">
-                            <UserInforCard title={"Nome"} value={userInfo.name} onChange={(newValue) => handleUserInfoChange("name", newValue)} />
-                            <UserInforCard title={"Seu titulo"} value={userInfo.title} onChange={(newValue) => handleUserInfoChange("title", newValue)} />
-                            <UserInforCard title={"Sobre você"} value={userInfo.about} onChange={(newValue) => handleUserInfoChange("about", newValue)} />
-                            <UserInforCard title={"E-mail"} value={userInfo.email} onChange={(newValue) => handleUserInfoChange("email", newValue)} />
-                            <UserInforCard title={"Contato"} value={userInfo.contact} onChange={(newValue) => handleUserInfoChange("contact", newValue)} />
-                            <UserInforCard title={"CPF"} value={userInfo.cpf} onChange={(newValue) => handleUserInfoChange("cpf", newValue)} />
-                            <UserInforCard title={"Localização"} value={userInfo.location} onChange={(newValue) => handleUserInfoChange("location", newValue)} />
+                            {perfilData.name ? (
+                                <>
+                                  <UserInforCard title={"Nome"} value={perfilData.name} onChange={(newValue) => handleUserInfoChange("name", newValue)} isOwner={true}/>
+                                  <UserInforCard title={"Seu titulo"} value={perfilData.title} onChange={(newValue) => handleUserInfoChange("title", newValue)} isOwner={true}/>
+                                  <UserInforCard title={"Sobre você"} value={perfilData.description} onChange={(newValue) => handleUserInfoChange("about", newValue)} isOwner={true}/>
+                                  <UserInforCard title={"Contato"} value={perfilData.phone} onChange={(newValue) => handleUserInfoChange("contact", newValue)} isOwner={true}/>
+                                  <UserInforCard title={"CPF"} value={perfilData.document} onChange={(newValue) => handleUserInfoChange("cpf", newValue)} isOwner={true}/>
+                                  <UserInforCard title={"Localização"} value={perfilData.address} onChange={(newValue) => handleUserInfoChange("location", newValue)} isOwner={true} />
+                                  <UserInforCardMult 
+                                    title={"Habilidades"} 
+                                    value={perfilData.skills.map((skill) => {
+                                      return {value: skill,label: skill}
+                                    })}
+                                    isOwner={true}
+                                  />
+                                </>
+                            ) : null}
 
-                            <UserInforCardMult 
-                                title={"Habilidades"} 
-                                value={[
-                                    { value: "cybersecurity", label: "Cibersegurança" },
-                                    { value: "data-science", label: "Ciência de Dados" },
-                                    { value: "blockchain", label: "Blockchain & Criptomoedas" },
-                                    { value: "web-development", label: "Desenvolvimento Web" },
-                                    { value: "mobile-development", label: "Desenvolvimento Mobile" },
-                                ]}
-                            />
                         </div>
                     </div>
                 </section>

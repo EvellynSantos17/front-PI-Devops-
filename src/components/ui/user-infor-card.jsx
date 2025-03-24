@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-export default function UserInforCard({ title, value, onChange }) {
+export default function UserInforCard({ title, value, onChange,isOwner }) {
     const [isEditing, setIsEditing] = useState(false);
     const [inputValue, setInputValue] = useState(value);
 
@@ -28,14 +28,16 @@ export default function UserInforCard({ title, value, onChange }) {
                     <p className="bg-transparent p-1">{inputValue}</p>
                 )}
             </div>
-            <button onClick={() => setIsEditing(!isEditing)}>                
-                <Image
-                    alt={isEditing ? "check" : "edit"}
-                    src={isEditing ? "/icons/check.svg" : "/icons/edit (2).svg"}
-                    width={29}
-                    height={26}
-                />
-            </button>
+            {isOwner && (
+                <button onClick={() => setIsEditing(!isEditing)}>                
+                    <Image
+                        alt={isEditing ? "check" : "edit"}
+                        src={isEditing ? "/icons/check.svg" : "/icons/edit (2).svg"}
+                        width={29}
+                        height={26}
+                    />
+                </button>
+            )}
         </div>
     );
 }

@@ -3,17 +3,22 @@ import listEstados from '@/data/estados.json'
 import { SelectOne } from "@/components/ui/select-one";
 import { TextArea } from "@/components/ui/text-area";
 import { InputField } from "@/components/ui/input-field";
-import { UserHooks } from '@/hooks/user-hooks';
+import { usePerfilHook } from '@/hooks/use-perfil-hooks';
 import { maskInput } from '@/utils/mask-input';
 import { useErrorsHooks } from '@/hooks/error-message-hook';
 import SelectMultiGrouped from '@/components/ui/select-multi';
+import UserProfileService from '@/services/user-profile-service';
+import { useRouter } from 'next/navigation';
+import BaseService from '@/services/base-service';
 
 
 export default function FinishProfileForm(){
     
-    const {userData, updateUserDataUnitValue} = UserHooks();
+    const {perfilData, updateHookDataUnitValue} = usePerfilHook();
     const {disableErrorMessage, errorMessage, updateErrorMessage} = useErrorsHooks();
     const {formatCPF, formatPhone} = maskInput();
+    const router = useRouter();
+    
 
     const optionsHabilidades = [
       {
@@ -140,33 +145,33 @@ export default function FinishProfileForm(){
     async function handleSubmit(event) {
       event.preventDefault();
       
-      if(checkMinAndMaxLengthName( userData.name)) return 
-      if(validateCPF(userData.cpf)) return
-      if(validatePhone(userData.phone)) return
-      if(validateLocation(userData.location)) return
-      if(checkMinAndMaxLengthAbout(userData.about)) return
-      if(checkMinAndMaxSelectSkils(userData.skills)) return
-      if(checkBoxTrue(userData.terms)) return
+      if(checkMinAndMaxLengthName( perfilData.name)) return 
+      if(validateCPF(perfilData.document)) return
+      if(validatePhone(perfilData.phone)) return
+      if(validateLocation(perfilData.address)) return
+      if(checkMinAndMaxLengthAbout(perfilData.description)) return
+      if(checkMinAndMaxSelectSkils(perfilData.skills)) return
+      if(checkBoxTrue(perfilData.terms)) return
       disableErrorMessage()
-      
-      console.log(userData)
+      console.log(perfilData);
       
       let response = await UserProfileService.create(
-        userData.name,
-        userData.document,
-        userData.phone,
-        userData.address,
-        userData.postalCode,
-        userData.description,
-        userData.skills
+        perfilData.name,
+        perfilData.document,
+        perfilData.phone,
+        perfilData.address,
+        '34324233',
+        perfilData.description,
+        perfilData.skills.map(item => item.value)
       );
   
       if (response.status >= 400) {
         console.error("Erro ao criar perfil de usuário");
         return;
       }
-  
-      router.push("/");
+
+      BaseService.setToken("")
+      router.push("/entrar");
     }
 
     return (
@@ -178,7 +183,7 @@ export default function FinishProfileForm(){
                 required={true}
                 placeholder={'Roberto Claudio da Silva'}
                 error={errorMessage?.title == 'name' ? errorMessage.message : null}
-                onChange={(e) => updateUserDataUnitValue({
+                onChange={(e) => updateHookDataUnitValue({
                     field: 'name',
                     value:e
                   })}
@@ -190,9 +195,9 @@ export default function FinishProfileForm(){
                 required={true}
                 placeholder={'000.000.000-00'}
                 error={errorMessage?.title == 'cpf' ? errorMessage.message : null}
-                value={formatCPF(userData.cpf)}
+                value={formatCPF(perfilData.document)}
                 onChange={(e) => 
-                    e.length <= 14 ? updateUserDataUnitValue({field: 'cpf', value: e}) : null
+                    e.length <= 14 ? updateHookDataUnitValue({field: 'document', value: e}) : null
                 }
             />
             <InputField
@@ -202,9 +207,9 @@ export default function FinishProfileForm(){
                 required={true}
                 placeholder={'(00) 0 0000-0000'}
                 error={errorMessage?.title == 'phone' ? errorMessage.message : null}
-                value={formatPhone(userData.phone)}
+                value={formatPhone(perfilData.phone)}
                 onChange={(e) => 
-                    e.length <= 15 ? updateUserDataUnitValue({field: 'phone', value: e}) : null
+                    e.length <= 15 ? updateHookDataUnitValue({field: 'phone', value: e}) : null
                 }
             />
 
@@ -214,8 +219,8 @@ export default function FinishProfileForm(){
               inputStyle="form"
               options={listEstados}
               error={errorMessage?.title == 'location' ? errorMessage.message : null}
-              onChange={(e) => updateUserDataUnitValue({
-                field: 'location',
+              onChange={(e) => updateHookDataUnitValue({
+                field: 'address',
                 value:e
               })}
 
@@ -227,8 +232,8 @@ export default function FinishProfileForm(){
                 inputStyle={'form'}
                 placeholder={'Escreva aqui...'}
                 error={errorMessage?.title == 'about' ? errorMessage.message : null}
-                onChange={(e) => updateUserDataUnitValue({
-                    field: 'about',
+                onChange={(e) => updateHookDataUnitValue({
+                    field: 'description',
                     value:e
                   })}
             />
@@ -236,9 +241,9 @@ export default function FinishProfileForm(){
             <SelectMultiGrouped 
                 label={'Habilidades'}
                 options={optionsHabilidades}
-                value={userData.requisitos}
+                value={perfilData.requisitos}
                 error={errorMessage?.title == 'skills' ? errorMessage.message : null}
-                onChange={(e) => updateUserDataUnitValue({
+                onChange={(e) => updateHookDataUnitValue({
                     field:  'skills',
                     value: e
                 })}
@@ -249,11 +254,11 @@ export default function FinishProfileForm(){
                   type="checkbox" 
                   name="" 
                   id="input_checkbox" 
-                  value={userData.terms}
+                  value={perfilData.terms}
                   onClick={() => {
-                    updateUserDataUnitValue({
+                    updateHookDataUnitValue({
                       field:'terms',
-                      value: !userData.terms
+                      value: !perfilData.terms
                     })
                   }}
                 />
