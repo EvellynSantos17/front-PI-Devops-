@@ -18,9 +18,7 @@ export default function Page() {
     if(info.accountId == null) {
       return router.push("/finalizar-perfil")
     }         
-    const { perfilData, updateHookDataUnitValue } = usePerfilHook(info.accountId)
-    
-
+    const { perfilData, updateHookDataUnitValue } = usePerfilHook(info.accountId)  
 
     const [profileImage, setProfileImage] = useState("/images/perfil.png")
     const [userInfo, setUserInfo] = useState({
