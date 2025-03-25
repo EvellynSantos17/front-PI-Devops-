@@ -3,8 +3,8 @@ import BaseService from "./base-service";
 export default class UserService extends BaseService {
   static endpoint = "/users";
 
-  static async findAll(query = "") {
-    if (query !== "") query = `?${query}`;
+  static async findAll(query = {}) {
+    query = this.parseDictToQuery(query);
 
     let response = await this.requestGet(query, {
       ...this.getHeaders(),

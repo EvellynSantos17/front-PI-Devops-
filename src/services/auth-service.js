@@ -22,4 +22,11 @@ export default class AuthService extends BaseService {
     );
     return response;
   }
+
+  static async refreshToken() {
+    let response = await this.requestGet("/refresh-token", {
+      ...this.getHeaders(),
+    });
+    return response;
+  }
 }
