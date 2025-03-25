@@ -17,6 +17,16 @@ export default class BaseService {
     return `${this.API_URL}${this.endpoint}`;
   }
 
+  static parseDictToQuery(dict) {
+    if (Object.keys(dict).length === 0) return "";
+    let query = "?";
+    for (let key in dict) {
+      query += `${key}=${dict[key]}&`;
+    }
+    query = query.slice(0, -1);
+    return query;
+  }
+
   static async requestGet(endpoint, headers = {}) {
     let response = await fetch(`${this.getServiceUrl()}${endpoint}`, {
       headers,

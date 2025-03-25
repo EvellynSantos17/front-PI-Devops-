@@ -1,7 +1,7 @@
 import BaseService from "./base-service";
 
-export default class ListingService extends BaseService {
-  static endpoint = "/listings";
+export default class ContractedListingService extends BaseService {
+  static endpoint = "/contracted-listings";
 
   static async findAll(query = {}) {
     query = this.parseDictToQuery(query);
@@ -19,8 +19,8 @@ export default class ListingService extends BaseService {
     return response;
   }
 
-  static async create(title, price, description) {
-    let data = { title, price, description };
+  static async create(clientRequest, startedAt, finishedAt, listingId) {
+    let data = { clientRequest, startedAt, finishedAt, listingId };
     let response = await this.requestPost("", data, {
       "Content-Type": "application/json",
       ...this.getHeaders(),
@@ -28,8 +28,8 @@ export default class ListingService extends BaseService {
     return response;
   }
 
-  static async update(id, title, price, description) {
-    let data = { title, price, description };
+  static async update(id, clientRequest, startedAt, finishedAt, listingId) {
+    let data = { clientRequest, startedAt, finishedAt, listingId };
     let response = await this.requestPut(`/${id}`, data, {
       "Content-Type": "application/json",
       ...this.getHeaders(),
