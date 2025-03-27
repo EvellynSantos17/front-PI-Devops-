@@ -9,6 +9,15 @@ export default class BaseService {
     localStorage.setItem("token", token);
   }
 
+  static getTokenInfo() {
+    const token = this.getToken();
+    if (!token) return null;
+    // const payload = token.split(".")[1];
+    // const data = JSON.parse(atob(payload));
+    // return data;
+    return JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+  }
+
   static getHeaders() {
     return { Authorization: this.getToken() };
   }
