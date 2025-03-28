@@ -24,6 +24,7 @@ export default class UserProfileService extends BaseService {
     document,
     phone,
     address,
+    title,
     postalCode,
     description,
     skills = []
@@ -33,6 +34,7 @@ export default class UserProfileService extends BaseService {
       document,
       phone,
       address,
+      title,
       postalCode,
       description,
       skills,

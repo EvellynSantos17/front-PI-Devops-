@@ -138,7 +138,9 @@ export default function Page() {
                 {perfil.name ? perfil.name : "carregando..."}
               </h1>
 
-              <span className="text-sm text-[#32292F8F]"></span>
+              <span className="text-sm text-[#32292F8F]">
+                {perfil.title ? perfil.title : "carregando..."}
+              </span>
             </div>
 
             <div className="flex w-full justify-between gap-10">
