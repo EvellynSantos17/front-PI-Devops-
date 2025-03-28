@@ -151,14 +151,14 @@ export default function FinishProfileForm() {
     if (checkMinAndMaxSelectSkils(perfil.skills)) return;
     if (checkBoxTrue(perfil.terms)) return;
     disableErrorMessage();
-    console.log(perfil);
 
     let response = await UserProfileService.create(
       perfil.name,
       perfil.document,
       perfil.phone,
       perfil.address,
-      "34324233",
+      perfil.title,
+      perfil.cpf,
       perfil.description,
       perfil.skills.map((item) => item.value)
     );
@@ -169,6 +169,7 @@ export default function FinishProfileForm() {
     }
 
     response = await AuthService.refreshToken();
+
     if (response.status >= 400) {
       console.error("Erro ao atualizar token");
       router.push("/entrar");
@@ -224,16 +225,49 @@ export default function FinishProfileForm() {
         }
       />
 
-      <SelectOne
+      <InputField
+        name={"CEP"}
+        label={"CEP"}
+        inputStyle="form"
+        required={true}
+        placeholder={"000.000-000"}
+        options={listEstados}
+        error={null}
+        onChange={(e) =>
+          updateDataUnitValue({
+            field: "cep",
+            value: e,
+          })
+        }
+      />
+
+      <InputField
         name={"localizacao"}
         label={"Sua localização"}
         inputStyle="form"
+        required={true}
+        placeholder={"Rua Dr.João pessoa, 88, Crato - CE"}
         options={listEstados}
         error={errorMessage?.title == "location" ? errorMessage.message : null}
         onChange={(e) =>
           updateDataUnitValue({
             field: "address",
             value: e,
+          })
+        }
+      />
+
+      <InputField
+        name={"title"}
+        label={"Seu Titulo"}
+        inputStyle="form"
+        placeholder={"Encanador / Eletricista"}
+        options={listEstados}
+        error={errorMessage?.title == "title" ? errorMessage.message : null}
+        onChange={(e) =>
+          updateDataUnitValue({
+            field: 'title',
+            value: e
           })
         }
       />

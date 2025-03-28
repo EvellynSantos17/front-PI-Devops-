@@ -19,7 +19,6 @@ export default function Page(){
                     <FinishProfileForm/>
                 </div>
             </div>
-            <Footer/>
         </div>
     )
 }
