@@ -9,8 +9,7 @@ import { useErrorsHooks } from "@/hooks/error-message-hook";
 export default function RegisterForm() {
   const router = useRouter();
 
-  const { errorMessage, updateErrorMessage, disableErrorMessage } =
-    useErrorsHooks();
+  const { errorMessage, updateErrorMessage, disableErrorMessage } = useErrorsHooks();
 
   function matchPassword(password, confirmPassword) {
     if (password !== confirmPassword) {
