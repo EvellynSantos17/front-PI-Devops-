@@ -5,15 +5,15 @@ import { SelectOne } from "@/components/ui/select-one";
 import listEstados from "@/data/estados.json";
 import { TextArea } from "@/components/ui/text-area";
 import { InputField } from "@/components/ui/input-field";
-import { usePerfilHook } from "@/hooks/use-perfil-hooks";
 import { useErrorsHooks } from "@/hooks/error-message-hook";
 import UserProfileService from "@/services/user-profile-service";
 import BaseService from "@/services/base-service";
 import AuthService from "@/services/auth-service";
 import { maskInput } from "@/utils/mask-input";
+import { usePerfil } from "@/hooks/use-perfil";
 
 export default function FinishProfileForm() {
-  const { perfilData, updateHookDataUnitValue } = usePerfilHook();
+  const { perfil, updateDataUnitValue } = usePerfil();
   const { disableErrorMessage, errorMessage, updateErrorMessage } =
     useErrorsHooks();
   const { formatCPF, formatPhone } = maskInput();
@@ -143,24 +143,24 @@ export default function FinishProfileForm() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (checkMinAndMaxLengthName(perfilData.name)) return;
-    if (validateCPF(perfilData.document)) return;
-    if (validatePhone(perfilData.phone)) return;
-    if (validateLocation(perfilData.address)) return;
-    if (checkMinAndMaxLengthAbout(perfilData.description)) return;
-    if (checkMinAndMaxSelectSkils(perfilData.skills)) return;
-    if (checkBoxTrue(perfilData.terms)) return;
+    if (checkMinAndMaxLengthName(perfil.name)) return;
+    if (validateCPF(perfil.document)) return;
+    if (validatePhone(perfil.phone)) return;
+    if (validateLocation(perfil.address)) return;
+    if (checkMinAndMaxLengthAbout(perfil.description)) return;
+    if (checkMinAndMaxSelectSkils(perfil.skills)) return;
+    if (checkBoxTrue(perfil.terms)) return;
     disableErrorMessage();
-    console.log(perfilData);
+    console.log(perfil);
 
     let response = await UserProfileService.create(
-      perfilData.name,
-      perfilData.document,
-      perfilData.phone,
-      perfilData.address,
+      perfil.name,
+      perfil.document,
+      perfil.phone,
+      perfil.address,
       "34324233",
-      perfilData.description,
-      perfilData.skills.map((item) => item.value)
+      perfil.description,
+      perfil.skills.map((item) => item.value)
     );
 
     if (response.status >= 400) {
@@ -189,7 +189,7 @@ export default function FinishProfileForm() {
         placeholder={"Roberto Claudio da Silva"}
         error={errorMessage?.title == "name" ? errorMessage.message : null}
         onChange={(e) =>
-          updateHookDataUnitValue({
+          updateDataUnitValue({
             field: "name",
             value: e,
           })
@@ -202,10 +202,10 @@ export default function FinishProfileForm() {
         required={true}
         placeholder={"000.000.000-00"}
         error={errorMessage?.title == "cpf" ? errorMessage.message : null}
-        value={formatCPF(perfilData.document)}
+        value={formatCPF(perfil.document)}
         onChange={(e) =>
           e.length <= 14
-            ? updateHookDataUnitValue({ field: "document", value: e })
+            ? updateDataUnitValue({ field: "document", value: e })
             : null
         }
       />
@@ -216,10 +216,10 @@ export default function FinishProfileForm() {
         required={true}
         placeholder={"(00) 0 0000-0000"}
         error={errorMessage?.title == "phone" ? errorMessage.message : null}
-        value={formatPhone(perfilData.phone)}
+        value={formatPhone(perfil.phone)}
         onChange={(e) =>
           e.length <= 15
-            ? updateHookDataUnitValue({ field: "phone", value: e })
+            ? updateDataUnitValue({ field: "phone", value: e })
             : null
         }
       />
@@ -231,7 +231,7 @@ export default function FinishProfileForm() {
         options={listEstados}
         error={errorMessage?.title == "location" ? errorMessage.message : null}
         onChange={(e) =>
-          updateHookDataUnitValue({
+          updateDataUnitValue({
             field: "address",
             value: e,
           })
@@ -245,7 +245,7 @@ export default function FinishProfileForm() {
         placeholder={"Escreva aqui..."}
         error={errorMessage?.title == "about" ? errorMessage.message : null}
         onChange={(e) =>
-          updateHookDataUnitValue({
+          updateDataUnitValue({
             field: "description",
             value: e,
           })
@@ -255,10 +255,10 @@ export default function FinishProfileForm() {
       <SelectMultiGrouped
         label={"Habilidades"}
         options={optionsHabilidades}
-        value={perfilData.requisitos}
+        value={perfil.requisitos}
         error={errorMessage?.title == "skills" ? errorMessage.message : null}
         onChange={(e) =>
-          updateHookDataUnitValue({
+          updateDataUnitValue({
             field: "skills",
             value: e,
           })
@@ -271,11 +271,11 @@ export default function FinishProfileForm() {
           type="checkbox"
           name=""
           id="input_checkbox"
-          value={perfilData.terms}
+          value={perfil.terms}
           onClick={() => {
-            updateHookDataUnitValue({
+            updateDataUnitValue({
               field: "terms",
-              value: !perfilData.terms,
+              value: !perfil.terms,
             });
           }}
         />
