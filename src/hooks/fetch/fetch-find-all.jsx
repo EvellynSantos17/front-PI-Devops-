@@ -25,7 +25,7 @@ export default function FetchFindAll({ serviceName, query, onDataFetched }) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [query]);
 
   return null;
 }
