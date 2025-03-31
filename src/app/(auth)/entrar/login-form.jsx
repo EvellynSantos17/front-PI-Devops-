@@ -25,7 +25,7 @@ export default function LoginForm() {
     }
 
     function validatePassword(password) {
-        if (password.length < 8) {
+        if (password.length < 1) {
             updateErrorMessage({
                 title: "password",
                 message: "a senha deve conter pelo menos 8 caracteres"
