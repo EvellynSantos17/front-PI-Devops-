@@ -176,7 +176,7 @@ export default function FinishProfileForm() {
     } else {
       let token = response.headers.get("Authorization");
       BaseService.setToken(token);
-      router.push("/perfil");
+      router.push("/");
     }
   }
 

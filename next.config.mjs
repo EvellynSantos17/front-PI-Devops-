@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   devIndicators: false,
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
 
   async rewrites() {
     return [

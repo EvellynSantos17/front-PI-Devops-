@@ -25,7 +25,6 @@ export default function Page() {
     return router.push("/finalizar-perfil");
   }
   const { perfil, updateDataUnitValue, updatePerfil } = usePerfil();
-  console.log(perfil)
 
   const [profileImage, setProfileImage] = useState("/images/perfil.png");
 
