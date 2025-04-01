@@ -7,8 +7,8 @@ export default class ListingService extends BaseService {
     query = this.parseDictToQuery(query);
 
     let response = await this.requestGet(query, {
-      ...this.getHeaders(),
-    });
+      // ...this.getHeaders(),
+        });
     return response;
   }
 

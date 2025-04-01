@@ -1,3 +1,4 @@
+
 import RegisterForm from "./register-form";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,15 +27,3 @@ export default function Page() {
         </section>
     );
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -13,7 +13,7 @@ export default function CardService ({
     const inconTimeColor = orange? "/icons/TimeCircle.svg":"/icons/TimeCircleBlack.svg"
     return(
 
-        <div className={`p-2 rounded-xl border  flex gap-2 items-center shadow-md ${orange == false? "border-[#686868]" : "border-laranjaProdunfo"}`}>
+        <div className={`p-2 rounded-xl border bg-white min-w-[400px] h-fit flex gap-2 items-center shadow-md ${orange == false? "border-[#686868]" : "border-laranjaProdunfo"}`}>
             <Image src={iconColor} alt="workflowOrange" width={101} height={139} />
 
             <div className="flex flex-col w-full">

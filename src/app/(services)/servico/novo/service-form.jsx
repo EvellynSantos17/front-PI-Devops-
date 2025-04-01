@@ -6,26 +6,14 @@ import tipos_contratos from "@/data/tipos-contratos.json"
 import estados from "@/data/estados.json"
 import habilidades from "@/data/habilidades.json"
 import { TextArea } from "@/components/ui/text-area";
-import {UseServiceHook} from "@/hooks/services-hook"
 import { useRouter } from "next/navigation";
 import { useErrorsHooks } from "@/hooks/error-message-hook";
+import { UseService } from "@/hooks/use-services";
 
 export default function ServiceForm(){
   const router = useRouter();
-  const {serviceData, updateServiceDateUnitValue} = UseServiceHook();
+  const {service, updateOneValueServico} = UseService();
   const {disableErrorMessage, errorMessage, updateErrorMessage} = useErrorsHooks();
-
-  function isEmpty({value, fild}){
-    const empty = value === undefined || value === null || (typeof value === "string" && value.trim() === "") || value == ""
-    if(empty){
-      updateErrorMessage({
-        title: fild,
-        message: `Por favor, Preencha o campo corretamente`
-      })
-      return true
-    }
-    return false
-  }
 
   function validationDate(date){
     const correntDay = new Date()
@@ -113,39 +101,32 @@ export default function ServiceForm(){
     return false
   }
   
-  function handleSubmit(event){
+  async function handleSubmit(event){
     event.preventDefault();
     
-    if(isEmpty({fild: 'titulo', value: serviceData.titulo})) return
-    if(checkMinAndMaxTitleLength({value: serviceData.titulo})) return 
-    if(isEmpty({fild: 'tipo', value: serviceData.tipo})) return
-    if(isEmpty({fild: 'dt_limite', value: serviceData.dt_limite})) return
-    if(validationDate(serviceData.dt_limite)) return
-    if(isEmpty({fild: 'valor', value: serviceData.valor})) return
-    if(isEmpty({fild: 'localizacao', value: serviceData.localizacao})) return
-    if(isEmpty({fild: 'descricao', value:serviceData.descricao })) return
-    if(isEmpty({fild: 'requisitos', value: serviceData.requisitos})) return
+
+    if(checkMinAndMaxTitleLength({value: service.titulo})) return 
+    if(validationDate(service.dt_limite)) return
+    if(checkMinAndMaxTextAreaLength({value:service.descricao })) return
+    if(checkMinAndMaxSelectSkils({value: service.requisitos})) return
     
-    
-    if(checkMinAndMaxTextAreaLength({value:serviceData.descricao })) return
-    if(checkMinAndMaxSelectSkils({value: serviceData.requisitos})) return
-    
-    if(checkBoxTrue({ value: serviceData.termos})) return
+    if(checkBoxTrue({ value: service.termos})) return
 
     disableErrorMessage()
 
-    console.log(serviceData)
+    console.log(service)
   }
 
 return (
   <form onSubmit={(e) => handleSubmit(e)} className="w-full">
     <InputField
       name={"titulo"}
+      required={true}
       placeholder={"Desenvolvimento de um Website E-commerce"}
       label={"Título da vaga"}
       error={errorMessage?.title == 'titulo' ? errorMessage.message : null}
       inputStyle="form"
-      onChange={(e) => updateServiceDateUnitValue({
+      onChange={(e) => updateOneValueServico({
         field: 'titulo',
         value:e
       })}
@@ -155,7 +136,7 @@ return (
       label={"Tipo de contratação"}
       options={tipos_contratos}
       error={errorMessage?.title == 'tipo' ? errorMessage.message : null}
-      onChange={(e) => updateServiceDateUnitValue({
+      onChange={(e) => updateOneValueServico({
         field:'tipo',
         value:e
       })}
@@ -163,25 +144,27 @@ return (
     <div className="flex items-center gap-4">
         <InputField
           name={"valor"}
+          required={true}
           type="number"
           placeholder={"R$ 500,00"}
           label={"Valor do serviço"}
           error={errorMessage?.title == 'valor' ? errorMessage.message : null}
           inputStyle="form"
-          value={serviceData.valor}
-          onChange={(e) => updateServiceDateUnitValue({
+          value={service.valor}
+          onChange={(e) => updateOneValueServico({
             field: 'valor',
             value: e
           })}
         />
         <InputField
           name={"Limite de candidatura"}
+          required={true}
           placeholder={"dd/mm/aaaa"}
           type="date"
           label={"Limite de candidatura"}
           error={errorMessage?.title == 'dt_limite' ? errorMessage.message : null}
           inputStyle="form"
-          onChange={(e) => updateServiceDateUnitValue({
+          onChange={(e) => updateOneValueServico({
             field: 'dt_limite',
             value:e
           })}
@@ -191,7 +174,7 @@ return (
       label={'Localização'}
       error={errorMessage?.title == 'localizacao' ? errorMessage.message : null}
       options={estados}
-      onChange={(e) => updateServiceDateUnitValue({
+      onChange={(e) => updateOneValueServico({
         field: 'localizacao',
         value: e
       })}
@@ -202,7 +185,7 @@ return (
       placeholder={'Descreva detalhadamente o projeto, seus objetivos e expectativas...'}
       error={errorMessage?.title == 'descricao' ? errorMessage.message : null}
       inputStyle="form"
-      onChange={(e) => updateServiceDateUnitValue({
+      onChange={(e) => updateOneValueServico({
         field: 'descricao',
         value: e
       })}
@@ -210,9 +193,9 @@ return (
     <SelectMultiGrouped 
         label={'Requisitos'}
         options={habilidades}
-        value={serviceData.requisitos}
+        value={service.requisitos}
         error={errorMessage?.title == 'requisitos' ? errorMessage.message : null}
-        onChange={(e) => updateServiceDateUnitValue({
+        onChange={(e) => updateOneValueServico({
           field:  'requisitos',
           value: e
         })}
@@ -223,11 +206,11 @@ return (
        type="checkbox" 
        name="" 
        id="input_checkbox" 
-       value={serviceData.termos}
+       value={service.termos}
        onChange={(e) => {
-        updateServiceDateUnitValue({
+        updateOneValueServico({
           field:'termos',
-          value: !serviceData.termos
+          value: !service.termos
          })
        }}
       />

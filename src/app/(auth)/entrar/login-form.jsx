@@ -1,4 +1,3 @@
-
 "use client"
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -26,7 +25,7 @@ export default function LoginForm() {
     }
 
     function validatePassword(password) {
-        if (password.length < 8) {
+        if (password.length < 1) {
             updateErrorMessage({
                 title: "password",
                 message: "a senha deve conter pelo menos 8 caracteres"
@@ -84,4 +83,3 @@ export default function LoginForm() {
         </form>
     )
 }
-
