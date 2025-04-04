@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { usePerfil } from "@/hooks/use-perfil";
 import FetchFindById from "@/hooks/fetch/fetch-find-by-id";
+import Link from "next/link";
 
 export default function Page() {
   if (typeof window == "undefined") {
@@ -25,9 +26,8 @@ export default function Page() {
     return router.push("/finalizar-perfil");
   }
 
-  
   const [profileImage, setProfileImage] = useState("/images/perfil.png");
-  
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -38,17 +38,17 @@ export default function Page() {
       reader.readAsDataURL(file);
     }
   };
-  
+
   const handleUserInfoChange = (field, newValue) => {
     updateDataUnitValue({
       field: field,
       value: newValue,
     });
   };
-  
+
   const { perfil, updateDataUnitValue, updatePerfil } = usePerfil();
-  const {updateListService, listService} = UseService();
-  const {listContracted, updateListContracted} = UseContracted();
+  const { updateListService, listService } = UseService();
+  const { listContracted, updateListContracted } = UseContracted();
 
   FetchFindById({
     id: info.accountId,
@@ -93,9 +93,7 @@ export default function Page() {
                 width={18}
                 height={16}
               />
-              <span>
-                Editar foto do perfil
-              </span>
+              <span>Editar foto do perfil</span>
             </div>
             <input
               id="imageUpload"
@@ -106,7 +104,7 @@ export default function Page() {
             />
 
             <div className="flex flex-col items-center justify-center">
-              <h1 className="font-bold text-2xl">
+              <h1 className="font-bold text-2xl whitespace-nowrap">
                 {perfil.name ? perfil.name : "carregando..."}
               </h1>
 
@@ -223,8 +221,7 @@ export default function Page() {
                 </p>
               </div>
               <div className="flex flex-col gap-4">
-                {listService.content.length > 0  &&
-                listService.content[0].id? (
+                {listService.content.length > 0 && listService.content[0].id ? (
                   listService.content.map((item, index) => {
                     return (
                       <CardService
@@ -243,6 +240,15 @@ export default function Page() {
                     <h1>Nenhum anúncio postado!</h1>
                   </div>
                 )}
+                {listService.content.length > 0 &&
+                  listService.content[0].id && (
+                    <Link
+                      className="border font-bold bg-[#F97316]  rounded-xl shadow-md p-2 text-center text-[#FFDCC3]"
+                      href={"servicos/contratados"}
+                    >
+                      Ver todos os contratos
+                    </Link>
+                  )}
               </div>
             </div>
           </section>
@@ -279,6 +285,15 @@ export default function Page() {
                     <h1>Nenhum serviço contratado!</h1>
                   </div>
                 )}
+                {listContracted.content.length > 0 &&
+                  listContracted.content[0].id && (
+                    <Link
+                      className="border font-bold bg-[#F97316] rounded-xl shadow-md p-2 text-center text-[#FFDCC3]"
+                      href={"servicos/contratados"}
+                    >
+                      Ver todos os contratos
+                    </Link>
+                  )}
               </div>
             </div>
           </section>
