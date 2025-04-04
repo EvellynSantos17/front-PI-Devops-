@@ -36,8 +36,7 @@ export default function page() {
       },
       onDataFetched: (value) => updateListService(value),
     });
-  
-  
+
   
     return (
       <Suspense fallback={<div>Carregando...</div>}>

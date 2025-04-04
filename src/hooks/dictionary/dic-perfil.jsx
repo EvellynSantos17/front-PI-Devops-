@@ -1,11 +1,11 @@
 export const DicPerfil = {
   id: null,
-  name: '',
-  document: '',
-  phone: '',
-  address: '',
-  description: '',
-  skills: [],
-  terms: false,
-  title: '',
-}
+  name: null,
+  phone: null,
+  address: null,
+  postalCode: null,
+  skills: null,
+  document: null,
+  description: null,
+  title: null
+};

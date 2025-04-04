@@ -131,16 +131,6 @@ return (
         value:e
       })}
     />
-    <SelectOne
-      name={"tipo"}
-      label={"Tipo de contratação"}
-      options={tipos_contratos}
-      error={errorMessage?.title == 'tipo' ? errorMessage.message : null}
-      onChange={(e) => updateOneValueServico({
-        field:'tipo',
-        value:e
-      })}
-    />
     <div className="flex items-center gap-4">
         <InputField
           name={"valor"}
@@ -154,19 +144,6 @@ return (
           onChange={(e) => updateOneValueServico({
             field: 'valor',
             value: e
-          })}
-        />
-        <InputField
-          name={"Limite de candidatura"}
-          required={true}
-          placeholder={"dd/mm/aaaa"}
-          type="date"
-          label={"Limite de candidatura"}
-          error={errorMessage?.title == 'dt_limite' ? errorMessage.message : null}
-          inputStyle="form"
-          onChange={(e) => updateOneValueServico({
-            field: 'dt_limite',
-            value:e
           })}
         />
     </div>

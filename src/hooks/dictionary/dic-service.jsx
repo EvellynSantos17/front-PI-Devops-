@@ -1,45 +1,50 @@
-import { DicContracted } from "./dic-contracted-";
 import { DicPage } from "./dic-page";
 
 export const DicService = {
   id: null,
   title: null,
-  // tipo: '' Esse campo do figma vai ser retirado!!
   price: null,
-  // dt_limite: '', Esse campo tbm vai ser retirado!!
-  creationDate: null,
+  description: null,
   location: null,
-  // skills: null,
-  description: null,
+  creationDate: null,
+  userProfile: {
+    id: null,
+    name: null,
+    description: null,
+    title: null
+  },
+  skills: null,
+  contractedListings: [
+    {
+      id: null,
+      status: null,
+      clientRequest: null,
+      startedAt: null,
+      finishedAt: null,
+      client: {
+        id: null,
+        name: null,
+        phone: null,
+        address: null,
+        postalCode: null,
+        skills: null,
+        document: null,
+        description: null,
+        title: null
+      },
+      evaluation: {
+        id: null,
+        comment: null,
+        stars: null,
+        contractedListingId: null
+      }
+    }
+  ]
 };
-
-export const DicServiceUserProfile = {
-  id: null,
-  name: null,
-  description: null,
-  title: null,
-};
-
-export const DicServiceDetailed = {
-  ...DicService,
-  userProfile: DicServiceUserProfile,
-  contracted: DicContracted
-}
-
 
 export const DicListingService = {
   content:[{
-    ...DicService,
-    userProfile: DicServiceUserProfile
-  }],
-  page: DicPage
-}
-
-export const DicListingProfileDetailed = {
-  content:[{
-    ...DicService,
-    userProfile: DicServiceDetailed,
-    contracted: DicContracted
+    ...DicService
 
   }],
   page: DicPage
