@@ -1,7 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import ContractedListingService from "@/services/contracted-listing-service";
 import FetchFindAll from "@/hooks/fetch/fetch-find-all";
 import { UseContracted } from "@/hooks/use-contracted";
 import BaseService from "@/services/base-service";
@@ -88,13 +87,13 @@ export default function Page() {
                       />
                       <div className="mt-1">
                         <h2 className="font-bold ">
-                          {"Lembrar de por anunciante"}
+                          {contractedListing.listing.userProfile.name}
                         </h2>
                         <span className="text-[#03000080]">Anunciante</span>
                       </div>
                     </div>
                     <h3 className="font-bold text-2xl flex mt-5">
-                      {"Aguardando Titulo"}
+                      {contractedListing.listing.title}
                     </h3>
                     <div className=" flex text-sl text-[#585858] gap-2">
                       <Image
@@ -140,7 +139,7 @@ export default function Page() {
                     <div>
                       <span className="text-[#03000080]">Valor total</span>
                       <h2 className="font-bold">
-                        {calculateTotals(contractedListing)}
+                        {calculateTotals(contractedListing.listing.price)}
                       </h2>
                     </div>
                   </div>
