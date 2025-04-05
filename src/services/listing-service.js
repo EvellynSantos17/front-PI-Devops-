@@ -19,9 +19,9 @@ export default class ListingService extends BaseService {
     return response;
   }
 
-  static async create(title, price, description) {
-    let data = { title, price, description };
-    let response = await this.requestPost("", data, {
+  static async create({title, price, description,location, skills}) {
+    let data = { title, price, description,location, skills };
+    let response = await this.requestPost("",data, {
       "Content-Type": "application/json",
       ...this.getHeaders(),
     });
