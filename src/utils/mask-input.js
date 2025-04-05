@@ -1,6 +1,7 @@
 export function maskInput() {
 
     function formatCPF(cpf) {
+      return cpf
         cpf = cpf.replace(/\D/g, "");
 
         if (cpf.length <= 3) {
@@ -15,6 +16,7 @@ export function maskInput() {
     }
 
     function formatPhone(phone) {
+      return phone
         phone = phone.replace(/\D/g, "");
 
         if (phone.length <= 2) {

@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { usePerfil } from "@/hooks/use-perfil";
 import FetchFindById from "@/hooks/fetch/fetch-find-by-id";
+import Link from "next/link";
 
 export default function Page() {
   if (typeof window == "undefined") {
@@ -24,7 +25,6 @@ export default function Page() {
   if (info.accountId == null) {
     return router.push("/finalizar-perfil");
   }
-  const { perfil, updateDataUnitValue, updatePerfil } = usePerfil();
 
   const [profileImage, setProfileImage] = useState("/images/perfil.png");
 
@@ -46,15 +46,9 @@ export default function Page() {
     });
   };
 
-  const { listService, updateListService } = UseService();
-  const {
-    updateListContracted,
-    listContracted,
-    listContractedDetailed,
-    updateListContractedDetailed,
-  } = UseContracted();
-
-  let ContractedDetailedDataLoad = [];
+  const { perfil, updateDataUnitValue, updatePerfil } = usePerfil();
+  const { updateListService, listService } = UseService();
+  const { listContracted, updateListContracted } = UseContracted();
 
   FetchFindById({
     id: info.accountId,
@@ -73,27 +67,6 @@ export default function Page() {
     query: { clientId: info.accountId },
     onDataFetched: (value) => updateListContracted(value),
   });
-
-  async function fetchLoad() {
-    await Promise.all(
-      listContracted.content.map(async (item) => {
-        if (!item.listingId) return;
-        const responser = await ListingService.findById(item.listingId);
-        const data = await responser.json();
-        ContractedDetailedDataLoad.push({ ...item, listingService: data });
-      })
-    );
-    if (ContractedDetailedDataLoad.length > 0) {
-      updateListContractedDetailed({
-        ...listContracted,
-        content: ContractedDetailedDataLoad,
-      });
-    }
-  }
-
-  useEffect(() => {
-    fetchLoad();
-  }, [listContracted]);
 
   return (
     <section className="bg-[#FFD6B9] px-10 py-2 h-full pb-32 overflow-auto flex flex-col gap-2 xl:px-10">
@@ -120,9 +93,7 @@ export default function Page() {
                 width={18}
                 height={16}
               />
-              <span>
-                Editar foto do perfil
-              </span>
+              <span>Editar foto do perfil</span>
             </div>
             <input
               id="imageUpload"
@@ -133,7 +104,7 @@ export default function Page() {
             />
 
             <div className="flex flex-col items-center justify-center">
-              <h1 className="font-bold text-2xl">
+              <h1 className="font-bold text-2xl whitespace-nowrap">
                 {perfil.name ? perfil.name : "carregando..."}
               </h1>
 
@@ -250,8 +221,7 @@ export default function Page() {
                 </p>
               </div>
               <div className="flex flex-col gap-4">
-                {listService.content.length > 0  &&
-                listService.content[0].id? (
+                {listService.content.length > 0 && listService.content[0].id ? (
                   listService.content.map((item, index) => {
                     return (
                       <CardService
@@ -270,6 +240,15 @@ export default function Page() {
                     <h1>Nenhum anúncio postado!</h1>
                   </div>
                 )}
+                {listService.content.length > 0 &&
+                  listService.content[0].id && (
+                    <Link
+                      className="border font-bold bg-[#F97316]  rounded-xl shadow-md p-2 text-center text-[#FFDCC3]"
+                      href={"servicos/contratados"}
+                    >
+                      Ver todos os contratos
+                    </Link>
+                  )}
               </div>
             </div>
           </section>
@@ -286,9 +265,9 @@ export default function Page() {
                 </p>
               </div>
               <div className="flex flex-col gap-4">
-                {listContractedDetailed.content.length > 0 &&
-                listContractedDetailed.content[0].id ? (
-                  listContractedDetailed.content.map((item, index) => {
+                {listContracted.content.length > 0 &&
+                listContracted.content[0].id ? (
+                  listContracted.content.map((item, index) => {
                     return (
                       <CardService
                         key={index}
@@ -306,6 +285,15 @@ export default function Page() {
                     <h1>Nenhum serviço contratado!</h1>
                   </div>
                 )}
+                {listContracted.content.length > 0 &&
+                  listContracted.content[0].id && (
+                    <Link
+                      className="border font-bold bg-[#F97316] rounded-xl shadow-md p-2 text-center text-[#FFDCC3]"
+                      href={"servicos/contratados"}
+                    >
+                      Ver todos os contratos
+                    </Link>
+                  )}
               </div>
             </div>
           </section>

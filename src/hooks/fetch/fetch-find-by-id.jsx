@@ -13,6 +13,7 @@ export default function FetchFindById({ serviceName, id, onDataFetched }) {
   async function fetchData() {
     try {
       const responseFetch = await service[serviceName].findById(id);
+      console.log(responseFetch)
       const data = await responseFetch.json();
       if (onDataFetched) {
         onDataFetched(data);

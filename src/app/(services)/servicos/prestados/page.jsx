@@ -65,10 +65,10 @@ export default function Page() {
           height={182}
         />
         <h1 className="flex flex-col items-center justify-center font-bold text-[40px] ">
-          Serviços Contratados
+          Serviços Prestados
         </h1>
         <span className="flex flex-col items-center justify-center text-base text-[#757575]">
-          Gerencie seus serviços e acompanhe o status de cada contratação
+          Gerencie seus serviços que você está prestando
         </span>
 
         {listContracted.content.map((contractedListing, index) => {
@@ -87,13 +87,13 @@ export default function Page() {
                       />
                       <div className="mt-1">
                         <h2 className="font-bold ">
-                          {contractedListing.listing.userProfile.name}
+                          {"Lembrar de por Contratante"}
                         </h2>
-                        <span className="text-[#03000080]">Anunciante</span>
+                        <span className="text-[#03000080]">Contratante</span>
                       </div>
                     </div>
                     <h3 className="font-bold text-2xl flex mt-5">
-                      {contractedListing.listing.title}
+                      {"Aguardando Titulo"}
                     </h3>
                     <div className=" flex text-sl text-[#585858] gap-2">
                       <Image
@@ -139,7 +139,7 @@ export default function Page() {
                     <div>
                       <span className="text-[#03000080]">Valor total</span>
                       <h2 className="font-bold">
-                        {calculateTotals(contractedListing.listing.price)}
+                        {calculateTotals(contractedListing)}
                       </h2>
                     </div>
                   </div>
