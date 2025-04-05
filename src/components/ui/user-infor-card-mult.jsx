@@ -8,7 +8,7 @@ export default function UserInforCardMult({
     title,
     value,
     onChange,
-    isOwner
+    isOwner = false
 }) {
     const [isEditing, setIsEditing] = useState(false)
     const [values, setValues] = useState(value)
@@ -21,7 +21,7 @@ export default function UserInforCardMult({
     }
 
     const handleSelectMultiGrouped = (e) => {
-        setValues(e) 
+        onChange(e) 
     }
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export default function UserInforCardMult({
           <h3 className="text-[#32292F8F]">{title}</h3>
 
           <ul className="flex gap-2 flex-wrap">
-            {!isEditing &&
+            {!isOwner &&
               values.map((item, index) => (
                 <li
                   key={index}
@@ -45,7 +45,7 @@ export default function UserInforCardMult({
               ))}
           </ul>
 
-          {isEditing && (
+          {isOwner && (
             <SelectMultiGrouped
               error={null}
               options={optionsHabilidades}
@@ -55,16 +55,7 @@ export default function UserInforCardMult({
           )}
         </div>
 
-        {isOwner && (
-          <button onClick={() => setIsEditing(!isEditing)}>
-            <Image
-              alt={isEditing ? "check" : "edit"}
-              src={isEditing ? "/icons/check.svg" : "/icons/edit (2).svg"}
-              width={29}
-              height={26}
-            />
-          </button>
-        )}
+        
       </div>
     );  
 }

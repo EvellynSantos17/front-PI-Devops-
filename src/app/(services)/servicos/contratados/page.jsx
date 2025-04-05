@@ -103,7 +103,7 @@ export default function Page() {
                         height={17.17}
                         width={18.81}
                       />
-                      ID do anúncio: {contractedListing.listingId}
+                      ID do anúncio: {contractedListing.listing.id}
                       <ul className="list-disc pl-4">
                         <li>ID do serviço: {contractedListing.id}</li>
                       </ul>

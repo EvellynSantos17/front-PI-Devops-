@@ -16,9 +16,10 @@ export default function Page() {
   const { listContracted, updateListContracted } = UseContracted();
   const token = BaseService.getToken();
   let info = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+
   FetchFindAll({
     serviceName: "ContractedListingService",
-    query: { page: page == null ? 0 : page, clientId: info.accountId },
+    query: { page: page == null ? 0 : page, profileId: info.accountId },
     onDataFetched: (value) => updateListContracted(value),
   });
 
@@ -65,10 +66,10 @@ export default function Page() {
           height={182}
         />
         <h1 className="flex flex-col items-center justify-center font-bold text-[40px] ">
-          Serviços Prestados
+          Serviços Contratados
         </h1>
         <span className="flex flex-col items-center justify-center text-base text-[#757575]">
-          Gerencie seus serviços que você está prestando
+          Gerencie seus serviços e acompanhe o status de cada contratação
         </span>
 
         {listContracted.content.map((contractedListing, index) => {
@@ -87,13 +88,13 @@ export default function Page() {
                       />
                       <div className="mt-1">
                         <h2 className="font-bold ">
-                          {"Lembrar de por Contratante"}
+                          {contractedListing.listing.userProfile.name}
                         </h2>
-                        <span className="text-[#03000080]">Contratante</span>
+                        <span className="text-[#03000080]">Anunciante</span>
                       </div>
                     </div>
                     <h3 className="font-bold text-2xl flex mt-5">
-                      {"Aguardando Titulo"}
+                      {contractedListing.listing.title}
                     </h3>
                     <div className=" flex text-sl text-[#585858] gap-2">
                       <Image
@@ -103,7 +104,7 @@ export default function Page() {
                         height={17.17}
                         width={18.81}
                       />
-                      ID do anúncio: {contractedListing.listingId}
+                      ID do anúncio: {contractedListing.listing.id}
                       <ul className="list-disc pl-4">
                         <li>ID do serviço: {contractedListing.id}</li>
                       </ul>
@@ -139,7 +140,7 @@ export default function Page() {
                     <div>
                       <span className="text-[#03000080]">Valor total</span>
                       <h2 className="font-bold">
-                        {calculateTotals(contractedListing)}
+                        {calculateTotals(contractedListing.listing.price)}
                       </h2>
                     </div>
                   </div>
