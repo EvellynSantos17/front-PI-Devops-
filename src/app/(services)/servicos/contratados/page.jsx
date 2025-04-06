@@ -7,10 +7,11 @@ import BaseService from "@/services/base-service";
 import StatusComponent from "@/components/ui/contrato-card";
 
 export default function Page() {
-  if (typeof window == "undefined") {
-    return;
-  }
+
   try {
+    if (typeof window == "undefined") {
+      return;
+    }
     const searchParams = useSearchParams();
     const page = searchParams.get("page");
   

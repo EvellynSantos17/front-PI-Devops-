@@ -4,9 +4,7 @@ import Link from "next/link";
 
 
 export default function page(){
-  if (typeof window == "undefined") {
-    return;
-  }
+
   return(
     <section className="w-full bg-bege p-10 flex flex-col gap-3">
       <div className="flex flex-col gap-2 w-full px-28 py-10 bg-white rounded-2xl">

@@ -82,7 +82,7 @@ export default function Header() {
         <li>
           <Link
             className="hover:bg-laranjaProdunfo px-2 py-1 rounded-2xl hover:text-white"
-            href="/servicos?page=0"
+            href="/servicos?title=&page=0"
           >
             VER OPORTUNIDADES
           </Link>

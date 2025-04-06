@@ -2,7 +2,11 @@ export default class BaseService {
   static API_URL = "/api";
 
   static getToken() {
-    return localStorage.getItem("token");
+    try {
+      return localStorage.getItem("token");
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   static setToken(token) {

@@ -3,9 +3,9 @@ import Image from "next/image";
 import ServiceForm from "./service-form";
 
 export default function page(){
-  if (typeof window == "undefined") {
-    return;
-  }
+  // if (typeof window == "undefined") {
+  //   return;
+  // }
     return (
       <section className="flex flex-col pt-10 bg-bege items-center justify-center">
         <div className="w-full max-w-[1168px] bg-white px-8 pt-5 pb-10 rounded-t-2xl flex items-center justify-center flex-col">

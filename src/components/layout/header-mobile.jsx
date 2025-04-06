@@ -7,6 +7,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function HeaderMobile() {
+  if (typeof window == "undefined") {
+    return;
+  }
   const [openMenu, setOpenMenu] = useState(false);
   const [openMenuSearch, setOpenMenuSearch] = useState(false);
   const router = useRouter();
@@ -110,7 +113,7 @@ export default function HeaderMobile() {
         </Link>
         <Link
           className="p-2 w-fit rounded-full hover:bg-laranjaProdunfo hover:text-white"
-          href={"/servicos?page=0"}
+          href={"/servicos?title=&page=0"}
         >
           VER OPORTUNIDADES
         </Link>
