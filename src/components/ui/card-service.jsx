@@ -1,6 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function CardService ({
+    id = 0,
     title,
     location,
     type,
@@ -11,9 +13,10 @@ export default function CardService ({
 }){
     const iconColor = orange ? "/icons/workflowOrange.svg":"/icons/workflowBlack.svg" 
     const inconTimeColor = orange? "/icons/TimeCircle.svg":"/icons/TimeCircleBlack.svg"
+    const url = `servico/${id}`
     return(
 
-        <div className={`p-2 rounded-xl border bg-white min-w-[400px] h-fit flex gap-2 items-center shadow-md ${orange == false? "border-[#686868]" : "border-laranjaProdunfo"}`}>
+        <Link href={url} className={`p-2 rounded-xl border bg-white min-w-[400px] h-fit flex gap-2 items-center shadow-md ${orange == false? "border-[#686868]" : "border-laranjaProdunfo"}`}>
             <Image src={iconColor} alt="workflowOrange" width={101} height={139} />
 
             <div className="flex flex-col w-full">
@@ -59,7 +62,7 @@ export default function CardService ({
                 }
                                 
             </div>
-        </div>
+        </Link>
 
     )
 }

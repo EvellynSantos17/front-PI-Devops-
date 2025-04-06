@@ -92,13 +92,13 @@ export default function Page() {
 
   FetchFindAll({
     serviceName: "ListingService",
-    query: { accountId: info.accountId },
+    query: { accountId: info.accountId,size: 3 },
     onDataFetched: (value) => updateListService(value),
   });
 
   FetchFindAll({
     serviceName: "ContractedListingService",
-    query: { clientId: info.accountId },
+    query: { clientId: info.accountId,size: 3 },
     onDataFetched: (value) => updateListContracted(value),
   });
 

@@ -1,4 +1,4 @@
-import Footer from "@/components/layout/footer";
+
 import Image from "next/image";
 import FinishProfileForm from "./finish-profile-form";
 

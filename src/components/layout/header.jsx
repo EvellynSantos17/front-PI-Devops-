@@ -3,7 +3,7 @@ import FetchFindById from "@/hooks/fetch/fetch-find-by-id";
 import BaseService from "@/services/base-service";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Header() {
@@ -14,6 +14,9 @@ export default function Header() {
   const router = useRouter();
   const [userAuth, setUserAuth] = useState(false);
   const [userName, setUserName] = useState("Zeca urubu");
+  const pathname = usePathname();
+
+  const isOnServicos = pathname === '/servicos';
 
   const info = BaseService.getTokenInfo();
   if (info && info.accountId) {
@@ -40,12 +43,13 @@ export default function Header() {
   return (
     <header
       onSubmit={handleSubmit}
-      className="flex items-center justify-between p-4 bg-white shadow-md top-0 left-0 sticky z-50"
+      className="hidden items-center justify-between p-4 bg-white shadow-md top-0 left-0 sticky z-50  lg:flex"
     >
       <div className="flex items-center gap-2">
         <Link href={"/"}>
           <Image src="/images/logo.svg" alt="logo" width={50} height={60} />
         </Link>
+        {!isOnServicos && (
         <form
           onSubmit={handleSubmit}
           className="flex items-center gap-2 bg-gray-100 rounded-full px-4 py-2 w-fix"
@@ -64,12 +68,21 @@ export default function Header() {
             height={20}
           />
         </form>
+        )}
       </div>
       <ul className="flex items-center gap-4">
+      <li>
+          <Link
+            className="hover:bg-laranjaProdunfo px-2 py-1 rounded-2xl hover:text-white"
+            href="/"
+          >
+            INÍCIO
+          </Link>
+        </li>
         <li>
           <Link
             className="hover:bg-laranjaProdunfo px-2 py-1 rounded-2xl hover:text-white"
-            href="/ver-oportunidades"
+            href="/servicos?title=&page=0"
           >
             VER OPORTUNIDADES
           </Link>
