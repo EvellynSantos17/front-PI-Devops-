@@ -97,7 +97,7 @@ export default function HeaderMobile() {
         {!userAuth && (
           <Link
             className="p-2 w-fit rounded-full bg-zinc-500 text-white"
-            href={"/cadastrar"}
+            href={"/cadastro"}
           >
             Cadastrar
           </Link>

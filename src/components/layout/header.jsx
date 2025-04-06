@@ -71,6 +71,14 @@ export default function Header() {
         )}
       </div>
       <ul className="flex items-center gap-4">
+      <li>
+          <Link
+            className="hover:bg-laranjaProdunfo px-2 py-1 rounded-2xl hover:text-white"
+            href="/"
+          >
+            INÍCIO
+          </Link>
+        </li>
         <li>
           <Link
             className="hover:bg-laranjaProdunfo px-2 py-1 rounded-2xl hover:text-white"

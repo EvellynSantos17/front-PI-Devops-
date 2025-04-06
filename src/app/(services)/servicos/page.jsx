@@ -8,6 +8,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
 export default function page() {
+  if (typeof window == "undefined") {
+    return;
+  }
   try {
     const params = useSearchParams();
     const page = params.get("page");
@@ -27,6 +30,7 @@ export default function page() {
       query: {
         page: page ? page : 0,
         size: 10,
+        sortBy:'creationDate',
         title: title ? title : "",
       },
       onDataFetched: (value) => updateListService(value),
