@@ -1,6 +1,7 @@
 import '../globals.css'
 import Footer from "@/components/layout/footer"
 import Header from "@/components/layout/header"
+import HeaderMobile from '@/components/layout/header-mobile'
 
 export const metadata = {
   title: 'Next.js',
@@ -11,6 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <>
       <Header/>
+      <HeaderMobile/>
       {children}
       <Footer/>
     </>

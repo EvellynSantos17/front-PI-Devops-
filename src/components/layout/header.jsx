@@ -43,7 +43,7 @@ export default function Header() {
   return (
     <header
       onSubmit={handleSubmit}
-      className="flex items-center justify-between p-4 bg-white shadow-md top-0 left-0 sticky z-50"
+      className="hidden items-center justify-between p-4 bg-white shadow-md top-0 left-0 sticky z-50  lg:flex"
     >
       <div className="flex items-center gap-2">
         <Link href={"/"}>
@@ -74,7 +74,7 @@ export default function Header() {
         <li>
           <Link
             className="hover:bg-laranjaProdunfo px-2 py-1 rounded-2xl hover:text-white"
-            href="/ver-oportunidades"
+            href="/servicos?page=0"
           >
             VER OPORTUNIDADES
           </Link>
