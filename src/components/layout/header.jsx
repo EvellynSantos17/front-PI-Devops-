@@ -3,7 +3,7 @@ import FetchFindById from "@/hooks/fetch/fetch-find-by-id";
 import BaseService from "@/services/base-service";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Header() {
@@ -13,7 +13,10 @@ export default function Header() {
 
   const router = useRouter();
   const [userAuth, setUserAuth] = useState(false);
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState("Zeca urubu");
+  const pathname = usePathname();
+
+  const isOnServicos = pathname === '/servicos';
 
   const info = BaseService.getTokenInfo();
   if (info && info.accountId) {
@@ -46,6 +49,7 @@ export default function Header() {
         <Link href={"/"}>
           <Image src="/images/logo.svg" alt="logo" width={50} height={60} />
         </Link>
+        {!isOnServicos && (
         <form
           onSubmit={handleSubmit}
           className="flex items-center gap-2 bg-gray-100 rounded-full px-4 py-2 w-fix"
@@ -64,6 +68,7 @@ export default function Header() {
             height={20}
           />
         </form>
+        )}
       </div>
       <ul className="flex items-center gap-4">
         <li>
