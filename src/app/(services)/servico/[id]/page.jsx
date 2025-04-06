@@ -1,21 +1,85 @@
-
+'use client'
 import Stars from "@/components/ui/stars";
 import { TextArea } from "@/components/ui/text-area";
+import { UseService } from "@/hooks/use-services";
+import BaseService from "@/services/base-service";
+import ContractedListingService from "@/services/contracted-listing-service";
+import ListingService from "@/services/listing-service";
 import Image from "next/image";
-import {use} from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import {use, useEffect, useState} from "react";
 
 
 export default function ProdutoPage({ params }) {
-  const  id  = use(params)
+  if (typeof window == "undefined") {
+    return;
+  }
+  const  {id}  = use(params)
 
-  console.log(id);
+  const [message, setMessage] = useState('')
+  const [isLoading, setLoading] = useState(true)
+
+  const router = useRouter();
+
+  const {service, updateService,} = UseService()
+
+  const userInfo = BaseService.getTokenInfo()
+
+  const matchId = userInfo.accountId == service.userProfile.id ? true : false
+
+  async function fetch(){
+    const response = await ListingService.findById(id)
+    if(response.status != 200) {
+      router.back()
+    }
+    const data = await response.json()
+    updateService(data)
+  }
+
+  useEffect(() => {
+    fetch()
+    setLoading(false)
+  },[id, isLoading])
+
+  if(isLoading){
+    return(
+      <div>
+        <h1>
+          Carregando
+        </h1>
+      </div>
+    )
+  }
+
+  async function handleSubmit(){
+
+    const response = await ContractedListingService.create(
+      message,
+      new Date(),
+      null,
+      service.id
+    );
+    router.push('/servicos/contratados')
+  }
 
   return (
     <section className="flex flex-col pt-10 bg-bege items-center justify-center">
       <div className="w-full max-w-[1168px] bg-white px-8 pt-5 pb-10 rounded-t-3xl flex items-center justify-center flex-col">
-        <header className="h-[65px] w-full bg-gradient-to-r from-laranjaProdunfo to-orange-300 flex items-center rounded-full"></header>
+        <div className=" w-full bg-gradient-to-r from-laranjaProdunfo h-fit p-2 to-orange-300 flex items-center rounded-full justify-between">
+          <button className="w-fit h-fit" onClick={() => router.back()}>
+            <Image className="p-2 rounded-full bg-white hover:bg-zinc-100 " alt="" src={'/icons/_-.png'} width={45} height={45} />
+          </button>
+          {
+            matchId ? (
+              <button className="px-4 py-2 font-bold bg-white hover:bg-zinc-100 text-laranjaProdunfo rounded-full ">
+                Editar
+              </button>
+            ): null
+          }
+        </div>
         <h1 className="text-[40px] pb-1 border-b w-full text-center">
-          Criação de publicações para redes sociais
+          {service.title}
         </h1>
         <div className="flex flex-col gap-1 py-2">
           <p className="border-b font-semibold text-xl text-laranjaProdunfo w-fit border-laranjaProdunfo">
@@ -47,7 +111,7 @@ export default function ProdutoPage({ params }) {
             <h3 className="text-lg font-semibold border-b border-laranjaProdunfo text-laranjaProdunfo w-fit">
               Quem está oferecendo
             </h3>
-            <div className="flex gap-1 items-center p-1 max-w-[300px] w-full border border-laranjaProdunfo rounded-full ">
+            <Link href={'/profissional/1'} className="flex gap-1 items-center p-1 max-w-[300px] w-full border border-laranjaProdunfo rounded-full ">
               <Image
                 className="rounded-full"
                 alt="perfil"
@@ -56,10 +120,10 @@ export default function ProdutoPage({ params }) {
                 height={40}
               />
               <div className="pr-10 flex flex-col">
-                <strong>Maria Laura Silva</strong>
-                <p className="text-zinc-400 text-sm ">Publicicade criativa</p>
+                <strong>{service.userProfile.name}</strong>
+                <p className="text-zinc-400 text-sm ">{service.userProfile.title}</p>
               </div>
-            </div>
+            </Link>
           </div>
           <div className=" flex flex-col gap-2">
             <h3 className="text-lg font-semibold border-b border-laranjaProdunfo text-laranjaProdunfo w-fit">
@@ -74,26 +138,7 @@ export default function ProdutoPage({ params }) {
                 height={40}
               />
               <div className="pr-10 flex flex-col">
-                <strong>Maria Laura Silva</strong>
-                <p className="text-zinc-400 text-sm ">Publicicade criativa</p>
-              </div>
-            </div>
-          </div>
-          <div className=" flex flex-col gap-2">
-            <h3 className="text-lg font-semibold border-b border-laranjaProdunfo text-laranjaProdunfo w-fit">
-              Status do serviço
-            </h3>
-            <div className="flex gap-1 items-center p-1 max-w-[300px] w-full border border-laranjaProdunfo rounded-full ">
-              <Image
-                className="rounded-full"
-                alt="perfil"
-                src={"/icons/Subtract.png"}
-                width={40}
-                height={40}
-              />
-              <div className="pr-10 flex flex-col">
-                <strong>Maria Laura Silva</strong>
-                <p className="text-zinc-400 text-sm ">Publicicade criativa</p>
+                <strong>{service.location}</strong>
               </div>
             </div>
           </div>
@@ -127,10 +172,11 @@ export default function ProdutoPage({ params }) {
           <TextArea
             error={null}
             name={"message"}
+            onChange={(e) => setMessage(e)}
             placeholder={"Escreva aqui"}
             inputStyle="form"
           />
-          <button className="bg-laranjaProdunfo hover:bg-opacity-85 w-full flex gap-2 py-2 text-xl items-center text-white justify-center font-bold rounded-xl">
+          <button onClick={handleSubmit} disabled={matchId? true : false} className={`${matchId ? 'bg-zinc-500 cursor-not-allowed' : 'bg-laranjaProdunfo hover:bg-opacity-85 '}  w-full flex gap-2 py-2 text-xl items-center text-white justify-center font-bold rounded-xl`}>
             <Image
               alt="perfil"
               src={"/icons/omeee(nao_apaga_estou_usando_ari).png"}
