@@ -298,9 +298,10 @@ export default function Page() {
                     return (
                       <CardService
                         key={index}
-                        created_at={"Postado há 2 dias"}
-                        location={"Crato, CE"}
-                        title={"Landing Page"}
+                        id={item.id}
+                        created_at={item.creationDate}
+                        location={item.location}
+                        title={item.title}
                         type={"Freelancer"}
                         has_button
                         orange
@@ -316,7 +317,7 @@ export default function Page() {
                   listService.content[0].id && (
                     <Link
                       className="border font-bold bg-[#F97316]  rounded-xl shadow-md p-2 text-center text-[#FFDCC3]"
-                      href={"servicos/contratados"}
+                      href={"servicos/prestados"}
                     >
                       Ver todos os contratos
                     </Link>
@@ -343,11 +344,12 @@ export default function Page() {
                     return (
                       <CardService
                         key={index}
-                        created_at={"Postado há 2 dias"}
-                        location={"Crato, CE"}
-                        title={"Landing Page"}
+                        id={item.listing.id}
+                        created_at={item.listing.creationDate}
+                        location={item.listing.location}
+                        title={item.listing.title}
                         type={"Freelancer"}
-                        has_button
+                        has_button={false}
                         orange={false}
                       />
                     );
