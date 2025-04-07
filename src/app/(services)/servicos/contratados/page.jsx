@@ -1,10 +1,13 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import FetchFindAll from "@/hooks/fetch/fetch-find-all";
 import { UseContracted } from "@/hooks/use-contracted";
 import BaseService from "@/services/base-service";
 import StatusComponent from "@/components/ui/contrato-card";
+import ContractedListingService from "@/services/contracted-listing-service";
+import Link from "next/link";
 
 export default function Page() {
   if (typeof window == "undefined") {
@@ -16,39 +19,32 @@ export default function Page() {
   const { listContracted, updateListContracted } = UseContracted();
   const token = BaseService.getToken();
   let info = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+
   FetchFindAll({
     serviceName: "ContractedListingService",
     query: { page: page == null ? 0 : page, clientId: info.accountId },
     onDataFetched: (value) => updateListContracted(value),
   });
 
-  function parseDate(dateString) {
-    return new Date(dateString).toLocaleDateString("pt-BR");
-  }
-
-  function calculateTotals(contractedListing) {
-    try {
-      let startedAt = new Date(contractedListing.startedAt);
-
-      let finishedAt = new Date(contractedListing.finishedAt);
-      let difference = finishedAt.getTime() - startedAt.getTime();
-      let days = Math.round(difference / (1000 * 3600 * 24));
-      return String(days) + "dias";
-    } catch (e) {
-      return "error";
-    }
-  }
-
   function handleAccept(id) {
-    window.alert("handleAccept");
+    ContractedListingService.updateStatus(id, "STARTED");
+    window.location.reload();
   }
 
   function handleCancel(id) {
-    window.alert("handleCancel");
+    ContractedListingService.delete(id);
+    window.location.reload();
   }
 
   function handleFinish(id) {
-    window.alert("handleFinish");
+    ContractedListingService.updateStatus(id, "ACCEPTED");
+    window.location.reload();
+  }
+
+  // nessa função de baixo eu pensei o seguinte quando o prestador finalizar e o servico não foi concluido e ele apertar em cancelar o finalizar servico ele voltar para estado de started
+  function handleCancelFineshed(id) {
+    ContractedListingService.updateStatus(id, "STARTED");
+    window.location.reload();
   }
 
   return (
@@ -124,7 +120,27 @@ export default function Page() {
                       </h2>
                     </div>
                   </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <Image
+                        alt="Whatsapp"
+                        src={"/icons/whatsapp-logo-light.png"}
+                        width={54}
+                        height={52}
+                      />
+                      <div>
+                      <h2 className="text-[#03000080]">Contato</h2>
+                      <Link
+                          className="font-bold"
+                          href={`https://wa.me/55${contractedListing.client.phone}/?text=Olá%2C%20tudo%20bem%3F%20Me%20chamo%20${contractedListing.listing.userProfile.name}.%0Estou%20interessado%20no%20seu%20serviço:%20${contractedListing.listing.id}%20-%20${contractedListing.listing.title}%20e%20estou%20disponível%20para%20conversar%20sobre%20os%20detalhes.`}
+                        >
+                          WhatsApp
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
                 <div className="flex justify-end border-t py-2 border-[#757575] gap-4 ">
                   {contractedListing.status === "CONTRACTED" && (
                     <button
@@ -136,33 +152,39 @@ export default function Page() {
                   )}
 
                   {contractedListing.status === "STARTED" && (
-                    <div className="flex gap-2">
-                      <button
-                        className="border bg-[#F97316] rounded-xl shadow-md p-2"
-                        onClick={() => handleFinish(contractedListing.id)}
-                      >
-                        Finalizar Serviço
-                      </button>
-                      <button
-                        className="border bg-[#FF00004D] rounded-xl shadow-md p-2"
-                        onClick={() => handleCancel(contractedListing.id)}
-                      >
-                        Cancelar
-                      </button>
-
-                    </div>
-                    
+                    <button
+                      className="border bg-[#FF00004D] rounded-xl shadow-md p-2"
+                      onClick={() => handleCancel(contractedListing.id)}
+                    >
+                      Cancelar
+                    </button>
                   )}
                   {contractedListing.status === "ACCEPTED" && (
                     <button
                       className="border bg-[#F97316] rounded-xl shadow-md p-2 "
                       onClick={() => handleAccept(contractedListing.id)}
                     >
-                      Cancelar
+                      Avaliar
                     </button>
                   )}
-
-                  {contractedListing.status === "FINISHED" && <></>}
+                  {contractedListing.status === "FINISHED" && (
+                    <div className="flex gap-2">
+                      <button
+                        className="border bg-[#F97316] rounded-xl shadow-md p-2 "
+                        onClick={() => handleFinish(contractedListing.id)}
+                      >
+                        Finalizar
+                      </button>
+                      <button
+                        className="border bg-[#FF00004D] rounded-xl shadow-md p-2 "
+                        onClick={() =>
+                          handleCancelFineshed(contractedListing.id)
+                        }
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  )}
                   {contractedListing.status === "CANCELLED" && <></>}
                 </div>
               </div>
