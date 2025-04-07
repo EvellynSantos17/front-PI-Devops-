@@ -26,7 +26,13 @@ export default function Page() {
     return router.push("/finalizar-perfil");
   }
 
+  const { perfil, updateDataUnitValue, updatePerfil } = usePerfil();
+  const { updateListService, listService } = UseService();
+  const { listContracted, updateListContracted } = UseContracted();
+
   const [profileImage, setProfileImage] = useState("/images/perfil.png");
+  const [originalPerfil, setOriginalPerfil] = useState(null);
+  const [hasChanges, setHasChanges] = useState(false);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -38,17 +44,45 @@ export default function Page() {
       reader.readAsDataURL(file);
     }
   };
+  
+  FetchFindById({
+    id: info.accountId,
+    serviceName: "UserProfileService",
+    onDataFetched: (value) => {
+      updatePerfil(value);
+      setOriginalPerfil(value);
+    },
+  });
 
-  const handleUserInfoChange = (field, newValue) => {
-    updateDataUnitValue({
-      field: field,
-      value: newValue,
-    });
-  };
+  FetchFindAll({
+    serviceName: "ListingService",
+    query: { accountId: info.accountId },
+    onDataFetched: (value) => updateListService(value),
+  });
 
-  const { perfil, updateDataUnitValue, updatePerfil } = usePerfil();
-  const { updateListService, listService } = UseService();
-  const { listContracted, updateListContracted } = UseContracted();
+  FetchFindAll({
+    serviceName: "ContractedListingService",
+    query: { clientId: info.accountId },
+    onDataFetched: (value) => updateListContracted(value),
+  });
+
+  useEffect(() => {
+    if (!originalPerfil || !perfil) return;
+
+    const changed =
+      perfil.name !== originalPerfil.name ||
+      perfil.title !== originalPerfil.title ||
+      perfil.description !== originalPerfil.description ||
+      perfil.phone !== originalPerfil.phone ||
+      perfil.document !== originalPerfil.document ||
+      perfil.address !== originalPerfil.address ||
+      JSON.stringify(perfil.skills) !== JSON.stringify(originalPerfil.skills);
+
+    setHasChanges(changed);
+  }, [perfil, originalPerfil]);
+
+  
+
 
   FetchFindById({
     id: info.accountId,
@@ -68,6 +102,28 @@ export default function Page() {
     onDataFetched: (value) => updateListContracted(value),
   });
 
+  const handleUserInfoChange = (field, newValue) => {
+    updateDataUnitValue({
+      field: field,
+      value: newValue,
+    });
+  };
+
+  const handleConfirmChanges = async () => {
+    try {
+      await updatePerfil(perfil); 
+      setOriginalPerfil({ ...perfil }); 
+      handleProfileEdit()
+
+    } catch (error) {
+      console.error("Erro ao salvar alterações:", error);
+    }
+  };
+
+  const [edit, setEdit] = useState(false)
+  function handleProfileEdit(){
+    setEdit(!edit)
+  }
   return (
     <section className="bg-[#FFD6B9] px-10 py-2 h-full pb-32 overflow-auto flex flex-col gap-2 xl:px-10">
       <div className="relative w-full h-fit p-2 bg-white rounded-xl">
@@ -83,7 +139,7 @@ export default function Page() {
               className="rounded-xl"
             />
 
-            <div
+            <label
               htmlFor="imageUpload"
               className="w-[200px] px-2 py-1 bg-laranjaProdunfo text-white flex items-center justify-center gap-1 rounded-lg cursor-pointer"
             >
@@ -94,7 +150,7 @@ export default function Page() {
                 height={16}
               />
               <span>Editar foto do perfil</span>
-            </div>
+            </label>
             <input
               id="imageUpload"
               type="file"
@@ -154,7 +210,7 @@ export default function Page() {
                     onChange={(newValue) =>
                       handleUserInfoChange("name", newValue)
                     }
-                    isOwner={true}
+                    isOwner={edit}
                   />
                   <UserInforCard
                     title={"Seu titulo"}
@@ -162,49 +218,65 @@ export default function Page() {
                     onChange={(newValue) =>
                       handleUserInfoChange("title", newValue)
                     }
-                    isOwner={true}
+                    isOwner={edit}
                   />
                   <UserInforCard
                     title={"Sobre você"}
                     value={perfil.description}
                     onChange={(newValue) =>
-                      handleUserInfoChange("about", newValue)
+                      handleUserInfoChange("description", newValue)
                     }
-                    isOwner={true}
+                    isOwner={edit}
                   />
                   <UserInforCard
                     title={"Contato"}
                     value={perfil.phone}
                     onChange={(newValue) =>
-                      handleUserInfoChange("contact", newValue)
+                      handleUserInfoChange("phone", newValue)
                     }
-                    isOwner={true}
+                    isOwner={edit}
                   />
                   <UserInforCard
                     title={"CPF"}
                     value={perfil.document}
                     onChange={(newValue) =>
-                      handleUserInfoChange("cpf", newValue)
+                      handleUserInfoChange("document", newValue)
                     }
-                    isOwner={true}
+                    isOwner={edit}
                   />
                   <UserInforCard
                     title={"Localização"}
                     value={perfil.address}
                     onChange={(newValue) =>
-                      handleUserInfoChange("location", newValue)
+                      handleUserInfoChange("address", newValue)
                     }
-                    isOwner={true}
+                    isOwner={edit}
                   />
                   <UserInforCardMult
                     title={"Habilidades"}
-                    value={perfil.skills.map((skill) => {
+                    value={perfil.skills.map((skill) => {                      
                       return { value: skill, label: skill };
                     })}
-                    isOwner={true}
+                    onChange={(newValue) => 
+                      handleUserInfoChange("skills", newValue)
+                    }
+                    isOwner={edit}
                   />
                 </>
               ) : null}
+              {edit ? (
+                <button
+                  onClick={handleConfirmChanges}
+                  className="border font-bold bg-[#F97316] rounded-xl shadow-md p-2 text-center text-[#FFDCC3]"
+                >
+                  Confirmar alterações
+                </button>
+              ):(
+                <button className="border font-bold bg-[#F97316] rounded-xl shadow-md p-2 text-center text-[#FFDCC3]" onClick={handleProfileEdit}>
+                  Editar Perfil
+                </button>
+
+              )}
             </div>
           </div>
         </section>
@@ -226,9 +298,10 @@ export default function Page() {
                     return (
                       <CardService
                         key={index}
-                        created_at={"Postado há 2 dias"}
-                        location={"Crato, CE"}
-                        title={"Landing Page"}
+                        id={item.id}
+                        created_at={item.creationDate}
+                        location={item.location}
+                        title={item.title}
                         type={"Freelancer"}
                         has_button
                         orange
@@ -244,7 +317,7 @@ export default function Page() {
                   listService.content[0].id && (
                     <Link
                       className="border font-bold bg-[#F97316]  rounded-xl shadow-md p-2 text-center text-[#FFDCC3]"
-                      href={"servicos/contratados"}
+                      href={"servicos/prestados"}
                     >
                       Ver todos os contratos
                     </Link>
@@ -271,11 +344,12 @@ export default function Page() {
                     return (
                       <CardService
                         key={index}
-                        created_at={"Postado há 2 dias"}
-                        location={"Crato, CE"}
-                        title={"Landing Page"}
+                        id={item.listing.id}
+                        created_at={item.listing.creationDate}
+                        location={item.listing.location}
+                        title={item.listing.title}
                         type={"Freelancer"}
-                        has_button
+                        has_button={false}
                         orange={false}
                       />
                     );

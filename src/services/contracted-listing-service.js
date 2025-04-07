@@ -28,6 +28,16 @@ export default class ContractedListingService extends BaseService {
     return response;
   }
 
+  static async updateStatus(id, status) {
+    let data = { status };
+    let response = await this.requestPut(`/${id}/status`, data, {
+      "Content-Type": "application/json",
+      ...this.getHeaders(),
+    });
+    return response;
+  }
+  
+
   static async update(id, clientRequest, startedAt, finishedAt, listingId) {
     let data = { clientRequest, startedAt, finishedAt, listingId };
     let response = await this.requestPut(`/${id}`, data, {

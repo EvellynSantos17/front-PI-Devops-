@@ -5,6 +5,8 @@ import FetchFindAll from "@/hooks/fetch/fetch-find-all";
 import { UseContracted } from "@/hooks/use-contracted";
 import BaseService from "@/services/base-service";
 import StatusComponent from "@/components/ui/contrato-card";
+import ContractedListingService from "@/services/contracted-listing-service";
+import Link from "next/link";
 
 export default function Page() {
   if (typeof window == "undefined") {
@@ -16,43 +18,32 @@ export default function Page() {
   const { listContracted, updateListContracted } = UseContracted();
   const token = BaseService.getToken();
   let info = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+
   FetchFindAll({
     serviceName: "ContractedListingService",
-    query: { page: page == null ? 0 : page, clientId: info.accountId },
+    query: { page: page == null ? 0 : page, profileId: info.accountId },
     onDataFetched: (value) => updateListContracted(value),
   });
 
-  function parseDate(dateString) {
-    return new Date(dateString).toLocaleDateString("pt-BR");
-  }
-
-  function calculateTotals(contractedListing) {
-    try {
-      let startedAt = new Date(contractedListing.startedAt);
-
-      let finishedAt = new Date(contractedListing.finishedAt);
-      let difference = finishedAt.getTime() - startedAt.getTime();
-      let days = Math.round(difference / (1000 * 3600 * 24));
-      return String(days) + "dias";
-    } catch (e) {
-      return "error";
-    }
-  }
-
   function handleAccept(id) {
-    window.alert('handleAccept')
+    ContractedListingService.updateStatus(id, "STARTED");
+    window.location.reload();
+  }
+
+  function handleStarted(id) {
+    window.alert("handleStarted");
+    ContractedListingService.updateStatus(id, "STARTED");
   }
 
   function handleCancel(id) {
-    window.alert('handleCancel')
-
+    ContractedListingService.delete(id);
+    window.location.reload();
   }
 
   function handleFinish(id) {
-    window.alert('handleFinish')
-
+    ContractedListingService.updateStatus(id, "FINISHED");
+    window.location.reload();
   }
-
 
   return (
     <section className="flex flex-col pt-10 bg-bege items-center justify-center">
@@ -68,10 +59,11 @@ export default function Page() {
           Serviços Prestados
         </h1>
         <span className="flex flex-col items-center justify-center text-base text-[#757575]">
-          Gerencie seus serviços que você está prestando
+          Gerencie e acompanhe os status de cada serviço prestado
         </span>
 
         {listContracted.content.map((contractedListing, index) => {
+          console.log(contractedListing);
           return (
             <div key={index} className=" h-full p-2 gap-4">
               <div className="flex flex-col py-2 px-10 border border-[#0000006B] rounded-xl gap-2">
@@ -87,13 +79,13 @@ export default function Page() {
                       />
                       <div className="mt-1">
                         <h2 className="font-bold ">
-                          {"Lembrar de por Contratante"}
+                          {contractedListing.client.name}
                         </h2>
                         <span className="text-[#03000080]">Contratante</span>
                       </div>
                     </div>
                     <h3 className="font-bold text-2xl flex mt-5">
-                      {"Aguardando Titulo"}
+                      {contractedListing.listing.title}
                     </h3>
                     <div className=" flex text-sl text-[#585858] gap-2">
                       <Image
@@ -103,7 +95,7 @@ export default function Page() {
                         height={17.17}
                         width={18.81}
                       />
-                      ID do anúncio: {contractedListing.listingId}
+                      ID do anúncio: {contractedListing.listing.id}
                       <ul className="list-disc pl-4">
                         <li>ID do serviço: {contractedListing.id}</li>
                       </ul>
@@ -115,22 +107,6 @@ export default function Page() {
                 <div className="flex gap-56">
                   <div className="flex gap-2">
                     <Image
-                      alt="calendario"
-                      src={"/icons/calendario.png"}
-                      width={54}
-                      height={52}
-                    />
-                    <div>
-                      <span className="text-[#03000080]">Periodo</span>
-                      <h2 className="font-bold">
-                        {parseDate(contractedListing.startedAt) +
-                          " até " +
-                          parseDate(contractedListing.finishedAt)}
-                      </h2>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Image
                       alt="dinheiro"
                       src={"/icons/dinheiro.png"}
                       width={54}
@@ -139,45 +115,67 @@ export default function Page() {
                     <div>
                       <span className="text-[#03000080]">Valor total</span>
                       <h2 className="font-bold">
-                        {calculateTotals(contractedListing)}
+                        R$ {contractedListing.listing.price}
                       </h2>
                     </div>
                   </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <Image
+                        alt="Whatsapp"
+                        src={"/icons/whatsapp-logo-light.png"}
+                        width={54}
+                        height={52}
+                      />
+
+                      <div className="flex flex-col ">
+                        <h2 className="text-[#03000080]">Contato</h2>
+
+                        <Link
+                          className="font-bold"
+                          href={`https://wa.me/55${contractedListing.client.phone}/?text=Olá%2C%20tudo%20bem%3F%20Me%20chamo%20${contractedListing.listing.userProfile.name}.%0ARecebi%20sua%20solicitação%20de%20serviço:%20${contractedListing.listing.id}%20-%20${contractedListing.listing.title}%20e%20estou%20disponível%20para%20conversar%20sobre%20os%20detalhes.`}
+                        >
+                          WhatsApp
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-end border-t py-2 border-[#757575] gap-4 ">
+                <div className="flex justify-end border-t py-2 border-[#757575] ">
                   {contractedListing.status === "CONTRACTED" && (
-                    <button
-                      className="border bg-[#FF00004D] rounded-xl shadow-md p-2 text-[#FFDCC3]"
-                      onClick={() => handleCancel(contractedListing.id)}
-                    >
-                      Cancelar
-                    </button>
+                    <div className="flex gap-2">
+                      <button
+                        className="border bg-laranjaProdunfo rounded-xl shadow-md p-2"
+                        onClick={() => handleAccept(contractedListing.id)}
+                      >
+                        Aceitar
+                      </button>
+                      <button
+                        className="border bg-[#FF00004D] rounded-xl shadow-md p-2"
+                        onClick={() => handleCancel(contractedListing.id)}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
                   )}
 
                   {contractedListing.status === "STARTED" && (
-                    <>
+                    <div className="flex gap-2">
                       <button
-                        className="border bg-[#F97316] rounded-xl shadow-md p-2 text-[#FFDCC3]"
+                        className="border bg-[#F97316] rounded-xl shadow-md p-2 "
                         onClick={() => handleFinish(contractedListing.id)}
                       >
                         Finalizar Serviço
                       </button>
                       <button
-                        className="border bg-[#FF00004D] rounded-xl shadow-md p-2 text-[#FFDCC3]"
+                        className="border bg-[#FF00004D] rounded-xl shadow-md p-2 "
                         onClick={() => handleCancel(contractedListing.id)}
                       >
                         Cancelar
                       </button>
-                    </>
+                    </div>
                   )}
-                  {contractedListing.status === "ACCEPTED" && (
-                    <button
-                      className="border bg-[#F97316] rounded-xl shadow-md p-2 text-[#FFDCC3]"
-                      onClick={() => handleAccept(contractedListing.id)}
-                    >
-                      Aceitar
-                    </button>
-                  )}
+                  {contractedListing.status === "ACCEPTED" && <></>}
 
                   {contractedListing.status === "FINISHED" && <></>}
                   {contractedListing.status === "CANCELLED" && <></>}
