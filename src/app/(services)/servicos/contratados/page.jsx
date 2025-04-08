@@ -160,12 +160,12 @@ export default function Page() {
                     </button>
                   )}
                   {contractedListing.status === "ACCEPTED" && (
-                    <button
-                      className="border bg-[#F97316] rounded-xl shadow-md p-2 "
-                      onClick={() => handleAccept(contractedListing.id)}
-                    >
-                      Avaliar
-                    </button>
+                    <Link
+                    href={`/servico/avaliar/${contractedListing.id}`}
+                    className="border bg-[#F97316] rounded-xl shadow-md p-2 flex items-center justify-center"
+                  >
+                    Avaliar
+                  </Link>
                   )}
                   {contractedListing.status === "FINISHED" && (
                     <div className="flex gap-2">
