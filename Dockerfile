@@ -1,5 +1,7 @@
 FROM node:22-alpine
 
+ARG BACKEND_SERVICE_NAME="pi-dev-ops-backend.default"
+
 WORKDIR /app
 
 COPY package.json ./
