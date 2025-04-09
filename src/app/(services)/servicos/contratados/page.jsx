@@ -129,10 +129,10 @@ export default function Page() {
                         height={52}
                       />
                       <div>
-                      <h2 className="text-[#03000080]">Contato</h2>
-                      <Link
+                        <h2 className="text-[#03000080]">Contato</h2>
+                        <Link
                           className="font-bold"
-                          href={`https://wa.me/55${contractedListing.client.phone}/?text=Olá%2C%20tudo%20bem%3F%20Me%20chamo%20${contractedListing.listing.userProfile.name}.%0Estou%20interessado%20no%20seu%20serviço:%20${contractedListing.listing.id}%20-%20${contractedListing.listing.title}%20e%20estou%20disponível%20para%20conversar%20sobre%20os%20detalhes.`}
+                          href={`https://wa.me/55${contractedListing.client.phone}/?text=Olá%2C%20tudo%20bem%3F%20Me%20chamo%20${contractedListing.listing.userProfile.name}.%0Estou%20interessado%20no%20seu%20serviço:%20${contractedListing.listing.id}%20-%20${contractedListing.listing.title}%20e%20está%20disponível%20para%20conversar%20sobre%20os%20detalhes?.`}
                         >
                           WhatsApp
                         </Link>
@@ -161,11 +161,11 @@ export default function Page() {
                   )}
                   {contractedListing.status === "ACCEPTED" && (
                     <Link
-                    href={`/servico/avaliar/${contractedListing.id}`}
-                    className="border bg-[#F97316] rounded-xl shadow-md p-2 flex items-center justify-center"
-                  >
-                    Avaliar
-                  </Link>
+                      href={`/servico/avaliar/${contractedListing.id}`}
+                      className="border bg-[#F97316] rounded-xl shadow-md p-2 flex items-center justify-center"
+                    >
+                      Avaliar
+                    </Link>
                   )}
                   {contractedListing.status === "FINISHED" && (
                     <div className="flex gap-2">
