@@ -13,6 +13,7 @@ import Image from "next/image";
 import { usePerfil } from "@/hooks/use-perfil";
 import FetchFindById from "@/hooks/fetch/fetch-find-by-id";
 import Link from "next/link";
+import UserProfileService from "@/services/user-profile-service";
 
 export default function Page() {
   if (typeof window == "undefined") {
@@ -29,7 +30,20 @@ export default function Page() {
   const { perfil, updateDataUnitValue, updatePerfil } = usePerfil();
   const { updateListService, listService } = UseService();
   const { listContracted, updateListContracted } = UseContracted();
-
+  
+  function updateProfile (){
+    handleConfirmChanges()
+    UserProfileService.update(
+    perfil.id,
+    perfil.name,
+    perfil.document,
+    perfil.phone,
+    perfil.address,
+    perfil.postalCode,
+    perfil.description,
+    perfil.skills = []
+    )
+  }
   const [profileImage, setProfileImage] = useState("/images/perfil.png");
   const [originalPerfil, setOriginalPerfil] = useState(null);
   const [hasChanges, setHasChanges] = useState(false);
@@ -111,7 +125,7 @@ export default function Page() {
 
   const handleConfirmChanges = async () => {
     try {
-      await updatePerfil(perfil); 
+       updatePerfil(perfil); 
       setOriginalPerfil({ ...perfil }); 
       handleProfileEdit()
 
@@ -266,7 +280,7 @@ export default function Page() {
               ) : null}
               {edit ? (
                 <button
-                  onClick={handleConfirmChanges}
+                  onClick={updateProfile}
                   className="border font-bold bg-[#F97316] rounded-xl shadow-md p-2 text-center text-[#FFDCC3]"
                 >
                   Confirmar alterações
