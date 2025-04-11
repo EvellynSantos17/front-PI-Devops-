@@ -41,7 +41,7 @@ export default function Page() {
     window.location.reload();
   }
 
-  // nessa função de baixo eu pensei o seguinte quando o prestador finalizar e o servico não foi concluido e ele apertar em cancelar o finalizar servico ele voltar para estado de started
+  
   function handleCancelFineshed(id) {
     ContractedListingService.updateStatus(id, "STARTED");
     window.location.reload();
@@ -65,6 +65,7 @@ export default function Page() {
         </span>
 
         {listContracted.content.map((contractedListing, index) => {
+          console.log(contractedListing)
           return (
             <div key={index} className=" h-full p-2 gap-4">
               <div className="flex flex-col py-2 px-10 border border-[#0000006B] rounded-xl gap-2">
@@ -159,14 +160,14 @@ export default function Page() {
                       Cancelar
                     </button>
                   )}
-                  {contractedListing.status === "ACCEPTED" && (
+                   {contractedListing.status === "ACCEPTED" && !contractedListing.evaluation ? (
                     <Link
-                      href={`/servico/avaliar/${contractedListing.id}`}
+                      href={`/servico/avaliacao/${contractedListing.id}`}
                       className="border bg-[#F97316] rounded-xl shadow-md p-2 flex items-center justify-center"
                     >
                       Avaliar
                     </Link>
-                  )}
+                  ): null}
                   {contractedListing.status === "FINISHED" && (
                     <div className="flex gap-2">
                       <button

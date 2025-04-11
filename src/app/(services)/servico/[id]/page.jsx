@@ -41,7 +41,7 @@ export default function ProdutoPage({ params }) {
     fetch()
     setLoading(false)
   },[id, isLoading])
-
+console.log(service)
   if(isLoading){
     return(
       <div>
@@ -98,7 +98,7 @@ export default function ProdutoPage({ params }) {
                 {item}
               </li>
               )
-            })}
+            })} 
           </ul>
         </div>
         <div className="flex gap-2 items-center flex-wrap w-full py-4">
@@ -143,7 +143,7 @@ export default function ProdutoPage({ params }) {
             Informações
           </h3>
           <div className="flex gap-2 bg-[#FFAC72] px-3 py-1 rounded-lg w-fit">
-            <Image
+            <Image 
               alt="perfil"
               src={"/icons/money.png"}
               width={40}
@@ -186,8 +186,7 @@ export default function ProdutoPage({ params }) {
           Avaliações desse serviço:
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 w-full pt-4">
-            {service.contractedListings.map((contracted) => {
-              contracted.evaluation.map((evalua,index) => {
+            {service.contractedListings && service.contractedListings.map((contracted, index) => {
                 return(
                   <div key={index} className="max-w-[330px] max-h-[200px] w-full h-full p-3 border border-laranjaProdunfo hover:scale-105 transition-all rounded-2xl">
                     <div className="flex gap-1 items-center p-1 max-w-[300px] w-full border border-laranjaProdunfo rounded-full ">
@@ -199,25 +198,25 @@ export default function ProdutoPage({ params }) {
                         height={40}
                       />
                       <div className="pr-10 flex flex-col">
-                        <strong>Maria Laura Silva</strong>
-                        <p className="text-zinc-400 text-sm ">Publicicade criativa</p>
+                        <strong>{contracted.client.name}</strong>
+                        <p className="text-zinc-400 text-sm ">{contracted.client.title}</p>
                       </div>
                     </div>
                     <div className="flex gap-2 items-center py-2">
-                      <Stars numberStar={evalua.stars} click={false} size={18} />
+                      <Stars numberStar={contracted.evaluation.stars} click={false} size={18} />
                       <p className="text-xs text-zinc-400">
-                       Tem data? 
+                      {contracted.finishedAt}
                       </p>
                     </div>
                     <h3 className="text-sm font-semibold border-b border-laranjaProdunfo text-laranjaProdunfo w-fit">
                       Informações
                     </h3>
                     <p className="text-sm w-full ">
-                      {evalua.comment}
+                      {contracted.evaluation.comment}
                     </p>
                   </div>
                 )
-              })
+              
             })}
           </div>
         </div>

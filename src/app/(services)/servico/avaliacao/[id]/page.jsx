@@ -30,11 +30,11 @@ export default function ProdutoPage({ params }) {
 
   const userInfo = BaseService.getTokenInfo();
 
-  if(contracted.evaluation) return router.back()
+  // if(contracted.evaluation) return router.back()
 
-  if(contracted.client.id != userInfo.accountId) return router.back()
+  // if(contracted.client.id != userInfo.accountId) return router.back()
 
-  if(contracted.status != "ACCEPTED") return router.back()
+  // if(contracted.status != "ACCEPTED") return router.back()
 
   async function fetch() {
     const response = await ContractedListingService.findById(id);
@@ -85,7 +85,7 @@ export default function ProdutoPage({ params }) {
           <p className="border-b font-semibold text-xl text-laranjaProdunfo w-fit border-laranjaProdunfo">
             Dê uma nota de 1 a 5 para este serviço:          
           </p>
-          <Stars click={true} numberStar={stars} onClick={(e) => setStars(e)} size={60}/>
+          <Stars click={true} numberStar={stars} onClick={(e) => setStars(e)} size={20}/>
         </div>
 
         <div className="w-full py-4">

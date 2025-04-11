@@ -13,7 +13,7 @@ export const DicService = {
     description: null,
     title: null
   },
-  skills: null,
+  skills: [],
   contractedListings: [
     {
       id: null,
