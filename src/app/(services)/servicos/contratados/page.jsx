@@ -26,22 +26,18 @@ export default function Page() {
     onDataFetched: (value) => updateListContracted(value),
   });
 
-  function handleAccept(id) {
-    ContractedListingService.updateStatus(id, "STARTED");
-    window.location.reload();
-  }
-
   function handleCancel(id) {
-    ContractedListingService.delete(id);
-    window.location.reload();
+    ContractedListingService.updateStatus(id, "CANCELLED").finally(() => {
+      window.location.reload();
+    });
   }
 
   function handleFinish(id) {
-    ContractedListingService.updateStatus(id, "ACCEPTED");
-    window.location.reload();
+    ContractedListingService.updateStatus(id, "ACCEPTED").finally(() => {
+      window.location.reload();
+    });
   }
 
-  
   function handleCancelFineshed(id) {
     ContractedListingService.updateStatus(id, "STARTED");
     window.location.reload();
@@ -65,7 +61,7 @@ export default function Page() {
         </span>
 
         {listContracted.content.map((contractedListing, index) => {
-          console.log(contractedListing)
+          console.log(contractedListing);
           return (
             <div key={index} className=" h-full p-2 gap-4">
               <div className="flex flex-col py-2 px-10 border border-[#0000006B] rounded-xl gap-2">
@@ -160,14 +156,15 @@ export default function Page() {
                       Cancelar
                     </button>
                   )}
-                   {contractedListing.status === "ACCEPTED" && !contractedListing.evaluation ? (
+                  {contractedListing.status === "ACCEPTED" &&
+                  !contractedListing.evaluation ? (
                     <Link
                       href={`/servico/avaliacao/${contractedListing.id}`}
                       className="border bg-[#F97316] rounded-xl shadow-md p-2 flex items-center justify-center"
                     >
                       Avaliar
                     </Link>
-                  ): null}
+                  ) : null}
                   {contractedListing.status === "FINISHED" && (
                     <div className="flex gap-2">
                       <button

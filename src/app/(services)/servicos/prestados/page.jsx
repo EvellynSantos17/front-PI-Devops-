@@ -16,8 +16,7 @@ export default function Page() {
   const page = searchParams.get("page");
 
   const { listContracted, updateListContracted } = UseContracted();
-  const token = BaseService.getToken();
-  let info = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+  let info = BaseService.getTokenInfo();
 
   FetchFindAll({
     serviceName: "ContractedListingService",
@@ -26,23 +25,26 @@ export default function Page() {
   });
 
   function handleAccept(id) {
-    ContractedListingService.updateStatus(id, "STARTED");
-    window.location.reload();
+    ContractedListingService.updateStatus(id, "STARTED").finally(() => {
+      window.location.reload();
+    });
   }
 
-  function handleStarted(id) {
-    window.alert("handleStarted");
-    ContractedListingService.updateStatus(id, "STARTED");
-  }
+  // function handleStarted(id) {
+  //   window.alert("handleStarted");
+  //   ContractedListingService.updateStatus(id, "STARTED");
+  // }
 
   function handleCancel(id) {
-    ContractedListingService.delete(id);
-    window.location.reload();
+    ContractedListingService.updateStatus(id, "CANCELLED").finally(() => {
+      window.location.reload();
+    });
   }
 
   function handleFinish(id) {
-    ContractedListingService.updateStatus(id, "FINISHED");
-    window.location.reload();
+    ContractedListingService.updateStatus(id, "FINISHED").finally(() => {
+      window.location.reload();
+    });
   }
 
   return (

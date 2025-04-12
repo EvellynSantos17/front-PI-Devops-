@@ -7,21 +7,21 @@ export default class ListingService extends BaseService {
     query = this.parseDictToQuery(query);
 
     let response = await this.requestGet(query, {
-      // ...this.getHeaders(),
-        });
+      "Content-Type": "application/json",
+    });
     return response;
   }
 
   static async findById(id) {
     let response = await this.requestGet(`/${id}`, {
-      ...this.getHeaders(),
+      "Content-Type": "application/json",
     });
     return response;
   }
 
-  static async create({title, price, description,location, skills}) {
-    let data = { title, price, description,location, skills };
-    let response = await this.requestPost("",data, {
+  static async create({ title, price, description, location, skills }) {
+    let data = { title, price, description, location, skills };
+    let response = await this.requestPost("", data, {
       "Content-Type": "application/json",
       ...this.getHeaders(),
     });
