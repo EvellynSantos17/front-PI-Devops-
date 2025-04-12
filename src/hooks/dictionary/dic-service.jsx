@@ -11,7 +11,7 @@ export const DicService = {
     id: null,
     name: null,
     description: null,
-    title: null
+    title: null,
   },
   skills: [],
   contractedListings: [
@@ -30,24 +30,24 @@ export const DicService = {
         skills: null,
         document: null,
         description: null,
-        title: null
+        title: null,
       },
-      evaluation: {
-        id: null,
-        comment: null,
-        stars: null,
-        contractedListingId: null
-      }
-    }
-  ]
+      evaluation:
+        {
+          id: null,
+          comment: null,
+          stars: null,
+          contractedListingId: null,
+        } | null,
+    },
+  ],
 };
 
 export const DicListingService = {
-  content:[{
-    ...DicService
-
-  }],
-  page: DicPage
-}
-
-
+  content: [
+    {
+      ...DicService,
+    },
+  ],
+  page: DicPage,
+};

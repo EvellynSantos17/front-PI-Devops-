@@ -202,6 +202,9 @@ export default function ProdutoPage({ params }) {
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 w-full pt-4">
             {service.contractedListings &&
               service.contractedListings.map((contracted, index) => {
+                if (!contracted.evaluation) {
+                  return;
+                }
                 return (
                   <div
                     key={index}
