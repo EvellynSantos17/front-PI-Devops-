@@ -1,4 +1,4 @@
-import { DicPage } from "./dic-page"
+import { DicPage } from "./dic-page";
 
 export const DicContracted = {
   id: null,
@@ -17,10 +17,10 @@ export const DicContracted = {
       id: null,
       name: null,
       description: null,
-      title: null
+      title: null,
     },
     skills: null,
-    contractedListings: null
+    contractedListings: null,
   },
   client: {
     id: null,
@@ -31,20 +31,21 @@ export const DicContracted = {
     skills: null,
     document: null,
     description: null,
-    title: null
+    title: null,
   },
   evaluation: {
     id: null,
     comment: null,
     stars: null,
-    contractedListingId: null
-  }
+    contractedListingId: null,
+  },
 };
 
-
-export const DicListingContracted= {
-  content:[{
-    ...DicContracted,
-  }],
-  page: DicPage
-}
+export const DicListingContracted = {
+  content: [
+    {
+      ...DicContracted,
+    },
+  ],
+  page: DicPage,
+};

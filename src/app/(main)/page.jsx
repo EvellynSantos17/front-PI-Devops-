@@ -28,7 +28,7 @@ export default function page() {
     onDataFetched: (value) => updateListService(value),
   });
   return (
-    <section className="w-full h-full justify-center items-center gap-2 flex flex-col" >
+    <section className="w-full h-full justify-center items-center gap-2 flex flex-col">
       <div className="w-full h-full flex justify-center items-center bg-laranjaProdunfo gap-10">
         <div className="w-full h-full max-w-[300px]">
           <div>
@@ -99,52 +99,74 @@ export default function page() {
       </div>
       <ul className="flex items-center justify-center py-10 w-full h-full bg-bege gap-4 flex-wrap px-2">
         <li className="p-2 flex flex-col bg-white rounded-xl items-center justify-center">
-          <span>
-            Free-Lancer
-          </span>
-          <Image alt="homem pintando " src={'/images/homem pintando.png'} about="" width={180} height={180} />
+          <span>Free-Lancer</span>
+          <Image
+            alt="homem pintando "
+            src={"/images/homem pintando.png"}
+            about=""
+            width={180}
+            height={180}
+          />
         </li>
         <li className="p-2 flex flex-col bg-white rounded-xl items-center justify-center">
-        <span>
-            Temporário
-          </span>
-          <Image alt="Robo" src={'/images/Robo.png'} about="" width={180} height={180} />
+          <span>Temporário</span>
+          <Image
+            alt="Robo"
+            src={"/images/Robo.png"}
+            about=""
+            width={180}
+            height={180}
+          />
         </li>
         <li className="p-2 flex flex-col bg-white rounded-xl items-center justify-center">
-        <span>
-            Mais Procurados
-          </span>
-          <Image alt="panela " src={'/images/panela.png'} about="" width={180} height={180} />
+          <span>Mais Procurados</span>
+          <Image
+            alt="panela "
+            src={"/images/panela.png"}
+            about=""
+            width={180}
+            height={180}
+          />
         </li>
         <li className="p-2 flex flex-col bg-white rounded-xl items-center justify-center">
-        <span>
-            Serviços
-          </span>
-          <Image alt="muie " src={'/images/muie.png'} about="" width={180} height={180} />
+          <span>Serviços</span>
+          <Image
+            alt="muie "
+            src={"/images/muie.png"}
+            about=""
+            width={180}
+            height={180}
+          />
         </li>
         <li className="p-2 flex flex-col bg-white rounded-xl items-center justify-center">
-        <span>
-            Profissionais
-          </span>
-          <Image alt="homem sentado" src={'/images/homem sentado.png'} about="" width={180} height={180} />
+          <span>Profissionais</span>
+          <Image
+            alt="homem sentado"
+            src={"/images/homem sentado.png"}
+            about=""
+            width={180}
+            height={180}
+          />
         </li>
       </ul>
       <div className="w-full h-full flex justify-center items-center bg-black py-10 gap-2">
         <div className="flex flex-col gap-2 max-w-[400px] w-full h-full">
-          <h1 className="text-3xl text-white">
-            Faça igual a eles encontre
-          </h1>
-          <h1 className="text-3xl text-white">
-            Oportunidades no
-          </h1>
-          <h1 className="text-3xl text-white">
-            WorkFlow
-          </h1>
-          <Link className="px-5 rounded-2xl bg-laranjaProdunfo text-white w-fit py-2 " href={'/cadastro'}>
+          <h1 className="text-3xl text-white">Faça igual a eles encontre</h1>
+          <h1 className="text-3xl text-white">Oportunidades no</h1>
+          <h1 className="text-3xl text-white">WorkFlow</h1>
+          <Link
+            className="px-5 rounded-2xl bg-laranjaProdunfo text-white w-fit py-2 "
+            href={"/cadastro"}
+          >
             Faça seu Cadastro Aqui!
           </Link>
         </div>
-        <Image alt="people" src={'/images/people.png'} width={350} height={350} />
+        <Image
+          alt="people"
+          src={"/images/people.png"}
+          width={350}
+          height={350}
+        />
       </div>
     </section>
   );

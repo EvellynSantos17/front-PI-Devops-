@@ -1,15 +1,14 @@
-import { useState } from "react"
+import { useState } from "react";
 
-export default function UseLoading(){
+export default function UseLoading() {
+  const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] = useState(false)
-
-  function upDateLoading(value){
-    setLoading(value)
+  function upDateLoading(value) {
+    setLoading(value);
   }
 
   return {
     loading,
-    upDateLoading
-  }
+    upDateLoading,
+  };
 }

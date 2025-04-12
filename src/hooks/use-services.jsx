@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { DicListingService, DicService } from "./dictionary/dic-service";
 
-
 export function UseService() {
-
   const [service, setService] = useState(DicService);
 
-  const [listService, setListService] = useState(DicListingService);  
+  const [listService, setListService] = useState(DicListingService);
 
   function updateOneValueServico({ field, value }) {
     setService((prevState) => ({
@@ -15,12 +13,12 @@ export function UseService() {
     }));
   }
 
-  function updateService(newValue){
-    setService(newValue)
+  function updateService(newValue) {
+    setService(newValue);
   }
 
-  function updateListService(newValue){
-    setListService(newValue)
+  function updateListService(newValue) {
+    setListService(newValue);
   }
 
   return {
@@ -28,6 +26,6 @@ export function UseService() {
     listService,
     updateOneValueServico,
     updateService,
-    updateListService
+    updateListService,
   };
 }

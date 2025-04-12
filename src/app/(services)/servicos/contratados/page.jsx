@@ -82,7 +82,10 @@ export default function Page() {
                         <span className="text-[#03000080]">Anunciante</span>
                       </div>
                     </div>
-                    <Link href={`/servico/${contractedListing.listing.id}`} className="font-bold text-2xl flex mt-5">
+                    <Link
+                      href={`/servico/${contractedListing.listing.id}`}
+                      className="font-bold text-2xl flex mt-5"
+                    >
                       {contractedListing.listing.title}
                     </Link>
                     <div className=" flex text-sl text-[#585858] gap-2">
@@ -138,12 +141,8 @@ export default function Page() {
                   </div>
                 </div>
                 <div>
-                  <h2 className="font-bold text-xl">
-                    Informações
-                  </h2>
-                  <p>
-                    {contractedListing.clientRequest}
-                  </p>
+                  <h2 className="font-bold text-xl">Informações</h2>
+                  <p>{contractedListing.clientRequest}</p>
                 </div>
                 <div className="flex justify-end border-t py-2 border-[#757575] gap-4 ">
                   {contractedListing.status === "CONTRACTED" && (

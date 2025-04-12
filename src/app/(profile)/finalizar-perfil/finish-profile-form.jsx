@@ -266,8 +266,8 @@ export default function FinishProfileForm() {
         error={errorMessage?.title == "title" ? errorMessage.message : null}
         onChange={(e) =>
           updateDataUnitValue({
-            field: 'title',
-            value: e
+            field: "title",
+            value: e,
           })
         }
       />

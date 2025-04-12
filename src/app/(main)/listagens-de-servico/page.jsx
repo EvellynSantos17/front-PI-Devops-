@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import Image from "next/image"
+import Image from "next/image";
 import FetchFindAll from "@/hooks/fetch/fetch-find-all";
 import { UseContracted } from "@/hooks/use-contracted";
 import BaseService from "@/services/base-service";
@@ -40,19 +40,16 @@ export default function Page() {
   }
 
   function handleAccept(id) {
-    window.alert('handleAccept')
+    window.alert("handleAccept");
   }
 
   function handleCancel(id) {
-    window.alert('handleCancel')
-
+    window.alert("handleCancel");
   }
 
   function handleFinish(id) {
-    window.alert('handleFinish')
-
+    window.alert("handleFinish");
   }
-
 
   return (
     <section className="flex flex-col pt-10 bg-bege items-center justify-center">

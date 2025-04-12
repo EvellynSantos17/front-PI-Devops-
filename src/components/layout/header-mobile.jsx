@@ -134,7 +134,7 @@ export default function HeaderMobile() {
           <button
             className="text-2xl font-semibold h-10 w-10 text-center rounded-md text-white bg-laranjaProdunfo"
             onClick={() => {
-              if(openMenu) {
+              if (openMenu) {
                 setOpenMenu(false);
               }
               setOpenMenuSearch(!openMenuSearch);

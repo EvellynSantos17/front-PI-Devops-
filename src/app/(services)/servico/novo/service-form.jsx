@@ -101,43 +101,41 @@ export default function ServiceForm() {
     return false;
   }
 
-  const {loading, upDateLoading} = UseLoading()
+  const { loading, upDateLoading } = UseLoading();
 
-  
   async function handleSubmit(event) {
     event.preventDefault();
-    
-    console.log({click_antes: loading})
-    
-    
+
+    console.log({ click_antes: loading });
+
     if (checkMinAndMaxTitleLength({ value: service.titulo })) return;
     if (validationDate(service.dt_limite)) return;
     if (checkMinAndMaxTextAreaLength({ value: service.descricao })) return;
     if (checkMinAndMaxSelectSkils({ value: service.requisitos })) return;
-    
-    if (checkBoxTrue({ value: service.termos })) return;
-    
-    disableErrorMessage();
-    
-    const { descricao, localizacao,requisitos, titulo, valor } = service;
-    
-    const sikillLabels = requisitos.map((item) => item.label)
-    console.log({click_depos: loading})
 
-    upDateLoading(true)
-    
+    if (checkBoxTrue({ value: service.termos })) return;
+
+    disableErrorMessage();
+
+    const { descricao, localizacao, requisitos, titulo, valor } = service;
+
+    const sikillLabels = requisitos.map((item) => item.label);
+    console.log({ click_depos: loading });
+
+    upDateLoading(true);
+
     const response = await ListingService.create({
       title: titulo,
-      price:valor,
+      price: valor,
       description: descricao,
-      location:localizacao,
-      skills:sikillLabels,
+      location: localizacao,
+      skills: sikillLabels,
     });
-    
-    const data = await response.json()
-    upDateLoading(false)
 
-    router.push(`/servico/${data.id}`)
+    const data = await response.json();
+    upDateLoading(false);
+
+    router.push(`/servico/${data.id}`);
   }
 
   return (
@@ -243,7 +241,12 @@ export default function ServiceForm() {
         </div>
       </div>
       <div className="flex items-center gap-2  py-2">
-        <button disabled={loading} className={`${loading ? 'bg-opacity-80' : null} hover:bg-opacity-80 w-full text-center rounded-lg bg-laranjaProdunfo text-white py-2 flex-1`}>
+        <button
+          disabled={loading}
+          className={`${
+            loading ? "bg-opacity-80" : null
+          } hover:bg-opacity-80 w-full text-center rounded-lg bg-laranjaProdunfo text-white py-2 flex-1`}
+        >
           Fazer publicação
         </button>
         <button

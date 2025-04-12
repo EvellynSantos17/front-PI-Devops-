@@ -30,19 +30,19 @@ export default function Page() {
   const { perfil, updateDataUnitValue, updatePerfil } = usePerfil();
   const { updateListService, listService } = UseService();
   const { listContracted, updateListContracted } = UseContracted();
-  
-  function updateProfile (){
-    handleConfirmChanges()
+
+  function updateProfile() {
+    handleConfirmChanges();
     UserProfileService.update(
-    perfil.id,
-    perfil.name,
-    perfil.document,
-    perfil.phone,
-    perfil.address,
-    perfil.postalCode,
-    perfil.description,
-    perfil.skills = []
-    )
+      perfil.id,
+      perfil.name,
+      perfil.document,
+      perfil.phone,
+      perfil.address,
+      perfil.postalCode,
+      perfil.description,
+      (perfil.skills = [])
+    );
   }
   const [profileImage, setProfileImage] = useState("/images/perfil.png");
   const [originalPerfil, setOriginalPerfil] = useState(null);
@@ -58,7 +58,7 @@ export default function Page() {
       reader.readAsDataURL(file);
     }
   };
-  
+
   FetchFindById({
     id: info.accountId,
     serviceName: "UserProfileService",
@@ -95,9 +95,6 @@ export default function Page() {
     setHasChanges(changed);
   }, [perfil, originalPerfil]);
 
-  
-
-
   FetchFindById({
     id: info.accountId,
     serviceName: "UserProfileService",
@@ -106,13 +103,13 @@ export default function Page() {
 
   FetchFindAll({
     serviceName: "ListingService",
-    query: { accountId: info.accountId,size: 3 },
+    query: { accountId: info.accountId, size: 3 },
     onDataFetched: (value) => updateListService(value),
   });
 
   FetchFindAll({
     serviceName: "ContractedListingService",
-    query: { clientId: info.accountId,size: 3 },
+    query: { clientId: info.accountId, size: 3 },
     onDataFetched: (value) => updateListContracted(value),
   });
 
@@ -125,18 +122,17 @@ export default function Page() {
 
   const handleConfirmChanges = async () => {
     try {
-       updatePerfil(perfil); 
-      setOriginalPerfil({ ...perfil }); 
-      handleProfileEdit()
-
+      updatePerfil(perfil);
+      setOriginalPerfil({ ...perfil });
+      handleProfileEdit();
     } catch (error) {
       console.error("Erro ao salvar alterações:", error);
     }
   };
 
-  const [edit, setEdit] = useState(false)
-  function handleProfileEdit(){
-    setEdit(!edit)
+  const [edit, setEdit] = useState(false);
+  function handleProfileEdit() {
+    setEdit(!edit);
   }
   return (
     <section className="bg-[#FFD6B9] px-10 py-2 h-full pb-32 overflow-auto flex flex-col gap-2 xl:px-10">
@@ -268,10 +264,10 @@ export default function Page() {
                   />
                   <UserInforCardMult
                     title={"Habilidades"}
-                    value={perfil.skills.map((skill) => {                      
+                    value={perfil.skills.map((skill) => {
                       return { value: skill, label: skill };
                     })}
-                    onChange={(newValue) => 
+                    onChange={(newValue) =>
                       handleUserInfoChange("skills", newValue)
                     }
                     isOwner={edit}
@@ -285,11 +281,13 @@ export default function Page() {
                 >
                   Confirmar alterações
                 </button>
-              ):(
-                <button className="border font-bold bg-[#F97316] rounded-xl shadow-md p-2 text-center text-[#FFDCC3]" onClick={handleProfileEdit}>
+              ) : (
+                <button
+                  className="border font-bold bg-[#F97316] rounded-xl shadow-md p-2 text-center text-[#FFDCC3]"
+                  onClick={handleProfileEdit}
+                >
                   Editar Perfil
                 </button>
-
               )}
             </div>
           </div>

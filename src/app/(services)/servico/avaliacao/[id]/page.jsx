@@ -14,10 +14,10 @@ export default function ProdutoPage({ params }) {
     return;
   }
   const { id } = use(params);
-  
-    // 1 - verificar se o contracted já foi avaliado
-    // 2 - verificar se o contracted é do cliente 
-    // 3 - verificar se o status do contracted está em ACCEPTED
+
+  // 1 - verificar se o contracted já foi avaliado
+  // 2 - verificar se o contracted é do cliente
+  // 3 - verificar se o status do contracted está em ACCEPTED
 
   const [message, setMessage] = useState("");
 
@@ -62,7 +62,7 @@ export default function ProdutoPage({ params }) {
     const response = await EvalutionService.create({
       comment: message,
       contractedListingId: contracted.id,
-      stars: stars
+      stars: stars,
     });
     router.push(`/servico/${contracted.listing.id}`);
   }
@@ -77,15 +77,18 @@ export default function ProdutoPage({ params }) {
           <p className="border-b font-semibold text-xl text-laranjaProdunfo w-fit border-laranjaProdunfo">
             Descrição
           </p>
-          <p>
-            {contracted.listing.description}
-          </p>
+          <p>{contracted.listing.description}</p>
         </div>
         <div className="flex flex-col gap-2 py-3">
           <p className="border-b font-semibold text-xl text-laranjaProdunfo w-fit border-laranjaProdunfo">
-            Dê uma nota de 1 a 5 para este serviço:          
+            Dê uma nota de 1 a 5 para este serviço:
           </p>
-          <Stars click={true} numberStar={stars} onClick={(e) => setStars(e)} size={20}/>
+          <Stars
+            click={true}
+            numberStar={stars}
+            onClick={(e) => setStars(e)}
+            size={20}
+          />
         </div>
 
         <div className="w-full py-4">
@@ -114,9 +117,7 @@ export default function ProdutoPage({ params }) {
             />
             Avaliar este serviço
           </button>
-          <div className="h-20">
-
-          </div>
+          <div className="h-20"></div>
         </div>
       </div>
     </section>
