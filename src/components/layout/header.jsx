@@ -98,6 +98,7 @@ export default function Header() {
 
         <li>
           {userAuth ? (
+              <div className="flex items-center justify-center">
             <Link href={'/perfil'} className="p-2 rounded-lg bg-transparent flex items-center gap-2">
               <h1 className="text-lg underline">{userName}</h1>
               <Image
@@ -108,6 +109,14 @@ export default function Header() {
                 height={35}
               />
             </Link>
+            <button onClick={() => {
+              localStorage.clear()
+              router.push("/")
+            }}>
+            <Image alt="Exit" src={"/icons/exit.svg"} width={35} height={35} />
+
+            </button>
+               </div>
           ) : (
             <div className="flex gap-2">
               <Link
