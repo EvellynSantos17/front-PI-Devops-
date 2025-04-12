@@ -43,7 +43,7 @@ securityContext:
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
-  type: NodePort
+  type: LoadBalancer
   port: 3000
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
