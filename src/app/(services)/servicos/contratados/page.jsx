@@ -82,9 +82,9 @@ export default function Page() {
                         <span className="text-[#03000080]">Anunciante</span>
                       </div>
                     </div>
-                    <h3 className="font-bold text-2xl flex mt-5">
+                    <Link href={`/servico/${contractedListing.listing.id}`} className="font-bold text-2xl flex mt-5">
                       {contractedListing.listing.title}
-                    </h3>
+                    </Link>
                     <div className=" flex text-sl text-[#585858] gap-2">
                       <Image
                         className="h-[17.17px] w-[18.81px]"
@@ -137,7 +137,14 @@ export default function Page() {
                     </div>
                   </div>
                 </div>
-
+                <div>
+                  <h2 className="font-bold text-xl">
+                    Informações
+                  </h2>
+                  <p>
+                    {contractedListing.clientRequest}
+                  </p>
+                </div>
                 <div className="flex justify-end border-t py-2 border-[#757575] gap-4 ">
                   {contractedListing.status === "CONTRACTED" && (
                     <button
