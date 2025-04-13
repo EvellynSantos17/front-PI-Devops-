@@ -50,6 +50,7 @@ export default function HeaderMobile() {
       >
         <Image alt="menu" src={"/icons/menu-bar.svg"} width={30} height={30} />
       </button>
+      <Image className="px-4 py-1 rounded-lg bg-black " alt="logo" src={'/images/logo-com-typography.png'} width={150} height={150}/>
       <button
         onClick={() => {
           if (openMenu) {
@@ -123,6 +124,16 @@ export default function HeaderMobile() {
         >
           OFERTAR SERVIÇOS
         </Link>
+        {userAuth && (
+          <button className="p-2 w-fit rounded-full hover:bg-laranjaProdunfo hover:text-white"
+            onClick={() => {
+              localStorage.clear();
+              router.push("/");
+            }}
+          >
+            Desconectar
+          </button>
+        )}
       </div>
 
       <div

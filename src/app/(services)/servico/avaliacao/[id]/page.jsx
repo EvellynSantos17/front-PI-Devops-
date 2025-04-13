@@ -15,13 +15,9 @@ export default function ProdutoPage({ params }) {
   }
   const { id } = use(params);
 
-  // 1 - verificar se o contracted já foi avaliado
-  // 2 - verificar se o contracted é do cliente
-  // 3 - verificar se o status do contracted está em ACCEPTED
-
   const [message, setMessage] = useState("");
 
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
   const [stars, setStars] = useState(1);
 
   const router = useRouter();
@@ -30,41 +26,33 @@ export default function ProdutoPage({ params }) {
 
   const userInfo = BaseService.getTokenInfo();
 
-  // if(contracted.evaluation) return router.back()
-
-  // if(contracted.client.id != userInfo.accountId) return router.back()
-
-  // if(contracted.status != "ACCEPTED") return router.back()
-
   async function fetch() {
     const response = await ContractedListingService.findById(id);
     if (response.status != 200) {
       router.back();
     }
     const data = await response.json();
+    if(data.evaluation) return router.back()
+    if(data.client.id != userInfo.accountId) return router.back()
+    if(data.status != "ACCEPTED") return router.back()
     updateContracted(data);
   }
 
   useEffect(() => {
     fetch();
-    setLoading(false);
-  }, [id, isLoading]);
-
-  if (isLoading) {
-    return (
-      <div>
-        <h1>Carregando</h1>
-      </div>
-    );
-  }
+  }, []);
 
   async function handleSubmit() {
+    setLoading(true)
     const response = await EvalutionService.create({
       comment: message,
       contractedListingId: contracted.id,
       stars: stars,
     });
-    router.push(`/servico/${contracted.listing.id}`);
+    if(response.status >= 200){
+      setLoading(false)
+      router.push(`/servico/${contracted.listing.id}`);
+    }
   }
 
   return (
@@ -106,6 +94,7 @@ export default function ProdutoPage({ params }) {
             inputStyle="form"
           />
           <button
+           disabled={isLoading}
             onClick={handleSubmit}
             className={`bg-laranjaProdunfo hover:bg-opacity-85   w-full flex gap-2 py-2 text-xl items-center text-white justify-center font-bold rounded-xl`}
           >
@@ -115,7 +104,7 @@ export default function ProdutoPage({ params }) {
               width={20}
               height={20}
             />
-            Avaliar este serviço
+            {isLoading ? 'Carregando...' : 'Avaliar este serviço'}
           </button>
           <div className="h-20"></div>
         </div>

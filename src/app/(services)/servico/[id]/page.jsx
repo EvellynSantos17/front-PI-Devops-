@@ -18,6 +18,7 @@ export default function ProdutoPage({ params }) {
 
   const [message, setMessage] = useState("");
   const [isLoading, setLoading] = useState(true);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const router = useRouter();
 
@@ -40,7 +41,6 @@ export default function ProdutoPage({ params }) {
     fetch();
     setLoading(false);
   }, [id, isLoading]);
-  console.log(service);
   if (isLoading) {
     return (
       <div>
@@ -50,6 +50,9 @@ export default function ProdutoPage({ params }) {
   }
 
   async function handleSubmit() {
+    if(!userInfo){
+      return setIsOpenModal(true)
+    }
     const response = await ContractedListingService.create(
       message,
       new Date(),
@@ -61,6 +64,37 @@ export default function ProdutoPage({ params }) {
 
   return (
     <section className="flex flex-col pt-10 bg-bege items-center justify-center">
+      {isOpenModal && (
+        <div className="w-screen h-screen bg-black bg-opacity-30 flex items-center justify-center fixed z-50 top-0 left-0">
+          <div className="p-4 bg-white rounded-lg shadow-md flex flex-col gap-1">
+            <div className="flex items-center justify-between ">
+              <h1 className="font-semibold text-xl">
+                Você não está logado!
+              </h1>
+              <button onClick={() => setIsOpenModal(false)} className="p-1 rounded-md bg-laranjaProdunfo hover:bg-opacity-80">
+                <Image
+                  className=""
+                  alt=""
+                  src={"/icons/x.svg"}
+                  width={20}
+                  height={20}
+                />
+              </button>
+            </div>
+            <p>
+              Para continuar, é necessário entrar na sua conta ou criar uma conta.
+            </p>
+            <div className="flex items-center justify-end gap-2 pt-4">
+              <Link href={'/entrar'} className="px-3 rounded-xl py-1 hover:bg-opacity-80 bg-laranjaProdunfo text-white">
+                Entrar
+              </Link>
+              <Link href={'/cadastro'} className="px-3 rounded-xl py-1 hover:bg-opacity-80 bg-zinc-600 text-white">
+                Cadastrar
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="w-full max-w-[1168px] bg-white px-8 pt-5 pb-10 rounded-t-3xl flex items-center justify-center flex-col">
         <div className=" w-full bg-gradient-to-r from-laranjaProdunfo h-fit p-2 to-orange-300 flex items-center rounded-full justify-between">
           <button className="w-fit h-fit" onClick={() => router.back()}>
@@ -81,7 +115,7 @@ export default function ProdutoPage({ params }) {
         <h1 className="text-[40px] pb-1 border-b w-full text-center">
           {service.title}
         </h1>
-        <div className="flex flex-col gap-1 py-2">
+        <div className="flex flex-col gap-1 py-2 w-full">
           <p className="border-b font-semibold text-xl text-laranjaProdunfo w-fit border-laranjaProdunfo">
             Descrição
           </p>

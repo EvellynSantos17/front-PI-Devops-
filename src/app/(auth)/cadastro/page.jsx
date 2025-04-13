@@ -16,8 +16,8 @@ export default function Page() {
             />
           </figure>
           <Link href={"/entrar"} className="">
-            <span className=" w-40 font-semibold bg-laranjaProdunfo text-white px-10 py-2 rounded-3xl">
-              LOGIN
+            <span className=" w-40 font-semibold hover:bg-opacity-80 hover:shadow-xl bg-laranjaProdunfo text-white px-10 py-2 rounded-3xl">
+              Entrar
             </span>
           </Link>
         </div>

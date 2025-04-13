@@ -3,10 +3,12 @@ export function Button({
   onCLick = () => null,
   children,
   rounded,
+  disable = false
 }) {
   return (
     <button
-      className={`${rounded} p-2 bg-laranjaProdunfo w-full`}
+      className={`${rounded} bg-laranjaProdunfo hover:bg-opacity-80 p-2  w-full ${disable ? 'bg-opacity-35': null}`}
+      disabled={disable}
       onClick={onCLick}
       type={type}
     >
