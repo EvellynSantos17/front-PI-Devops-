@@ -2,7 +2,7 @@
 const nextConfig = {
   devIndicators: false,
   experimental: {
-    missingSuspenseWithCSRBailout: false,
+    // missingSuspenseWithCSRBailout: false,
   },
 
   async rewrites() {
