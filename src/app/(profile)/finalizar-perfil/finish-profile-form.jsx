@@ -11,6 +11,7 @@ import BaseService from "@/services/base-service";
 import AuthService from "@/services/auth-service";
 import { maskInput } from "@/utils/mask-input";
 import { usePerfil } from "@/hooks/use-perfil";
+import { useState } from "react";
 
 export default function FinishProfileForm() {
   const { perfil, updateDataUnitValue } = usePerfil();
@@ -140,6 +141,8 @@ export default function FinishProfileForm() {
     return false;
   }
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -150,33 +153,42 @@ export default function FinishProfileForm() {
     if (checkMinAndMaxLengthAbout(perfil.description)) return;
     if (checkMinAndMaxSelectSkils(perfil.skills)) return;
     if (checkBoxTrue(perfil.terms)) return;
+
     disableErrorMessage();
+    setIsSubmitting(true);
 
-    let response = await UserProfileService.create(
-      perfil.name,
-      perfil.document,
-      perfil.phone,
-      perfil.address,
-      perfil.title,
-      perfil.cpf,
-      perfil.description,
-      perfil.skills.map((item) => item.value)
-    );
+    try {
+      let response = await UserProfileService.create(
+        perfil.name,
+        perfil.document,
+        perfil.phone,
+        perfil.address,
+        perfil.title,
+        perfil.cpf,
+        perfil.description,
+        perfil.skills.map((item) => item.value)
+      );
 
-    if (response.status >= 400) {
-      console.error("Erro ao criar perfil de usuário");
-      return;
-    }
+      if (response.status >= 400) {
+        console.error("Erro ao criar perfil de usuário");
+        setIsSubmitting(false);
+        return;
+      }
 
-    response = await AuthService.refreshToken();
+      response = await AuthService.refreshToken();
 
-    if (response.status >= 400) {
-      console.error("Erro ao atualizar token");
-      router.push("/entrar");
-    } else {
-      let token = response.headers.get("Authorization");
-      BaseService.setToken(token);
-      router.push("/");
+      if (response.status >= 400) {
+        console.error("Erro ao atualizar token");
+        router.push("/entrar");
+      } else {
+        let token = response.headers.get("Authorization");
+        BaseService.setToken(token);
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Erro no envio do formulário", error);
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -326,8 +338,16 @@ export default function FinishProfileForm() {
       </div>
 
       <div className="py-2 w-full">
-        <button className="w-full bg-laranjaProdunfo rounded-xl text-white font-semibold p-2">
-          Salvar informações
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={`w-full rounded-xl text-white font-semibold p-2 transition ${
+            isSubmitting
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-laranjaProdunfo"
+          }`}
+        >
+          {isSubmitting ? "Salvando..." : "Salvar informações"}
         </button>
       </div>
     </form>

@@ -5,12 +5,15 @@ import { InputField } from "@/components/ui/input-field";
 import { Button } from "@/components/ui/button";
 import AuthService from "@/services/auth-service";
 import { useErrorsHooks } from "@/hooks/error-message-hook";
+import { useState } from "react";
 
 export default function RegisterForm() {
   const router = useRouter();
 
   const { errorMessage, updateErrorMessage, disableErrorMessage } =
     useErrorsHooks();
+
+  const [loading, setLoading] = useState(false);
 
   function matchPassword(password, confirmPassword) {
     if (password !== confirmPassword) {
@@ -49,6 +52,7 @@ export default function RegisterForm() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
 
     const formData = new FormData(event.currentTarget);
     const { email, password, confirmPassword } = Object.fromEntries(formData);
@@ -57,19 +61,23 @@ export default function RegisterForm() {
       !validateEmail(email) ||
       !matchPassword(password, confirmPassword) ||
       !validatePassword(password)
-    )
-      return;
-
-    disableErrorMessage();
-
-    const response = await AuthService.register(email, password);
-    if (response.status >= 400) {
-      // handle errors here
-      const error = await response.json();
-      console.log(error);
+    ) {
+      setLoading(false);
       return;
     }
 
+    const response = await AuthService.register(email, password);
+
+    if (response.status >= 400) {
+      updateErrorMessage({
+        title: "email",
+        message: 'Já existe um usuário cadastrado com este e-mail.',
+      });
+
+      return setLoading(false);
+    }
+    disableErrorMessage();
+    setLoading(false);
     router.push("/entrar");
   }
 
@@ -100,8 +108,10 @@ export default function RegisterForm() {
             : null
         }
       />
-      <Button rounded={"rounded-2xl mt-4"}>
-        <span className="font-semibold text-white">CADASTRAR</span>
+      <Button disable={loading} rounded={"rounded-2xl mt-4"}>
+        <span className="font-semibold bg-red text-white">
+          {loading ? "Cadastrando..." : "CADASTRAR"}
+        </span>
       </Button>
     </form>
   );

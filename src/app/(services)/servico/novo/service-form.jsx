@@ -101,28 +101,38 @@ export default function ServiceForm() {
     return false;
   }
 
-  const { loading, upDateLoading } = UseLoading();
+  const { loading, upDateLoading } = UseLoading(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    console.log({ click_antes: loading });
+    if (checkMinAndMaxTitleLength({ value: service.titulo })) {
+      upDateLoading(false);
+      return;
+    }
+    if (validationDate(service.dt_limite)) {
+      upDateLoading(false);
+      return;
+    }
+    if (checkMinAndMaxTextAreaLength({ value: service.descricao })) {
+      upDateLoading(false);
+      return;
+    }
+    if (checkMinAndMaxSelectSkils({ value: service.requisitos })) {
+      upDateLoading(false);
+      return;
+    }
 
-    if (checkMinAndMaxTitleLength({ value: service.titulo })) return;
-    if (validationDate(service.dt_limite)) return;
-    if (checkMinAndMaxTextAreaLength({ value: service.descricao })) return;
-    if (checkMinAndMaxSelectSkils({ value: service.requisitos })) return;
-
-    if (checkBoxTrue({ value: service.termos })) return;
+    if (checkBoxTrue({ value: service.termos })) {
+      upDateLoading(false);
+      return;
+    }
 
     disableErrorMessage();
 
     const { descricao, localizacao, requisitos, titulo, valor } = service;
 
     const sikillLabels = requisitos.map((item) => item.label);
-    console.log({ click_depos: loading });
-
-    upDateLoading(true);
 
     const response = await ListingService.create({
       title: titulo,

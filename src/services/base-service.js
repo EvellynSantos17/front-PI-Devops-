@@ -43,6 +43,7 @@ export default class BaseService {
   static async requestGet(endpoint, headers = {}) {
     let response = await fetch(`${this.getServiceUrl()}${endpoint}`, {
       headers,
+      credentials: 'omit',
     });
     return response;
   }
