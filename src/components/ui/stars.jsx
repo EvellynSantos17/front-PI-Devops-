@@ -8,11 +8,9 @@ export default function Stars({
   onClick = null,
   size = 10,
 }) {
-  console.log({ param: numberStar });
 
   const [correntNumberStar, setCorrentNumberStart] = useState(numberStar);
 
-  console.log({ param: correntNumberStar });
 
   const stars = [0, 1, 2, 3, 4];
   const starEmpty = "/icons/star-empty.svg";

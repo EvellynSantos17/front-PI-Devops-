@@ -65,7 +65,6 @@ export default function Page() {
         </span>
 
         {listContracted.content.map((contractedListing, index) => {
-          console.log(contractedListing);
           return (
             <div key={index} className=" h-full p-2 gap-4">
               <div className="flex flex-col py-2 px-10 border border-[#0000006B] rounded-xl gap-2">
