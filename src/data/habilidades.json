@@ -1,57 +1,56 @@
 [
-    {
-      "label": "Tecnologia",
-      "options": [
-        { "value": "web-development", "label": "Desenvolvimento Web" },
-        { "value": "mobile-development", "label": "Desenvolvimento Mobile" },
-        { "value": "ui-ux-design", "label": "UI/UX Design" },
-        { "value": "graphic-design", "label": "Design Gráfico" },
-        { "value": "seo", "label": "SEO & Marketing Digital" },
-        { "value": "cybersecurity", "label": "Cibersegurança" },
-        { "value": "data-science", "label": "Ciência de Dados" },
-        { "value": "blockchain", "label": "Blockchain & Criptomoedas" },
-        { "value": "cloud-computing", "label": "Computação em Nuvem" },
-        { "value": "it-support", "label": "Suporte Técnico em TI" },
-        { "value": "networking", "label": "Administração de Redes" }
-      ]
-    },
-    {
-      "label": "Serviços Gerais",
-      "options": [
-        { "value": "plumbing", "label": "Encanamento" },
-        { "value": "electrical", "label": "Serviços Elétricos" },
-        { "value": "carpentry", "label": "Marcenaria & Carpintaria" },
-        { "value": "painting", "label": "Pintura de Casas" },
-        { "value": "roofing", "label": "Reforma & Telhados" },
-        { "value": "landscaping", "label": "Jardinagem & Paisagismo" },
-        { "value": "house-cleaning", "label": "Limpeza Residencial" },
-        { "value": "car-wash", "label": "Lavagem de Carros" }
-      ]
-    },
-    {
-      "label": "Advocacia",
-      "options": [
-        { "value": "legal-advice", "label": "Assessoria Jurídica" },
-        { "value": "contract-law", "label": "Direito Contratual" },
-        { "value": "family-law", "label": "Direito de Família" },
-        { "value": "criminal-law", "label": "Direito Penal" },
-        { "value": "corporate-law", "label": "Direito Empresarial" },
-        { "value": "tax-law", "label": "Direito Tributário" }
-      ]
-    },
-    {
-      "label": "Cuidados Pessoais",
-      "options": [
-        { "value": "babysitting", "label": "Babá" },
-        { "value": "elderly-care", "label": "Cuidado de Idosos" },
-        { "value": "massage-therapy", "label": "Massoterapia" },
-        { "value": "personal-training", "label": "Personal Trainer" },
-        { "value": "nutrition", "label": "Nutrição" },
-        { "value": "makeup", "label": "Maquiagem" },
-        { "value": "hairdressing", "label": "Cabeleireiro" },
-        { "value": "barber", "label": "Barbeiro" },
-        { "value": "nail-care", "label": "Manicure & Pedicure" }
-      ]
-    }
-  ]
-  
+  {
+    "label": "Tecnologia",
+    "options": [
+      { "value": "Desenvolvimento Web", "label": "Desenvolvimento Web" },
+      { "value": "Desenvolvimento Mobile", "label": "Desenvolvimento Mobile" },
+      { "value": "UI/UX Design", "label": "UI/UX Design" },
+      { "value": "Design Gráfico", "label": "Design Gráfico" },
+      { "value": "SEO & Marketing Digital", "label": "SEO & Marketing Digital" },
+      { "value": "Cibersegurança", "label": "Cibersegurança" },
+      { "value": "Ciência de Dados", "label": "Ciência de Dados" },
+      { "value": "Blockchain & Criptomoedas", "label": "Blockchain & Criptomoedas" },
+      { "value": "Computação em Nuvem", "label": "Computação em Nuvem" },
+      { "value": "Suporte Técnico em TI", "label": "Suporte Técnico em TI" },
+      { "value": "Administração de Redes", "label": "Administração de Redes" }
+    ]
+  },
+  {
+    "label": "Serviços Gerais",
+    "options": [
+      { "value": "Encanamento", "label": "Encanamento" },
+      { "value": "Serviços Elétricos", "label": "Serviços Elétricos" },
+      { "value": "Marcenaria & Carpintaria", "label": "Marcenaria & Carpintaria" },
+      { "value": "Pintura de Casas", "label": "Pintura de Casas" },
+      { "value": "Reforma & Telhados", "label": "Reforma & Telhados" },
+      { "value": "Jardinagem & Paisagismo", "label": "Jardinagem & Paisagismo" },
+      { "value": "Limpeza Residencial", "label": "Limpeza Residencial" },
+      { "value": "Lavagem de Carros", "label": "Lavagem de Carros" }
+    ]
+  },
+  {
+    "label": "Advocacia",
+    "options": [
+      { "value": "Assessoria Jurídica", "label": "Assessoria Jurídica" },
+      { "value": "Direito Contratual", "label": "Direito Contratual" },
+      { "value": "Direito de Família", "label": "Direito de Família" },
+      { "value": "Direito Penal", "label": "Direito Penal" },
+      { "value": "Direito Empresarial", "label": "Direito Empresarial" },
+      { "value": "Direito Tributário", "label": "Direito Tributário" }
+    ]
+  },
+  {
+    "label": "Cuidados Pessoais",
+    "options": [
+      { "value": "Babá", "label": "Babá" },
+      { "value": "Cuidado de Idosos", "label": "Cuidado de Idosos" },
+      { "value": "Massoterapia", "label": "Massoterapia" },
+      { "value": "Personal Trainer", "label": "Personal Trainer" },
+      { "value": "Nutrição", "label": "Nutrição" },
+      { "value": "Maquiagem", "label": "Maquiagem" },
+      { "value": "Cabeleireiro", "label": "Cabeleireiro" },
+      { "value": "Barbeiro", "label": "Barbeiro" },
+      { "value": "Manicure & Pedicure", "label": "Manicure & Pedicure" }
+    ]
+  }
+]
