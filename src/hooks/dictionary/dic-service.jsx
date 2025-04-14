@@ -38,7 +38,7 @@ export const DicService = {
           comment: null,
           stars: null,
           contractedListingId: null,
-        } | null,
+        },
     },
   ],
 };

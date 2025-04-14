@@ -107,9 +107,9 @@ export default function ProdutoPage({ params }) {
             />
           </button>
           {matchId ? (
-            <button className="px-4 py-2 font-bold bg-white hover:bg-zinc-100 text-laranjaProdunfo rounded-full ">
+            <Link href={`/servico/${id}/editar`} className="px-4 py-2 font-bold bg-white hover:bg-zinc-100 text-laranjaProdunfo rounded-full ">
               Editar
-            </button>
+            </Link>
           ) : null}
         </div>
         <h1 className="text-[40px] pb-1 border-b w-full text-center">

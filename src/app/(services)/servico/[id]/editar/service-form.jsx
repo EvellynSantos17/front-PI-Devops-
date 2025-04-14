@@ -3,33 +3,34 @@ import { InputField } from "@/components/ui/input-field";
 import SelectMultiGrouped from "@/components/ui/select-multi";
 import habilidades from "@/data/habilidades.json";
 import { TextArea } from "@/components/ui/text-area";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useErrorsHooks } from "@/hooks/error-message-hook";
 import { UseService } from "@/hooks/use-services";
 import UseLoading from "@/hooks/use-loading";
 import ListingService from "@/services/listing-service";
+import FetchFindById from "@/hooks/fetch/fetch-find-by-id";
+import BaseService from "@/services/base-service";
 
 export default function ServiceForm() {
+  
+  const { id } = useParams()
   const router = useRouter();
-  const { service, updateOneValueServico } = UseService();
+  const { service, updateOneValueServico, updateService } = UseService();
+  const { loading, upDateLoading } = UseLoading(false);
   const { disableErrorMessage, errorMessage, updateErrorMessage } =
-    useErrorsHooks();
-
-  function validationDate(date) {
-    const correntDay = new Date();
-    const dateSelect = new Date(date);
-    dateSelect.setDate(dateSelect.getDate() + 1);
-
-    if (dateSelect < correntDay) {
-      updateErrorMessage({
-        title: "dt_limite",
-        message: `A data limite não pode ser anterior à data atual.`,
-      });
-      return true;
+  useErrorsHooks();
+  const userInfo = BaseService.getTokenInfo();
+  
+  FetchFindById({
+    id: id,
+    serviceName: 'ListingService',
+    onDataFetched: (value) => {
+      value.error == 'Resource not found' && router.back()
+      value.userProfile.id != userInfo.accountId && router.back()
+      updateService(value)
     }
+  })
 
-    return false;
-  }
 
   function checkMinAndMaxTextAreaLength({ value }) {
     if (value.length > 250) {
@@ -89,57 +90,46 @@ export default function ServiceForm() {
     return false;
   }
 
-  function checkBoxTrue({ value }) {
-    if (!value) {
-      updateErrorMessage({
-        title: "checkBox",
-        message: "Concorde com os termos!",
-      });
-      return true;
-    }
-
-    return false;
-  }
-
-  const { loading, upDateLoading } = UseLoading();
-
   async function handleSubmit(event) {
     event.preventDefault();
 
-    console.log({ click_antes: loading });
-
-    if (checkMinAndMaxTitleLength({ value: service.titulo })) return;
-    if (validationDate(service.dt_limite)) return;
-    if (checkMinAndMaxTextAreaLength({ value: service.descricao })) return;
-    if (checkMinAndMaxSelectSkils({ value: service.requisitos })) return;
-
-    if (checkBoxTrue({ value: service.termos })) return;
+    if (checkMinAndMaxTitleLength({ value: service.title })) {
+      upDateLoading(false);
+      return;
+    }
+    if (checkMinAndMaxTextAreaLength({ value: service.description })) {
+      upDateLoading(false);
+      return;
+    }
+    if (checkMinAndMaxSelectSkils({ value: service.skills })) {
+      upDateLoading(false);
+      return;
+    }
 
     disableErrorMessage();
 
-    const { descricao, localizacao, requisitos, titulo, valor } = service;
-
-    const sikillLabels = requisitos.map((item) => item.label);
-    console.log({ click_depos: loading });
-
-    upDateLoading(true);
-
-    const response = await ListingService.create({
-      title: titulo,
-      price: valor,
-      description: descricao,
-      location: localizacao,
-      skills: sikillLabels,
+    await ListingService.update({
+      id: service.id,
+      title: service.title,
+      price: service.price,
+      description: service.description,
+      location: service.location,
+      skills: service.skills
     });
 
-    const data = await response.json();
     upDateLoading(false);
 
-    router.push(`/servico/${data.id}`);
+    router.push(`/servico/${id}`);
   }
 
   return (
     <form onSubmit={(e) => handleSubmit(e)} className="w-full">
+      <div className="flex py-2 flex-col items-center justify-center">
+        <h1 className="text-[40px]">Editar serviço</h1>
+        <span className="text-base text-[#757575]">
+          Data de criação: {service.creationDate}
+        </span>
+      </div>
       <InputField
         name={"titulo"}
         required={true}
@@ -147,9 +137,10 @@ export default function ServiceForm() {
         label={"Título da vaga"}
         error={errorMessage?.title == "titulo" ? errorMessage.message : null}
         inputStyle="form"
+        value={service.title}
         onChange={(e) =>
           updateOneValueServico({
-            field: "titulo",
+            field: "title",
             value: e,
           })
         }
@@ -162,10 +153,10 @@ export default function ServiceForm() {
         label={"Valor do serviço"}
         error={errorMessage?.title == "valor" ? errorMessage.message : null}
         inputStyle="form"
-        value={service.valor}
+        value={service.price}
         onChange={(e) =>
           updateOneValueServico({
-            field: "valor",
+            field: "price",
             value: e,
           })
         }
@@ -175,13 +166,14 @@ export default function ServiceForm() {
         required={true}
         placeholder={"Desenvolvimento de um Website E-commerce"}
         label={"Localização"}
+        value={service.location}
         error={
           errorMessage?.title == "localizacao" ? errorMessage.message : null
         }
         inputStyle="form"
         onChange={(e) =>
           updateOneValueServico({
-            field: "localizacao",
+            field: "location",
             value: e,
           })
         }
@@ -194,9 +186,10 @@ export default function ServiceForm() {
         }
         error={errorMessage?.title == "descricao" ? errorMessage.message : null}
         inputStyle="form"
+        value={service.description}
         onChange={(e) =>
           updateOneValueServico({
-            field: "descricao",
+            field: "description",
             value: e,
           })
         }
@@ -204,42 +197,17 @@ export default function ServiceForm() {
       <SelectMultiGrouped
         label={"Requisitos"}
         options={habilidades}
-        value={service.requisitos}
+        value={service.skills.map((skill) => ({value: skill,label: skill}))}
         error={
           errorMessage?.title == "requisitos" ? errorMessage.message : null
         }
-        onChange={(e) =>
+        onChange={(e) => 
           updateOneValueServico({
-            field: "requisitos",
-            value: e,
+            field: "skills",
+            value: e.map(item => item.label),
           })
         }
       />
-      <div className="flex items-start gap-1 py-2">
-        <input
-          className="h-7"
-          type="checkbox"
-          name=""
-          id="input_checkbox"
-          value={service.termos}
-          onChange={(e) => {
-            updateOneValueServico({
-              field: "termos",
-              value: !service.termos,
-            });
-          }}
-        />
-        <div
-          className={`flex flex-col ${
-            errorMessage?.title == "checkBox" ? "text-red-400" : null
-          }`}
-        >
-          <span>Eu aceito os termos de uso</span>
-          <span className="text-sm border-b border-b-zinc-400 text-zinc-400 w-fit cursor-pointer">
-            Termos da plataforma
-          </span>
-        </div>
-      </div>
       <div className="flex items-center gap-2  py-2">
         <button
           disabled={loading}
@@ -247,7 +215,7 @@ export default function ServiceForm() {
             loading ? "bg-opacity-80" : null
           } hover:bg-opacity-80 w-full text-center rounded-lg bg-laranjaProdunfo text-white py-2 flex-1`}
         >
-          Fazer publicação
+          Salvar alterações
         </button>
         <button
           onClick={() => upDateLoading(loading)}
