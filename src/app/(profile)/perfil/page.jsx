@@ -41,7 +41,7 @@ export default function Page() {
       perfil.address,
       perfil.postalCode,
       perfil.description,
-      (perfil.skills = [])
+      perfil.skills
     );
   }
   const [profileImage, setProfileImage] = useState("/images/perfil.png");
@@ -212,7 +212,7 @@ export default function Page() {
             </div>
 
             <div className="flex flex-col gap-4">
-              {perfil.name ? (
+              {perfil.name != null ? (
                 <>
                   <UserInforCard
                     title={"Nome"}
@@ -267,8 +267,11 @@ export default function Page() {
                     value={perfil.skills.map((skill) => {
                       return { value: skill, label: skill };
                     })}
-                    onChange={(newValue) =>
-                      handleUserInfoChange("skills", newValue)
+                    onChange={(e) =>
+                      updateDataUnitValue({
+                        field: "skills",
+                        value: e.map(item => item.label),
+                      })
                     }
                     isOwner={edit}
                   />
