@@ -33,7 +33,7 @@ export function InputField({
         {...(onChange
           ? { onChange: (event) => onChange(event.target.value) }
           : {})}
-        {...(value !== undefined ? { value } : {})}
+        {...(value !== null ? { value } : {})}
         {...(onBlur ? { onBlur } : {})}
         {...(value ? { value } : {})}
       />

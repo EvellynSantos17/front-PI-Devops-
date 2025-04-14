@@ -28,8 +28,9 @@ export default class ListingService extends BaseService {
     return response;
   }
 
-  static async update(id, title, price, description) {
-    let data = { title, price, description };
+  static async update({id, title, price, description, location, skills }) {
+    let data = { title, price, description, location, skills };
+    console.log({rq:data})
     let response = await this.requestPut(`/${id}`, data, {
       "Content-Type": "application/json",
       ...this.getHeaders(),

@@ -13,7 +13,7 @@ export default function RegisterForm() {
   const { errorMessage, updateErrorMessage, disableErrorMessage } =
     useErrorsHooks();
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   function matchPassword(password, confirmPassword) {
     if (password !== confirmPassword) {
