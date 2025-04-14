@@ -212,7 +212,7 @@ export default function Page() {
             </div>
 
             <div className="flex flex-col gap-4">
-              {perfil.name ? (
+              {perfil.name != null ? (
                 <>
                   <UserInforCard
                     title={"Nome"}
