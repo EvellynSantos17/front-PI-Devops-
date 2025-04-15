@@ -30,7 +30,7 @@ export default function UserInforCard({
             onChange={handleChange}
           />
         ) : (
-          <p className="bg-transparent p-1">{inputValue}</p>
+          <p className="bg-transparent p-1 text-wrap break-all">{inputValue}</p>
         )}
       </div>
     </div>

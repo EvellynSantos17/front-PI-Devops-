@@ -203,7 +203,7 @@ export default function Page() {
       </div>
 
       <section className="flex flex-col md:flex-row justify-between w-full gap-4 h-full">
-        <section className="w-full">
+        <section className="w-full md:w-1/2">
           <div className="bg-white rounded-xl h-full p-2">
             <div className="py-2">
               <h1 className="font-bold text-2xl flex flex-col items-center justify-center px-10">
@@ -296,7 +296,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="w-full flex flex-col gap-4 h-full">
+        <section className="w-full md:w-1/2 flex flex-col gap-4 h-full">
           <section className="w-full h-full">
             <div className="bg-white rounded-xl flex flex-col h-full p-2 gap-4">
               <div className="py-2">
