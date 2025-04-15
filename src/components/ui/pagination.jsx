@@ -1,3 +1,4 @@
+import BaseService from "@/services/base-service";
 import Link from "next/link";
 
 export default function PageNavigator({
@@ -9,7 +10,7 @@ export default function PageNavigator({
   const size = Array.from({ length: sizePages }, (_, i) => i + 1);
   return (
     <nav className="flex items-center gap-3 px-5 py-2 bg-white border border-laranjaProdunfo rounded-full">
-      <button>Voltar</button>
+      <button type="button">Voltar</button>
       {size.map((item, index) => {
         return (
           <Link
@@ -26,7 +27,9 @@ export default function PageNavigator({
         );
       })}
 
-      <button>Próximo</button>
+      <button button type="button">
+        Próximo
+      </button>
     </nav>
   );
 }

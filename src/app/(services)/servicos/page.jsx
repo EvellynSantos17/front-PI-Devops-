@@ -62,7 +62,7 @@ export default function page() {
 
         <div className="max-w-[1200px] w-full pt-6">
           <h1 className="font-bold text-2xl flex gap-2 items-center">
-            Resultado {title.length > 0 && ">"}
+            Resultado {title?.length > 0 && ">"}
             <span className="text-laranjaProdunfo">{title}</span>
           </h1>
         </div>

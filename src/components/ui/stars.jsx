@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export default function Stars({
   numberStar = 1,
@@ -8,10 +8,10 @@ export default function Stars({
   onClick = null,
   size = 10,
 }) {
-
-  const [correntNumberStar, setCorrentNumberStart] = useState(numberStar);
-
-
+  const [correntNumberStar, setCorrentNumberStart] = useState(1);
+  useEffect(() => {
+    setCorrentNumberStart(numberStar);
+  }, [numberStar]);
   const stars = [0, 1, 2, 3, 4];
   const starEmpty = "/icons/star-empty.svg";
   const starFill = "/icons/star-fill.svg";
