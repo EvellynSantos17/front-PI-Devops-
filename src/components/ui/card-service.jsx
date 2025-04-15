@@ -20,7 +20,7 @@ export default function CardService({
   return (
     <Link
       href={url}
-      className={`p-2 rounded-xl border bg-white min-w-[400px] h-fit flex gap-2 items-center shadow-md hover:bg-zinc-100  hover:shadow-lg ${
+      className={`p-2 rounded-xl border bg-white min-w-[300px] h-fit flex gap-2 items-center shadow-md hover:bg-zinc-100  hover:shadow-lg ${
         orange == false ? "border-[#686868]" : "border-laranjaProdunfo"
       }`}
     >
