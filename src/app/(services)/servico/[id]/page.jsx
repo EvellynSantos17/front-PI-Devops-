@@ -50,8 +50,8 @@ export default function ProdutoPage({ params }) {
   }
 
   async function handleSubmit() {
-    if(!userInfo){
-      return setIsOpenModal(true)
+    if (!userInfo) {
+      return setIsOpenModal(true);
     }
     const response = await ContractedListingService.create(
       message,
@@ -68,10 +68,11 @@ export default function ProdutoPage({ params }) {
         <div className="w-screen h-screen bg-black bg-opacity-30 flex items-center justify-center fixed z-50 top-0 left-0">
           <div className="p-4 bg-white rounded-lg shadow-md flex flex-col gap-1">
             <div className="flex items-center justify-between ">
-              <h1 className="font-semibold text-xl">
-                Você não está logado!
-              </h1>
-              <button onClick={() => setIsOpenModal(false)} className="p-1 rounded-md bg-laranjaProdunfo hover:bg-opacity-80">
+              <h1 className="font-semibold text-xl">Você não está logado!</h1>
+              <button
+                onClick={() => setIsOpenModal(false)}
+                className="p-1 rounded-md bg-laranjaProdunfo hover:bg-opacity-80"
+              >
                 <Image
                   className=""
                   alt=""
@@ -82,13 +83,20 @@ export default function ProdutoPage({ params }) {
               </button>
             </div>
             <p>
-              Para continuar, é necessário entrar na sua conta ou criar uma conta.
+              Para continuar, é necessário entrar na sua conta ou criar uma
+              conta.
             </p>
             <div className="flex items-center justify-end gap-2 pt-4">
-              <Link href={'/entrar'} className="px-3 rounded-xl py-1 hover:bg-opacity-80 bg-laranjaProdunfo text-white">
+              <Link
+                href={"/entrar"}
+                className="px-3 rounded-xl py-1 hover:bg-opacity-80 bg-laranjaProdunfo text-white"
+              >
                 Entrar
               </Link>
-              <Link href={'/cadastro'} className="px-3 rounded-xl py-1 hover:bg-opacity-80 bg-zinc-600 text-white">
+              <Link
+                href={"/cadastro"}
+                className="px-3 rounded-xl py-1 hover:bg-opacity-80 bg-zinc-600 text-white"
+              >
                 Cadastrar
               </Link>
             </div>
@@ -107,7 +115,10 @@ export default function ProdutoPage({ params }) {
             />
           </button>
           {matchId ? (
-            <Link href={`/servico/${id}/editar`} className="px-4 py-2 font-bold bg-white hover:bg-zinc-100 text-laranjaProdunfo rounded-full ">
+            <Link
+              href={`/servico/${id}/editar`}
+              className="px-4 py-2 font-bold bg-white hover:bg-zinc-100 text-laranjaProdunfo rounded-full "
+            >
               Editar
             </Link>
           ) : null}
@@ -141,10 +152,7 @@ export default function ProdutoPage({ params }) {
             <h3 className="text-lg font-semibold border-b border-laranjaProdunfo text-laranjaProdunfo w-fit">
               Quem está oferecendo
             </h3>
-            <Link
-              href={"/profissional/1"}
-              className="flex gap-1 items-center p-1 max-w-[300px] w-full border border-laranjaProdunfo rounded-full "
-            >
+            <div className="flex gap-1 items-center p-1 max-w-[300px] w-full border border-laranjaProdunfo rounded-full ">
               <Image
                 className="rounded-full"
                 alt="perfil"
@@ -158,7 +166,7 @@ export default function ProdutoPage({ params }) {
                   {service.userProfile.title}
                 </p>
               </div>
-            </Link>
+            </div>
           </div>
           <div className=" flex flex-col gap-2">
             <h3 className="text-lg font-semibold border-b border-laranjaProdunfo text-laranjaProdunfo w-fit">
@@ -239,6 +247,8 @@ export default function ProdutoPage({ params }) {
                 if (!contracted.evaluation) {
                   return;
                 }
+                console.log("contracted", contracted);
+
                 return (
                   <div
                     key={index}
